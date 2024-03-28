@@ -1,0 +1,162 @@
+@for $i from 0 through 16 {
+  .m-#{$i} {
+    margin: $i * 4px !important;
+  }
+  @for $j from 0 through 16 {
+    .m-#{$i}-#{$j} {
+      margin: $i * 4px $j * 4px !important;
+    }
+  }
+  .mb-#{$i} {
+    margin-bottom: $i * 4px !important;
+  }
+  .mt-#{$i} {
+    margin-top: $i * 4px !important;
+  }
+  .ml-#{$i} {
+    margin-left: $i * 4px !important;
+  }
+  .mr-#{$i} {
+    margin-right: $i * 4px !important;
+  }
+
+  .p-#{$i} {
+    padding: $i * 4px !important;
+  }
+  @for $j from 0 through 16 {
+    .p-#{$i}-#{$j} {
+      padding: $i * 4px $j * 4px !important;
+    }
+  }
+  .px-#{$i} {
+    padding-right: $i * 4px !important;
+    padding-left: $i * 4px !important;
+  }
+  .py-#{$i} {
+    padding-top: $i * 4px !important;
+    padding-bottom: $i * 4px !important;
+  }
+  .pb-#{$i} {
+    padding-bottom: $i * 4px !important;
+  }
+  .pt-#{$i} {
+    padding-top: $i * 4px !important;
+  }
+  .pl-#{$i} {
+    padding-left: $i * 4px !important;
+  }
+  .pr-#{$i} {
+    padding-right: $i * 4px !important;
+  }
+  .h-#{$i} {
+    height: $i * 4px !important;
+  }
+}
+
+.j-b {
+  justify-content: space-between;
+}
+
+.j-s {
+  justify-content: flex-start;
+}
+.j-e {
+  justify-content: flex-end;
+}
+
+.j-c {
+  justify-content: center;
+}
+
+@for $i from 0 through 100 {
+  .w#{$i} {
+    width: $i * 1%;
+  }
+}
+
+
+
+.h100 {
+  height: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+
+  &-column {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.flex-shrink {
+  flex-shrink: 0;
+}
+@for $i from 0 through 16 {
+  .gap-#{$i} {
+    gap: $i * 4px !important;
+  }
+}
+
+@for $i from 0 through 30 {
+  .ico-#{$i} {
+    width: $i * 1px !important;
+    height: $i * 1px !important;
+  }
+}
+.align-center {
+  align-items: center;
+}
+
+.align-flex-start {
+  align-items: flex-start;
+}
+
+.align-flex-end {
+  align-items: flex-end;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.relative {
+  position: relative;
+}
+
+.text-primary {
+  color: #333333;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-secondary {
+  color: #707075;
+}
+
+.text-red {
+  color: #D51A1A;
+
+}
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 22px;
+}
