@@ -12,10 +12,29 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
+      meta: {
+        name: 'login'
+      },
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/chatGpt',
+      name: 'chatGpt',
+      meta: {
+        name: 'chatGpt'
+      },
+      component: () => import('../views/chatGpt.vue')
+    },
+    {
+      path: '/randomizerText',
+      name: 'randomizerText',
+      meta: {
+        name: 'randomizerText'
+      },
+      component: () => import('../views/randomizerText.vue')
     },
     {
       path: '/confirm',

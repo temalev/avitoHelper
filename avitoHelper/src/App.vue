@@ -1,5 +1,22 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
+import { getMe } from '@/api/login'
+
+export default {
+mounted() {
+  this.getMe()
+},
+methods: {
+    async getMe() {
+      try {
+        const res = await getMe()
+      } catch(e) {
+        console.error(e)
+        this.$router.push({name: 'login'})
+      }
+    },
+  }
+}
 </script>
 
 <template>

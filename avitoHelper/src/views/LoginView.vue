@@ -1,35 +1,49 @@
 
 <template>
   <div class="page">
-    <Button label="Login" icon="pi pi-user" @click="visible = true" />
-
     <Dialog v-model:visible="visible" modal header="Регистрация" :style="{ width: '25rem' }">
     <span class="p-text-secondary block mb-5">Заполните все поля</span>
     <div class="flex align-items-center gap-3 mb-3">
         <label for="username" class="font-semibold w-6rem">Имя</label>
         <InputText id="name" v-model="form.name" class="flex-auto" autocomplete="off" />
     </div>
+    <div class="flex align-items-center gap-3 mb-3">
+        <label for="email" class="font-semibold w-6rem">Email</label>
+        <InputText id="email" v-model="form.email" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-5">
+        <label for="email" class="font-semibold w-6rem">Пароль</label>
+        <Password id="password" v-model="form.password" class="flex-auto" toggleMask />
+    </div>
+    <div class="flex justify-content-end">
+        <Button type="button" class="w100" label="Зарегистрироваться" @click="onSignUp"></Button>
+    </div>
+</Dialog>
+<Dialog v-model:visible="visibleSignInModal" modal header="Войти" :style="{ width: '25rem' }">
+    <span class="p-text-secondary block mb-5">Заполните все поля</span>
     <div class="flex align-items-center gap-3 mb-5">
         <label for="email" class="font-semibold w-6rem">Email</label>
         <InputText id="email" v-model="form.email" class="flex-auto" autocomplete="off" />
     </div>
     <div class="flex align-items-center gap-3 mb-5">
         <label for="email" class="font-semibold w-6rem">Пароль</label>
-        <InputText id="password" v-model="form.password" class="flex-auto" autocomplete="off" />
+        <Password v-model="form.password" toggleMask :feedback="false" />
     </div>
     <div class="flex justify-content-end gap-2">
-        <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-        <Button type="button" label="Save" @click="onSignUp"></Button>
+      <Button type="button" label="Отмена" severity="secondary" style="width: 100%" @click="redirectTo"></Button>
+      <Button label="Регистрация" icon="pi pi-user" style="flex-shrink: 0" @click="visible = true" />
+      <Button type="button" label="Войти" style="flex-shrink: 0" @click="onSignIn"></Button>
     </div>
 </Dialog>
   </div>
 </template>
 <script>
-import { signUp } from '@/api/login'
+import { signUp, signIn } from '@/api/login'
 export default {
   data() {
     return {
       visible: false,
+      visibleSignInModal: true,
       form: {
         name: '',
         email: '',
@@ -42,6 +56,22 @@ export default {
     async onSignUp() {
       const res = await signUp(this.form)
       console.log(res);
+    },
+
+    async onSignIn() {
+      const data = {
+        email: this.form.email,
+        password: this.form.password,
+      }
+      try {
+        const res = await signIn(data)
+        this.$router.push('/')
+      } catch (e){
+        console.error(e)
+      }
+    },
+    redirectTo() {
+      window.location.href = 'https://avi_group.tilda.ws/'
     }
   }
 }

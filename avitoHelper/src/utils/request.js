@@ -38,8 +38,8 @@ service.interceptors.response.use(
     console.error('err', error); // for debug
     console.error('err', error.response); // for debug
 
-    if (error.response.status === 401) {
-      window.location.href = '/login'
+    if (error.response?.status === 401) {
+      // window.location.href = '/login'
     }
 
     return Promise.reject(error)

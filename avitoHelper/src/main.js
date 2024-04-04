@@ -11,6 +11,8 @@ import PrimeVue from 'primevue/config';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
+import Password from 'primevue/Password';
+import Card from 'primevue/Card';
 
 import App from './App.vue'
 import router from './router'
@@ -24,5 +26,6 @@ app.use(VueAxios, axios)
 app.component('InputText', InputText);
 app.component('Button', Button);
 app.component('Dialog', Dialog);
-
+app.component('Password', Password);
+app.component('Card', Card);
 app.mount('#app')

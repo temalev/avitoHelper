@@ -1,8 +1,10 @@
 <template>
 <div class="">
-  {{ $route.meta.title }}
-  {{$route.params.uuid}}
-  <Button @click="onConfirm">Подтвердить</Button>
+  <Card class="m-3">
+    <template #title>Подтвердите Ваш {{$route.meta.title}}</template>
+    <template #footer>  <Button @click="onConfirm">Подтвердить</Button></template>
+</Card>
+
 </div>
 </template>
 <script>
