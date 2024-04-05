@@ -36,6 +36,8 @@
                   <span
                     >Число всех возможных вариантов: <b class="text-black">{{ maxCount }}</b></span
                   >
+                  <label for="minmax">Введите желаемое количество варинтов</label>
+                  <InputNumber v-model="count" inputId="minmax" :min="0" :max="maxCount" style="width: 80px" />
                   <Button
                     type="button"
                     label="Рандомизировать"
@@ -67,6 +69,7 @@ export default {
     return {
       content: 'test',
       maxCount: 0,
+      count: 0,
       list: []
     }
   },
@@ -95,7 +98,7 @@ export default {
     async startRandomizer() {
       const data = {
         template: this.content || '',
-        count: 100
+        count: this.count,
       }
       try {
         const res = await createRandomText(data)

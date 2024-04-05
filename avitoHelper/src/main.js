@@ -14,6 +14,7 @@ import Dialog from 'primevue/dialog';
 import Password from 'primevue/Password';
 import Card from 'primevue/Card';
 import Editor from 'primevue/editor';
+import InputNumber from 'primevue/InputNumber';
 
 import App from './App.vue'
 import router from './router'
@@ -30,5 +31,6 @@ app.component('Dialog', Dialog);
 app.component('Password', Password);
 app.component('Card', Card);
 app.component('Editor', Editor);
+app.component('InputNumber', InputNumber);
 
 app.mount('#app')
