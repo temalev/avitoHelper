@@ -12,11 +12,11 @@ export function getRandomizerCount(data) {
 }
 
 /**
- * Вход
+ * Рандомизировать
  */
-export function signIn(data) {
+export function createRandomText(data) {
   return request({
-    url: '/login',
+    url: '/randomizer/create',
     method: 'post',
     data,
   });
