@@ -13,6 +13,7 @@ import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
 import Password from 'primevue/Password';
 import Card from 'primevue/Card';
+import Editor from 'primevue/editor';
 
 import App from './App.vue'
 import router from './router'
@@ -28,4 +29,6 @@ app.component('Button', Button);
 app.component('Dialog', Dialog);
 app.component('Password', Password);
 app.component('Card', Card);
+app.component('Editor', Editor);
+
 app.mount('#app')

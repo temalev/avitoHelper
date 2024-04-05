@@ -1,11 +1,11 @@
 import request from '@/utils/request';
 
 /**
- * Регистрация
+ * Получить количество возможных вариаций
  */
-export function signUp(data) {
+export function getRandomizerCount(data) {
   return request({
-    url: '/user',
+    url: '/randomizer/count',
     method: 'post',
     data,
   });
