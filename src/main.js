@@ -11,11 +11,11 @@ import PrimeVue from 'primevue/config';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
-import Password from 'primevue/password/Password';
-import Card from 'primevue/card/Card';
+import Password from 'primevue/password';
+import Card from 'primevue/card';
 import Editor from 'primevue/editor';
-import InputNumber from 'primevue/inputnumber/InputNumber';
-import Panel from 'primevue/panel/Panel';
+import InputNumber from 'primevue/inputnumber';
+import Panel from 'primevue/panel';
 
 import App from './App.vue'
 import router from './router'
