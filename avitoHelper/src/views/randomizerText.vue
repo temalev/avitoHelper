@@ -37,7 +37,13 @@
                     >Число всех возможных вариантов: <b class="text-black">{{ maxCount }}</b></span
                   >
                   <label for="minmax">Введите желаемое количество варинтов</label>
-                  <InputNumber v-model="count" inputId="minmax" :min="0" :max="maxCount" style="width: 80px" />
+                  <InputNumber
+                    v-model="count"
+                    inputId="minmax"
+                    :min="0"
+                    :max="maxCount"
+                    style="width: 80px"
+                  />
                   <Button
                     type="button"
                     label="Рандомизировать"
@@ -48,8 +54,21 @@
               </div>
             </div>
           </template>
-          <template #footer>
-            <textarea v-for="text, idx in list" :key="idx" :value="text" class="output" />
+          <template v-if="template" #footer>
+            <Panel header="Header" toggleable>
+              <template #header>
+                <div class="flex align-items-center pl-2 gap-4">
+                  <span class="font-bold" style="align-content: center">Шаблон: {{ template?.templateId }}</span>
+                  <Button label="Скачать шаблон" style="height: 30px" />
+                </div>
+              </template>
+              <textarea
+                v-for="(text, idx) in template?.texts"
+                :key="idx"
+                :value="text"
+                class="output"
+              />
+            </Panel>
           </template>
         </Card>
       </div>
@@ -61,7 +80,7 @@ import { debounce } from '@/utils/debounce.js'
 
 import TheHeader from '@/components/TheHeader.vue'
 import TheSideBar from '@/components/TheSideBar.vue'
-import { getRandomizerCount, createRandomText } from '@/api/randomizer'
+import { getRandomizerCount, createRandomText, getAllRandomizer } from '@/api/randomizer'
 
 export default {
   components: { TheSideBar, TheHeader },
@@ -70,7 +89,8 @@ export default {
       content: 'test',
       maxCount: 0,
       count: 0,
-      list: []
+      list: [],
+      template: null
     }
   },
 
@@ -78,6 +98,10 @@ export default {
     content(val) {
       this.debouncedGetRandomizerCount()
     }
+  },
+
+  mounted() {
+    this.getAllRandomizer()
   },
 
   methods: {
@@ -95,14 +119,22 @@ export default {
         console.error(e)
       }
     },
+    async getAllRandomizer() {
+      try {
+        const res = await getAllRandomizer()
+        this.list = res
+      } catch (e) {
+        console.error(e)
+      }
+    },
     async startRandomizer() {
       const data = {
         template: this.content || '',
-        count: this.count,
+        count: this.count
       }
       try {
         const res = await createRandomText(data)
-        this.list = res.texts
+        this.template = res
       } catch (e) {
         console.error(e)
       }
@@ -175,11 +207,11 @@ export default {
 }
 
 .output {
- width: 100%;
- outline: none;
- border-radius: 6px;
- padding: 12px;
- height: 120px;
- border: 1px solid #eee;
+  width: 100%;
+  outline: none;
+  border-radius: 6px;
+  padding: 12px;
+  height: 120px;
+  border: 1px solid #eee;
 }
 </style>

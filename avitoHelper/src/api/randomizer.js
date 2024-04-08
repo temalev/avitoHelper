@@ -23,11 +23,11 @@ export function createRandomText(data) {
 }
 
 /**
- * Вход
+ * Получить прошлые рандомизации
  */
-export function getMe() {
+export function getAllRandomizer() {
   return request({
-    url: '/me',
+    url: '/randomizer/templates',
     method: 'get',
   });
 }
