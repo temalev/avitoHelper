@@ -33,11 +33,11 @@ export function getAllRandomizer() {
 }
 
 /**
- * Подтвердить логин
+ * Скачать шаблон
  */
-export function confirmEmail(uuid) {
+export function downloadTemplate(id, ext) {
   return request({
-    url: `/confirm/email/${uuid}`,
-    method: 'post',
+    url: `/randomizer/file/${id}/${ext}`,
+    method: 'get',
   });
 }

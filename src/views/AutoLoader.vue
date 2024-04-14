@@ -3,12 +3,16 @@
     <TheHeader />
     <main>
       <TheSideBar />
-      <Tree
-        :value="nodes2"
-        @node-expand="onNodeExpand2"
-        loadingMode="icon"
-        class="w-full md:w-30rem"
-      ></Tree>
+      <div class="card flex justify-content-center">
+        <Tree :value="categoriesFiltered" class="w-full md:w-30rem">
+          <template #default="slotProps">
+            <b>{{ slotProps.node.name }}</b>
+          </template>
+          <template #url="slotProps">
+            <a :href="slotProps.node.name" target="_blank" rel="noopener noreferrer" class="text-700 hover:text-primary">{{ slotProps.node.name }}</a>
+          </template>
+        </Tree>
+      </div>
     </main>
   </div>
 </template>
@@ -22,75 +26,49 @@ export default {
 
   data() {
     return {
-      nodes2: null,
+      categories: null,
       loading: false
     }
   },
 
   mounted() {
     this.getCategories()
-    this.nodes2 = this.initateNodes2()
+  },
 
-    setTimeout(() => {
-      this.loading = false
-      this.nodes2.map((node) => (node.loading = false))
-    }, 2000)
+  computed: {
+    categoriesFiltered() {
+      const map = {};
+    const roots = [];
+    
+    this.categories?.forEach(obj => {
+        obj.key = `${obj.parentId}-${obj.id}`
+        const parentId = obj.parentId;
+        if (!map[parentId]) map[parentId] = [];
+        if (!map[obj.id]) map[obj.id] = [];
+        
+        map[parentId].push(obj);
+        
+        if (map[obj.id])
+            obj.children = map[obj.id];
+        else
+            obj.children = [];
+
+        if (obj.parentId === 0)
+            roots.push(obj);
+    });
+    console.log(roots);
+    return roots;
+  }
   },
 
   methods: {
     async getCategories() {
       try {
         const res = await getCategories()
-        console.log(res)
+        this.categories = res
       } catch (e) {
         console.error(e)
       }
-    },
-    onNodeExpand2(node) {
-      if (!node.children) {
-        node.loading = true
-
-        setTimeout(() => {
-          let _node = { ...node }
-
-          _node.children = []
-
-          for (let i = 0; i < 3; i++) {
-            _node.children.push({
-              key: node.key + '-' + i,
-              label: 'Lazy ' + node.label + '-' + i
-            })
-          }
-
-          let _nodes = { ...this.nodes2 }
-
-          _nodes[parseInt(node.key, 10)] = { ..._node, loading: false }
-
-          this.nodes2 = _nodes
-        }, 500)
-      }
-    },
-    initateNodes2() {
-      return [
-        {
-          key: '0',
-          label: 'Node 0',
-          leaf: false,
-          loading: true
-        },
-        {
-          key: '1',
-          label: 'Node 1',
-          leaf: false,
-          loading: true
-        },
-        {
-          key: '2',
-          label: 'Node 2',
-          leaf: false,
-          loading: true
-        }
-      ]
     }
   }
 }

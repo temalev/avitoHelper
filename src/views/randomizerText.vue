@@ -54,12 +54,12 @@
               </div>
             </div>
           </template>
-          <template v-if="template" #footer>
+          <template v-if="template?.texts?.length" #footer>
             <Panel header="Header" toggleable>
               <template #header>
                 <div class="flex align-items-center pl-2 gap-4">
                   <span class="font-bold" style="align-content: center">Шаблон: {{ template?.templateId }}</span>
-                  <Button label="Скачать шаблон" style="height: 30px" />
+                  <Button label="Скачать шаблон" style="height: 30px" @click="downloadTemplate(template?.templateId)" />
                 </div>
               </template>
               <textarea
@@ -71,6 +71,19 @@
             </Panel>
           </template>
         </Card>
+        <Panel class="mt-4" header="История" toggleable>
+        <Card v-for="item in templates" :key="item.id" class="mt-4">
+          <template #title>
+            <div class="flex align-items-center pl-2 gap-4">
+                  <span class="font-bold" style="align-content: center">Шаблон: {{ item?.id }}</span>
+                  <Button label="Скачать шаблон" style="height: 30px" @click="downloadTemplate(item?.id)" />
+                </div>
+          </template>
+          <template #content>
+            <p :href="item.fileUrl">{{ item.template }}</p>
+          </template>
+        </Card>
+      </Panel>
       </div>
     </main>
   </div>
@@ -80,7 +93,7 @@ import { debounce } from '@/utils/debounce.js'
 
 import TheHeader from '@/components/TheHeader.vue'
 import TheSideBar from '@/components/TheSideBar.vue'
-import { getRandomizerCount, createRandomText, getAllRandomizer } from '@/api/randomizer'
+import { getRandomizerCount, createRandomText, getAllRandomizer, downloadTemplate } from '@/api/randomizer'
 
 export default {
   components: { TheSideBar, TheHeader },
@@ -90,7 +103,7 @@ export default {
       maxCount: 0,
       count: 0,
       list: [],
-      template: null
+      templates: null
     }
   },
 
@@ -122,7 +135,22 @@ export default {
     async getAllRandomizer() {
       try {
         const res = await getAllRandomizer()
-        this.list = res
+        this.templates = res
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    async downloadTemplate(templateId) {
+      try {
+        const res = await downloadTemplate(templateId, 'xlsx')
+        console.log(res);
+        var blob = new Blob([res], { type: res.type });
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'template.xlsx';
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(blob)
       } catch (e) {
         console.error(e)
       }
@@ -160,9 +188,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+main {
+  height: 100%;
+}
 .body {
   margin: 20px;
   width: 100%;
+  height: 100%;
 }
 
 .editor {
