@@ -11,13 +11,12 @@ export function getCategories() {
 }
 
 /**
- * Рандомизировать
+ * Получить поля категории
  */
-export function createRandomText(data) {
+export function getFields(id) {
   return request({
-    url: '/randomizer/create',
-    method: 'post',
-    data,
+    url: `/autoloader/${id}/fields`,
+    method: 'get',
   });
 }
 

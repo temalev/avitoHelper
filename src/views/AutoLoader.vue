@@ -6,18 +6,19 @@
       <div class="card flex justify-content-center">
         <Tree :value="categoriesFiltered" class="w-full md:w-30rem">
           <template #default="slotProps">
-            <b>{{ slotProps.node.name }}</b>
+            <b class="item">{{ slotProps.node.name }}</b>
           </template>
           <template #url="slotProps">
-            <a :href="slotProps.node.name" target="_blank" rel="noopener noreferrer" class="text-700 hover:text-primary">{{ slotProps.node.name }}</a>
+            <span class="lastChild hover:link" @click="getFields(slotProps.node.id)">{{ slotProps.node.name }}</span>
           </template>
         </Tree>
+        а тут уже основная часть, где будет выводиться инфа по шаблонам
       </div>
     </main>
   </div>
 </template>
 <script>
-import { getCategories } from '@/api/autoloader'
+import { getCategories, getFields } from '@/api/autoloader'
 import TheHeader from '../components/TheHeader.vue'
 import TheSideBar from '../components/TheSideBar.vue'
 
@@ -42,6 +43,9 @@ export default {
     
     this.categories?.forEach(obj => {
         obj.key = `${obj.parentId}-${obj.id}`
+        if (obj.showFields) {
+          obj.type = 'url'
+        }
         const parentId = obj.parentId;
         if (!map[parentId]) map[parentId] = [];
         if (!map[obj.id]) map[obj.id] = [];
@@ -62,6 +66,14 @@ export default {
   },
 
   methods: {
+    async getFields(id) {
+      try {
+        const res = await getFields(id)
+        console.log(e);
+      } catch(e) {
+        console.error(e)
+      }
+    },
     async getCategories() {
       try {
         const res = await getCategories()
@@ -75,7 +87,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+main {
+  min-height: 100vh;
+}
 iframe {
   width: 100%;
+}
+.item {
+  cursor: pointer;
+}
+.lastChild {  
+  cursor: pointer;
+  &:hover {
+    color: #000;
+  }
 }
 </style>
