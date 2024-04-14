@@ -15,7 +15,7 @@ export function getCategories() {
  */
 export function getFields(id) {
   return request({
-    url: `/autoloader/${id}/fields`,
+    url: `/autoloader/category/${id}/fields`,
     method: 'get',
   });
 }
