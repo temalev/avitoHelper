@@ -22,8 +22,32 @@
                 <span class="ml-4 text-orange-400 text-xs" v-if="field.required">Обязательный</span>
               </div>
             </template>
-            <p class="text-sm description" style="overflow-wrap: anywhere;">{{field.description}}</p>
-            {{ field.type }}
+            <p class="text-sm description" style="overflow-wrap: anywhere">
+              {{ field.description }}
+            </p>
+            <div class="d-flex-column mt-4 bg-[#eee9] p-2 rounded-md">
+              <b>Пример заполнения</b>
+              <p>{{ field.example }}</p>
+            </div>
+            <div class="mt-4">
+            <InputText v-if="field.type === 'input'" type="text" v-model="field.inputValue" placeholder="Введите значение..." />
+            <template v-if="field.type === 'checkbox'">
+              <div
+                v-for="item in field.data.values"
+                :key="item.value"
+                class="flex align-items-center gap-2"
+              >
+                <Checkbox
+                  v-model="field.inputValue"
+                  :inputId="item.value"
+                  name="category"
+                  :value="item.value"
+                />
+                <label :for="item.value">{{ item.value }}</label>
+              </div>
+            </template>
+            <Dropdown v-if="field.type === 'select'" v-model="field.inputValue" :options="field.data.values" optionLabel="value" placeholder="Одно из значений" />
+          </div>
           </Panel>
         </div>
       </div>
@@ -57,6 +81,7 @@ export default {
 
       this.categories?.forEach((obj) => {
         obj.key = `${obj.parentId}-${obj.id}`
+        obj.inputValue = null
         if (obj.showFields) {
           obj.type = 'url'
         }
@@ -103,8 +128,8 @@ main {
   height: 100%;
 }
 .body {
- overflow: hidden;
- box-sizing: border-box;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .fields {

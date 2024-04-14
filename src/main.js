@@ -17,6 +17,8 @@ import Editor from 'primevue/editor';
 import InputNumber from 'primevue/inputnumber';
 import Panel from 'primevue/panel';
 import Tree from 'primevue/tree';
+import Checkbox from 'primevue/checkbox';
+import Dropdown from 'primevue/dropdown';
 
 import App from './App.vue'
 import router from './router'
@@ -36,5 +38,7 @@ app.component('Editor', Editor);
 app.component('InputNumber', InputNumber);
 app.component('Panel', Panel);
 app.component('Tree', Tree);
+app.component('Checkbox', Checkbox);
+app.component('Dropdown', Dropdown);
 
 app.mount('#app')
