@@ -22,7 +22,7 @@
                 <span class="ml-4 text-orange-400 text-xs" v-if="field.required">Обязательный</span>
               </div>
             </template>
-            <p class="text-sm description">{{field.description}}</p>
+            <p class="text-sm description" style="overflow-wrap: anywhere;">{{field.description}}</p>
             {{ field.type }}
           </Panel>
         </div>
