@@ -24,11 +24,16 @@ data() {
     //   name: 'Рандомайзер изображений',
     //   value: 'randomizeImage'
     // },
-    // {
-    //   id: 4,
-    //   name: 'Создание файлов автозагрузки',
-    //   value: 'createFiles'
-    // }
+    {
+      id: 4,
+      name: 'Создание файлов автозагрузки',
+      value: 'autoloader'
+    },
+    {
+      id: 5,
+      name: 'Парсинг',
+      value: 'parser'
+    }
   ]
   }
 }

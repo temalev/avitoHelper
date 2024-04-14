@@ -37,6 +37,22 @@ const router = createRouter({
       component: () => import('../views/randomizerText.vue')
     },
     {
+      path: '/autoloader',
+      name: 'autoloader',
+      meta: {
+        name: 'autoloader'
+      },
+      component: () => import('../views/AutoLoader.vue')
+    },
+    {
+      path: '/parser',
+      name: 'parser',
+      meta: {
+        name: 'parser'
+      },
+      component: () => import('../views/Parser.vue')
+    },
+    {
       path: '/confirm',
       name: 'confirm',
       // route level code-splitting
