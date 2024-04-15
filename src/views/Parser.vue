@@ -94,9 +94,7 @@ export default {
       }
       this.parserProcess = false
 
-      setInterval(() => {
         this.getAllParsers()
-      }, 60000);
 
     }
   }
