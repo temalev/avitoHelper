@@ -4,7 +4,7 @@
     <main>
       <TheSideBar />
       <div class="body flex justify-content-center">
-        <Tree :value="categoriesFiltered" class="w-full md:w-30rem">
+        <Tree :value="categoriesFiltered" class="w-full md:w-20rem">
           <template #default="slotProps">
             <b class="item">{{ slotProps.node.name }}</b>
           </template>
@@ -149,4 +149,11 @@ main {
     color: #000;
   }
 }
+
+::v-deep {
+  .p-tree-wrapper {
+  width: inherit;
+}
+}
+
 </style>
