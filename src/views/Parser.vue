@@ -63,9 +63,15 @@ export default {
 
   mounted() {
     this.getAllParsers()
+    this.intervalGetParsers()
   },
 
   methods: {
+    intervalGetParsers() {
+      setInterval(() => {
+        this.getAllParsers()
+      }, 30000);
+    },
     async getAllParsers() {
       try {
         const res = await getAllParsers()
@@ -87,7 +93,11 @@ export default {
         console.error(e)
       }
       this.parserProcess = false
-      this.getAllParsers()
+
+      setInterval(() => {
+        this.getAllParsers()
+      }, 60000);
+
     }
   }
 }
