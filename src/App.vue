@@ -1,8 +1,14 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
 import { getMe } from '@/api/login'
+import { useUserStore } from '@/stores/user'
 
 export default {
+  data(){
+    return {
+      store: useUserStore()
+    }
+  },
 mounted() {
   this.getMe()
 },
@@ -10,6 +16,7 @@ methods: {
     async getMe() {
       try {
         const res = await getMe()
+        this.store.user = res
       } catch(e) {
         console.error(e)
         this.$router.push({name: 'login'})

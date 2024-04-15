@@ -66,7 +66,7 @@ export default {
     return {
       categories: null,
       loading: false,
-      fields: []
+      fields: [],
     }
   },
 
@@ -125,14 +125,14 @@ export default {
 <style lang="scss" scoped>
 main {
   min-height: 100vh;
-  height: 100%;
+  overflow: hidden;
 }
 .body {
-  overflow: hidden;
   box-sizing: border-box;
 }
 
 .fields {
+  overflow: auto;
   padding: 20px;
   box-sizing: border-box;
   flex-grow: 0;
