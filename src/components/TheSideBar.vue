@@ -46,7 +46,8 @@ data() {
   background-color: #ffffff;
   width: 300px;
   flex-shrink: 0;
-  height: 100%;
+  // height: 100%;
+  // min-height: 100%;
   color: #6e6e6e;
   border-right: 1px solid #acb0cdad;
   padding-top: 12px;
