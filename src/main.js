@@ -20,6 +20,7 @@ import Tree from 'primevue/tree';
 import Checkbox from 'primevue/checkbox';
 import Dropdown from 'primevue/dropdown';
 import Avatar from 'primevue/avatar';
+import OverlayPanel from 'primevue/overlaypanel';
 
 import App from './App.vue'
 import router from './router'
@@ -42,5 +43,6 @@ app.component('Tree', Tree);
 app.component('Checkbox', Checkbox);
 app.component('Dropdown', Dropdown);
 app.component('Avatar', Avatar);
+app.component('OverlayPanel', OverlayPanel);
 
 app.mount('#app')

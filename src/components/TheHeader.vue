@@ -1,8 +1,9 @@
 <template>
 <header>
   <div class="logo">aviGroup</div>
-  <div class="user">
-    <Avatar :label="firstWord" class="mr-2" style="background-color: #ece9fc; color: #2a1261" />
+  <div class="user" @click="toggle">
+    <Avatar :label="firstWord" style="background-color: #ece9fc; color: #2a1261" />
+    <div class="rounded-lg p-1-4 bg-[#58dc13d3]">{{store.user.balance }} ₽</div>
     {{ store.user.name }}
   </div>
 </header>
@@ -19,6 +20,11 @@ export default {
     firstWord() {
       return this.store.user.name?.at()
     }
+  },
+  methods: {
+    toggle(event) {
+            this.$refs.op.toggle(event);
+        }
   }
 }
 </script>
@@ -38,5 +44,11 @@ header {
     margin: 16px 0px;
     font-size: 24px;
   }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 </style>
