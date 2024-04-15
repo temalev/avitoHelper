@@ -21,6 +21,7 @@ import Checkbox from 'primevue/checkbox';
 import Dropdown from 'primevue/dropdown';
 import Avatar from 'primevue/avatar';
 import OverlayPanel from 'primevue/overlaypanel';
+import InlineMessage from 'primevue/inlinemessage';
 
 import App from './App.vue'
 import router from './router'
@@ -44,5 +45,6 @@ app.component('Checkbox', Checkbox);
 app.component('Dropdown', Dropdown);
 app.component('Avatar', Avatar);
 app.component('OverlayPanel', OverlayPanel);
+app.component('InlineMessage', InlineMessage);
 
 app.mount('#app')

@@ -11,12 +11,7 @@
             <InputText style="width: 100%" type="text" id="link" v-model="link" />
             <div class="d-flex-column mt-2">
               <label for="minmax">Введите желаемое количество страниц</label>
-              <InputNumber
-                v-model="count"
-                inputId="minmax"
-                :max="50"
-                style="width: 80px"
-              />
+              <InputNumber v-model="count" inputId="minmax" :max="50" style="width: 80px" />
             </div>
           </template>
           <template #footer>
@@ -31,9 +26,19 @@
         </Card>
 
         <Card v-for="item in parserList" :key="item.id" class="mt-4">
-          <template #title>{{item.title}}</template>
+          <template #title>{{ item.title || item.url }}</template>
           <template #content>
-            <a :href="item.fileUrl">{{ item.fileUrl }}</a>
+            <a v-if="item.fileUrl" :href="item.fileUrl">{{ item.fileUrl }}</a>
+            <div>
+              Количество страниц: {{ item.countPages }}
+            </div>
+          </template>
+          <template #footer>
+            <InlineMessage v-if="item.statusId === 1" severity="success">Завершено</InlineMessage>
+            <InlineMessage v-if="item.statusId === 0" severity="info">В процессе</InlineMessage>
+            <InlineMessage v-if="item.statusId === 2" severity="error"
+              >Произошла ошибка</InlineMessage
+            >
           </template>
         </Card>
       </div>
@@ -52,7 +57,7 @@ export default {
       count: 0,
       link: null,
       parserProcess: false,
-      parserList: [],
+      parserList: []
     }
   },
 
@@ -70,7 +75,7 @@ export default {
       }
     },
     async startParser() {
-      this.parserProcess = true;
+      this.parserProcess = true
       const data = {
         url: this.link || '',
         count: this.count
@@ -81,7 +86,8 @@ export default {
       } catch (e) {
         console.error(e)
       }
-      this.parserProcess = false;
+      this.parserProcess = false
+      this.getAllParsers()
     }
   }
 }
@@ -91,5 +97,9 @@ export default {
 .body {
   margin: 20px;
   width: 100%;
+}
+
+.p-inline-message {
+  height: 36px;
 }
 </style>
