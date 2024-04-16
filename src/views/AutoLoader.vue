@@ -39,11 +39,14 @@
               <p>{{ field.example }}</p>
             </div>
             <div class="mt-4">
-              <InputText
+              <Textarea
                 v-if="field.type === 'input' && field.tag !== 'ImageUrls'"
                 type="text"
+                style="width: 500px"
                 v-model="field.inputValue"
                 placeholder="Введите значение..."
+                rows="5"
+                cols="30"
               />
               <template v-if="field.type === 'checkbox'">
                 <div
@@ -63,6 +66,7 @@
               <Dropdown
                 v-if="field.type === 'select'"
                 v-model="field.inputValue"
+                editable
                 :options="field.data.values"
                 optionLabel="value"
                 placeholder="Одно из значений"
@@ -87,10 +91,10 @@
 </template>
 <script>
 import { getCategories, getFields, createFile } from '@/api/autoloader'
-import {uploadFile} from '@/api/image'
+import { uploadFile } from '@/api/image'
 import TheHeader from '../components/TheHeader.vue'
 import TheSideBar from '../components/TheSideBar.vue'
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid'
 
 export default {
   components: { TheHeader, TheSideBar },
@@ -103,7 +107,7 @@ export default {
       fields: [],
       accept: '.jpg, .png',
       uuid: null,
-      categoryId: null,
+      categoryId: null
     }
   },
 
@@ -139,57 +143,54 @@ export default {
   methods: {
     async createFile() {
       const fields = []
-      this.fields.forEach(el => {
+      this.fields.forEach((el) => {
         if (this.uuid) {
-          fields.push(
-            {
-              fieldId: el.id,
-              value: this.uuid,
-            }
-          ) 
+          fields.push({
+            fieldId: el.id,
+            value: this.uuid
+          })
           return
         }
         if (!el.inputValue) return
 
         fields.push({
           fieldId: el.id,
-          value: el.inputValue,
+          value: el.inputValue
         })
       })
       try {
-        const res = await createFile({fields, count: this.count, categoryId: this.categoryId});
-        var blob = new Blob([res], { type: res.type });
-        var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = 'template.xlsx';
-        link.click();
-      } 
-      catch(e){
+        const res = await createFile({ fields, count: this.count, categoryId: this.categoryId })
+        var blob = new Blob([res], { type: res.type })
+        var link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = 'template.xlsx'
+        link.click()
+      } catch (e) {
         console.error(e)
       }
     },
     openFileDialog() {
-      this.$refs.fileInput[0].click();
+      this.$refs.fileInput[0].click()
     },
     async onSelectFile(e) {
-      const files = e.target.files;
+      const files = e.target.files
       const params = {
         albumUuid: this.uuid,
         type: 'additional'
       }
       try {
-          const file = await uploadFile(files[0], params);
-          this.uuid = uuidv4()
-        } catch (e) {
-          console.error(e);
-        }
+        const file = await uploadFile(files[0], params)
+        this.uuid = uuidv4()
+      } catch (e) {
+        console.error(e)
+      }
     },
     async getFields(id) {
       this.categoryId = id
       try {
         const res = await getFields(id)
-        res.forEach(el => {
-          this.fields.push({...el, inputValue: null})
+        res.forEach((el) => {
+          this.fields.push({ ...el, inputValue: null })
         })
       } catch (e) {
         console.error(e)

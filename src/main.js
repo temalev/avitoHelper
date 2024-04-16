@@ -23,6 +23,7 @@ import Avatar from 'primevue/avatar';
 import OverlayPanel from 'primevue/overlaypanel';
 import InlineMessage from 'primevue/inlinemessage';
 import FileUpload from 'primevue/fileupload';
+import Textarea from 'primevue/textarea';
 
 import App from './App.vue'
 import router from './router'
@@ -48,5 +49,6 @@ app.component('Avatar', Avatar);
 app.component('OverlayPanel', OverlayPanel);
 app.component('InlineMessage', InlineMessage);
 app.component('FileUpload', FileUpload);
+app.component('Textarea', Textarea);
 
 app.mount('#app')
