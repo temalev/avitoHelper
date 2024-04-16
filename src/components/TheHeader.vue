@@ -1,6 +1,6 @@
 <template>
 <header>
-  <div class="logo">aviGroup</div>
+  <div class="logo pointer" @click="$router.push({name: 'home'})">aviGroup</div>
   <div class="user" @click="toggle">
     <Avatar :label="firstWord" style="background-color: #ece9fc; color: #2a1261" />
     <div class="rounded-lg p-1-4 bg-[#58dc13d3]">{{store.user.balance }} ₽</div>
