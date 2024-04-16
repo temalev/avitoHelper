@@ -143,13 +143,11 @@ export default {
     async downloadTemplate(templateId) {
       try {
         const res = await downloadTemplate(templateId, 'xlsx')
-        var blob = new Blob([res], { type: res.type });
+        var blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         link.download = 'template.xlsx';
         link.click();
-        link.remove();
-        URL.revokeObjectURL(blob)
       } catch (e) {
         console.error(e)
       }

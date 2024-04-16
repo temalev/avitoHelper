@@ -143,7 +143,7 @@ export default {
         if (el.tag === 'ImageUrls') {
           fields.push(
             {
-              fielddId: el.id,
+              fieldId: el.id,
               value: this.uuid,
             }
           ) 
@@ -163,8 +163,6 @@ export default {
         link.href = window.URL.createObjectURL(blob);
         link.download = 'template.xlsx';
         link.click();
-        link.remove();
-        URL.revokeObjectURL(blob)
       } 
       catch(e){
         console.error(e)

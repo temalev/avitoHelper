@@ -39,5 +39,6 @@ export function downloadTemplate(id, ext) {
   return request({
     url: `/randomizer/file/${id}/${ext}`,
     method: 'get',
+    responseType: 'blob'
   });
 }

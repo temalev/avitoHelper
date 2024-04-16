@@ -27,6 +27,7 @@ export function createFile(data) {
   return request({
     url: `/autoloader/file`,
     method: 'post',
-    data
+    data,
+    responseType: 'blob'
   });
 }
