@@ -143,7 +143,7 @@ export default {
         if (el.tag === 'ImageUrls') {
           fields.push(
             {
-              filedId: el.id,
+              fielddId: el.id,
               value: this.uuid,
             }
           ) 
@@ -152,7 +152,7 @@ export default {
         if (!el.inputValue) return
 
         fields.push({
-          filedId: el.id,
+          fieldId: el.id,
           value: el.inputValue,
         })
       })
