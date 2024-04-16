@@ -140,7 +140,7 @@ export default {
     async createFile() {
       const fields = []
       this.fields.forEach(el => {
-        if (el.tag === 'ImageUrls') {
+        if (this.uuid) {
           fields.push(
             {
               fieldId: el.id,
@@ -179,13 +179,13 @@ export default {
       }
       try {
           const file = await uploadFile(files[0], params);
+          this.uuid = uuidv4()
         } catch (e) {
           console.error(e);
         }
     },
     async getFields(id) {
       this.categoryId = id
-    this.uuid = uuidv4()
       try {
         const res = await getFields(id)
         res.forEach(el => {
