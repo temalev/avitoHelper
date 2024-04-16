@@ -143,7 +143,6 @@ export default {
     async downloadTemplate(templateId) {
       try {
         const res = await downloadTemplate(templateId, 'xlsx')
-        console.log(res);
         var blob = new Blob([res], { type: res.type });
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);

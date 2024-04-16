@@ -21,21 +21,12 @@ export function getFields(id) {
 }
 
 /**
- * Получить прошлые рандомизации
+ * Создать файл автозагрузки
  */
-export function getAllRandomizer() {
+export function createFile(data) {
   return request({
-    url: '/randomizer/templates',
-    method: 'get',
-  });
-}
-
-/**
- * Подтвердить логин
- */
-export function confirmEmail(uuid) {
-  return request({
-    url: `/confirm/email/${uuid}`,
+    url: `/autoloader/file`,
     method: 'post',
+    data
   });
 }

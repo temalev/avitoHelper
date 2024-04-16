@@ -4,16 +4,25 @@
     <main>
       <TheSideBar />
       <div class="body flex justify-content-center">
-        <Tree :value="categoriesFiltered" class="w-full md:w-20rem">
-          <template #default="slotProps">
-            <b class="item">{{ slotProps.node.name }}</b>
-          </template>
-          <template #url="slotProps">
-            <span class="lastChild hover:link" @click="getFields(slotProps.node.id)">{{
-              slotProps.node.name
-            }}</span>
-          </template>
-        </Tree>
+        <div class="d-flex-column align-flex-start">
+          <Tree :value="categoriesFiltered" class="w-full md:w-20rem">
+            <template #default="slotProps">
+              <b class="item">{{ slotProps.node.name }}</b>
+            </template>
+            <template #url="slotProps">
+              <span class="lastChild hover:link" @click="getFields(slotProps.node.id)">{{
+                slotProps.node.name
+              }}</span>
+            </template>
+          </Tree>
+          <div class="m-0-6 d-flex-column">
+            <label for="integeronly" class="font-bold block mb-2"> Количество </label>
+            <InputNumber v-model="count" inputId="integeronly" />
+            <Button @click="createFile" style="height: 32px" class="mt-5"
+              >Сгенерировать файл</Button
+            >
+          </div>
+        </div>
         <div class="fields d-flex-column gap-4">
           <Panel v-for="field in fields" :key="field.id" toggleable>
             <template #header>
@@ -30,24 +39,46 @@
               <p>{{ field.example }}</p>
             </div>
             <div class="mt-4">
-            <InputText v-if="field.type === 'input'" type="text" v-model="field.inputValue" placeholder="Введите значение..." />
-            <template v-if="field.type === 'checkbox'">
-              <div
-                v-for="item in field.data.values"
-                :key="item.value"
-                class="flex align-items-center gap-2"
-              >
-                <Checkbox
-                  v-model="field.inputValue"
-                  :inputId="item.value"
-                  name="category"
-                  :value="item.value"
-                />
-                <label :for="item.value">{{ item.value }}</label>
-              </div>
-            </template>
-            <Dropdown v-if="field.type === 'select'" v-model="field.inputValue" :options="field.data.values" optionLabel="value" placeholder="Одно из значений" />
-          </div>
+              <InputText
+                v-if="field.type === 'input' && field.tag !== 'ImageUrls'"
+                type="text"
+                v-model="field.inputValue"
+                placeholder="Введите значение..."
+              />
+              <template v-if="field.type === 'checkbox'">
+                <div
+                  v-for="item in field.data.values"
+                  :key="item.value"
+                  class="flex align-items-center gap-2"
+                >
+                  <Checkbox
+                    v-model="field.inputValue"
+                    :inputId="item.value"
+                    name="category"
+                    :value="item.value"
+                  />
+                  <label :for="item.value">{{ item.value }}</label>
+                </div>
+              </template>
+              <Dropdown
+                v-if="field.type === 'select'"
+                v-model="field.inputValue"
+                :options="field.data.values"
+                optionLabel="value"
+                placeholder="Одно из значений"
+              />
+              <Button v-if="field.tag === 'ImageUrls'" @click="openFileDialog">Загрузить</Button>
+              <input
+                v-if="field.tag === 'ImageUrls'"
+                hidden
+                ref="fileInput"
+                type="file"
+                id="avatar"
+                name="avatar"
+                accept="image/png, image/jpeg"
+                @change="onSelectFile"
+              />
+            </div>
           </Panel>
         </div>
       </div>
@@ -55,18 +86,24 @@
   </div>
 </template>
 <script>
-import { getCategories, getFields } from '@/api/autoloader'
+import { getCategories, getFields, createFile } from '@/api/autoloader'
+import {uploadFile} from '@/api/image'
 import TheHeader from '../components/TheHeader.vue'
 import TheSideBar from '../components/TheSideBar.vue'
+import { v4 as uuidv4 } from "uuid";
 
 export default {
   components: { TheHeader, TheSideBar },
 
   data() {
     return {
+      count: 1,
       categories: null,
       loading: false,
       fields: [],
+      accept: '.jpg, .png',
+      uuid: null,
+      categoryId: null,
     }
   },
 
@@ -81,7 +118,6 @@ export default {
 
       this.categories?.forEach((obj) => {
         obj.key = `${obj.parentId}-${obj.id}`
-        obj.inputValue = null
         if (obj.showFields) {
           obj.type = 'url'
         }
@@ -96,16 +132,67 @@ export default {
 
         if (obj.parentId === 0) roots.push(obj)
       })
-      console.log(roots)
       return roots
     }
   },
 
   methods: {
+    async createFile() {
+      const fields = []
+      this.fields.forEach(el => {
+        if (el.tag === 'ImageUrls') {
+          fields.push(
+            {
+              filedId: el.id,
+              value: this.uuid,
+            }
+          ) 
+          return
+        }
+        if (!el.inputValue) return
+
+        fields.push({
+          filedId: el.id,
+          value: el.inputValue,
+        })
+      })
+      try {
+        const res = await createFile({fields, count: this.count, categoryId: this.categoryId});
+        var blob = new Blob([res], { type: res.type });
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'template.xlsx';
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(blob)
+      } 
+      catch(e){
+        console.error(e)
+      }
+    },
+    openFileDialog() {
+      this.$refs.fileInput[0].click();
+    },
+    async onSelectFile(e) {
+      const files = e.target.files;
+      const params = {
+        albumUuid: this.uuid,
+        type: 'additional'
+      }
+      try {
+          const file = await uploadFile(files[0], params);
+        } catch (e) {
+          console.error(e);
+        }
+    },
     async getFields(id) {
+      this.categoryId = id
+    this.uuid = uuidv4()
       try {
         const res = await getFields(id)
-        this.fields = res
+        res.forEach(el => {
+          this.fields.push({...el, inputValue: null})
+        })
       } catch (e) {
         console.error(e)
       }
@@ -152,8 +239,7 @@ main {
 
 ::v-deep {
   .p-tree-wrapper {
-  width: inherit;
+    width: inherit;
+  }
 }
-}
-
 </style>

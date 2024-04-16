@@ -22,6 +22,7 @@ import Dropdown from 'primevue/dropdown';
 import Avatar from 'primevue/avatar';
 import OverlayPanel from 'primevue/overlaypanel';
 import InlineMessage from 'primevue/inlinemessage';
+import FileUpload from 'primevue/fileupload';
 
 import App from './App.vue'
 import router from './router'
@@ -46,5 +47,6 @@ app.component('Dropdown', Dropdown);
 app.component('Avatar', Avatar);
 app.component('OverlayPanel', OverlayPanel);
 app.component('InlineMessage', InlineMessage);
+app.component('FileUpload', FileUpload);
 
 app.mount('#app')
