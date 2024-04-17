@@ -144,7 +144,7 @@ export default {
     async createFile() {
       const fields = []
       this.fields.forEach((el) => {
-        if (this.uuid) {
+        if (el.tag === 'ImageUrls') {
           fields.push({
             fieldId: el.id,
             value: this.uuid
@@ -176,11 +176,9 @@ export default {
       const files = e.target.files
       const params = {
         albumUuid: this.uuid,
-        type: 'additional'
       }
       try {
         const file = await uploadFile(files[0], params)
-        this.uuid = uuidv4()
       } catch (e) {
         console.error(e)
       }
@@ -192,6 +190,7 @@ export default {
         res.forEach((el) => {
           this.fields.push({ ...el, inputValue: null })
         })
+        this.uuid = uuidv4()
       } catch (e) {
         console.error(e)
       }

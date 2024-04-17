@@ -36,8 +36,9 @@ header {
   height: 52px;
   padding: 0 20px;
   background-color: #fff;
-  border-bottom: 1px solid #acb0cdad;
+  border-bottom: 1px solid #d5d7eaad;
   z-index: 10000;
+  box-shadow: 0 0 10px 15px #999;
 
   .logo {
     color: #0c0c0c;
