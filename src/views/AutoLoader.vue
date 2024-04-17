@@ -18,8 +18,8 @@
           <div class="m-0-6 d-flex-column">
             <label for="integeronly" class="font-bold block mb-2"> Количество </label>
             <InputNumber v-model="count" inputId="integeronly" />
-            <Button @click="createFile" style="height: 32px" class="mt-5"
-              >Сгенерировать файл</Button
+            <Button type="button" @click="createFile" label="Сгенерировать файл" :loading="generateFileProcess" style="height: 32px" class="mt-5"
+              ></Button
             >
           </div>
         </div>
@@ -68,6 +68,7 @@
                 v-model="field.inputValue"
                 editable
                 :options="field.data.values"
+                optionValue="value"
                 optionLabel="value"
                 placeholder="Одно из значений"
               />
@@ -107,7 +108,8 @@ export default {
       fields: [],
       accept: '.jpg, .png',
       uuid: null,
-      categoryId: null
+      categoryId: null,
+      generateFileProcess: false,
     }
   },
 
@@ -142,9 +144,10 @@ export default {
 
   methods: {
     async createFile() {
+    this.generateFileProcess = true;
       const fields = []
       this.fields.forEach((el) => {
-        if (el.tag === 'ImageUrls') {
+        if (el.tag === 'ImageUrls' && this.uuid) {
           fields.push({
             fieldId: el.id,
             value: this.uuid
@@ -155,7 +158,7 @@ export default {
 
         fields.push({
           fieldId: el.id,
-          value: el.inputValue
+          value: Array.isArray(el.inputValue) ? el.inputValue.join('|') : el.inputValue
         })
       })
       try {
@@ -168,11 +171,13 @@ export default {
       } catch (e) {
         console.error(e)
       }
+      this.generateFileProcess = false;
     },
     openFileDialog() {
       this.$refs.fileInput[0].click()
     },
     async onSelectFile(e) {
+      this.uuid = uuidv4()
       const files = e.target.files
       const params = {
         albumUuid: this.uuid,
@@ -190,7 +195,6 @@ export default {
         res.forEach((el) => {
           this.fields.push({ ...el, inputValue: null })
         })
-        this.uuid = uuidv4()
       } catch (e) {
         console.error(e)
       }
