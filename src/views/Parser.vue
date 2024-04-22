@@ -1,10 +1,10 @@
 <template>
   <div class="page">
-    <TheHeader />
+    <TheSideBar />
     <main>
-      <TheSideBar />
-      <div class="body">
-        <Card>
+      <TheHeader />
+      <div class="body h-full">
+        <Card class="w-full">
           <template #title>Сборщик объявлений авито</template>
           <template #content>
             <label for="link">Ссылка</label>
@@ -25,7 +25,7 @@
           </template>
         </Card>
 
-        <Card v-for="item in parserList" :key="item.id" class="mt-4">
+        <Card v-for="item in parserList" :key="item.id" class="mt-4 w-full">
           <template #title>{{ item.title || item.url }}</template>
           <template #content>
             <a v-if="item.fileUrl" :href="item.fileUrl">{{ item.fileUrl }}</a>
@@ -102,11 +102,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.page {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  height: 100%;
+  background-color: #F3F4F7;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  background-color: inherit;
+}
 .body {
   margin: 20px;
-  width: 100%;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow-y: auto;
 }
-
 .p-inline-message {
   height: 36px;
 }

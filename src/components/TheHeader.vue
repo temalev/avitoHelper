@@ -1,6 +1,6 @@
 <template>
 <header>
-  <div class="logo pointer" @click="$router.push({name: 'home'})">aviGroup</div>
+  <div class="logo pointer" @click="$router.push({name: 'home'})">AviGroup</div>
   <div class="user" @click="toggle">
     <Avatar :label="firstWord" style="background-color: #ece9fc; color: #2a1261" />
     <div class="rounded-lg p-1-4 bg-[#58dc13d3]">{{store.user.balance }} ₽</div>
@@ -35,10 +35,7 @@ header {
   justify-content: space-between;
   height: 52px;
   padding: 0 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #d5d7eaad;
   z-index: 10000;
-  box-shadow: 0 0 10px 15px #999;
 
   .logo {
     color: #0c0c0c;

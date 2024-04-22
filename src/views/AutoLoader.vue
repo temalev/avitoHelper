@@ -1,8 +1,8 @@
 <template>
   <div class="page">
-    <TheHeader />
+    <TheSideBar />
     <main>
-      <TheSideBar />
+      <TheHeader />
       <div class="body flex justify-content-center">
         <div class="d-flex-column align-flex-start">
           <Tree :value="categoriesFiltered" class="w-full md:w-20rem">
@@ -212,12 +212,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.page {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  background-color: #F3F4F7;
+}
 main {
-  min-height: 100vh;
-  overflow: hidden;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: inherit;
 }
 .body {
-  box-sizing: border-box;
+  margin: 20px;
+  display: flex;
+  gap: 18px;
+  align-content: flex-start;
+  overflow-y: auto;
+
 }
 
 .fields {

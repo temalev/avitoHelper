@@ -1,5 +1,6 @@
 <template>
 <div class="menu">
+  <div class="logo pointer mb-2" @click="$router.push({name: 'home'})">AviGroup</div>
   <router-link v-for="link in menuItems" :key="link" class="menu-item" :class="{'active': link.value === $route.name}" :to="{name: link.value}">{{ link.name }}</router-link>
 </div>
 </template>
@@ -49,15 +50,24 @@ data() {
   // height: 100%;
   // min-height: 100%;
   color: #6e6e6e;
-  border-right: 1px solid #acb0cdad;
   padding-top: 12px;
+  border-radius: 8px;
+
+  & .logo {
+    padding: 0 20px;
+    font-size: 22px;
+    color: #000;
+  }
 
   & a {
     color: #6e6e6e;
+    margin: 2px 20px;
+    border-radius: 8px;
   }
 
   & .active {
-    color: hsla(160, 100%, 37%, 1);
+    color: #fff;
+    background-color: #1C55FC;
   }
 
   &-item {
@@ -66,6 +76,7 @@ data() {
 
     &:hover {
       color: #000000;
+      background-color: #1c54fc15;
     }
   }
 }

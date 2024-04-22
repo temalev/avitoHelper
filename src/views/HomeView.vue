@@ -5,9 +5,9 @@ import TheSideBar from '../components/TheSideBar.vue'
 
 <template>
   <div class="page">
-    <TheHeader />
+    <TheSideBar />
     <main>
-      <TheSideBar />
+      <TheHeader />
       <div class="body">
         <Card style="width: 25rem; overflow: hidden; height: 300px" @click="$router.push({name: 'chatGpt'})" class="pointer">
           <template #header>
@@ -62,6 +62,17 @@ import TheSideBar from '../components/TheSideBar.vue'
   </div>
 </template>
 <style lang="scss" scoped>
+.page {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  background-color: #F3F4F7;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  background-color: inherit;
+}
 .body {
   margin: 20px;
   display: flex;

@@ -1,8 +1,8 @@
 <template>
   <div class="page">
-    <TheHeader />
+    <TheSideBar />
     <main>
-      <TheSideBar />
+      <TheHeader />
       <div class="body">
         <Card>
           <template #title>Рандомайзер текста</template>
@@ -185,15 +185,26 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.page {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  background-color: #F3F4F7;
+}
 main {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: inherit;
 }
 .body {
   margin: 20px;
-  width: 100%;
-  height: 100%;
-}
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow-y: auto;
 
+}
 .editor {
   border: 1px solid #eee;
   border-radius: 6px;
