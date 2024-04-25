@@ -7,6 +7,10 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      meta: {
+        name: 'home',
+        title: 'Домашняя страница'
+      },
       component: HomeView
     },
     {
@@ -24,7 +28,8 @@ const router = createRouter({
       path: '/chatGpt',
       name: 'chatGpt',
       meta: {
-        name: 'chatGpt'
+        name: 'chatGpt',
+        title: 'Чат-GPT'
       },
       component: () => import('../views/chatGpt.vue')
     },
@@ -32,7 +37,8 @@ const router = createRouter({
       path: '/randomizerText',
       name: 'randomizerText',
       meta: {
-        name: 'randomizerText'
+        name: 'randomizerText',
+        title: 'Рандомизатор текста'
       },
       component: () => import('../views/randomizerText.vue')
     },
@@ -40,7 +46,8 @@ const router = createRouter({
       path: '/autoloader',
       name: 'autoloader',
       meta: {
-        name: 'autoloader'
+        name: 'autoloader',
+        title: 'Создание файлов автозагрузки'
       },
       component: () => import('../views/AutoLoader.vue')
     },
@@ -48,7 +55,8 @@ const router = createRouter({
       path: '/parser',
       name: 'parser',
       meta: {
-        name: 'parser'
+        name: 'parser',
+        title: 'Сборщик объявлений авито'
       },
       component: () => import('../views/Parser.vue')
     },
