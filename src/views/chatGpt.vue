@@ -1,13 +1,8 @@
 
 <template>
-  <div class="page">
-    <TheSideBar />
     <main>
-    <TheHeader />
-
       <iframe id="myIFrame" :src="`https://chat.avigroup.site/#${hash}`" frameborder="0"></iframe>
     </main>
-    </div>
 </template>
 <script>
 import {getHash} from '@/api/gpt'
@@ -41,12 +36,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.page {
-  display: flex;
-  gap: 12px;
-  padding: 20px;
-  background-color: #F3F4F7;
-}
 main {
   display: flex;
   flex-direction: column;

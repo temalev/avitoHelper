@@ -1,8 +1,5 @@
 <template>
-  <div class="page">
-    <TheSideBar />
     <main>
-      <TheHeader />
       <div class="body h-full">
         <Card class="w-full">
           <template #title>Сборщик объявлений авито</template>
@@ -43,7 +40,6 @@
         </Card>
       </div>
     </main>
-  </div>
 </template>
 <script>
 import { getAllParsers, startParser } from '@/api/parser'
@@ -102,13 +98,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page {
-  display: flex;
-  gap: 12px;
-  padding: 20px;
-  height: 100%;
-  background-color: #F3F4F7;
-}
 main {
   display: flex;
   flex-direction: column;

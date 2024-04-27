@@ -1,8 +1,5 @@
 <template>
-  <div class="page">
-    <TheSideBar />
     <main>
-      <TheHeader />
       <div class="body flex justify-content-center">
         <div class="d-flex-column align-flex-start">
           <Tree :value="categoriesFiltered" class="w-full md:w-20rem">
@@ -88,7 +85,6 @@
         </div>
       </div>
     </main>
-  </div>
 </template>
 <script>
 import { getCategories, getFields, createFile } from '@/api/autoloader'
@@ -212,12 +208,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page {
-  display: flex;
-  gap: 12px;
-  padding: 20px;
-  background-color: #F3F4F7;
-}
 main {
   width: 100%;
   display: flex;

@@ -1,13 +1,10 @@
 <script setup>
-import TheHeader from '../components/TheHeader.vue'
-import TheSideBar from '../components/TheSideBar.vue'
+
 </script>
 
 <template>
   <div class="page">
-    <TheSideBar />
     <main>
-      <TheHeader />
       <div class="body">
         <Card style="width: 25rem; overflow: hidden; height: 300px" @click="$router.push({name: 'chatGpt'})" class="pointer">
           <template #header>

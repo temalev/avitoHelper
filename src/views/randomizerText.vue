@@ -1,9 +1,5 @@
 <template>
-  <div class="page">
-    <TheSideBar />
     <main>
-      <TheHeader />
-      <div class="body">
         <Card>
           <template #title>Рандомайзер текста</template>
           <template #content>
@@ -84,19 +80,14 @@
           </template>
         </Card>
       </Panel>
-      </div>
     </main>
-  </div>
 </template>
 <script>
 import { debounce } from '@/utils/debounce.js'
 
-import TheHeader from '@/components/TheHeader.vue'
-import TheSideBar from '@/components/TheSideBar.vue'
 import { getRandomizerCount, createRandomText, getAllRandomizer, downloadTemplate } from '@/api/randomizer'
 
 export default {
-  components: { TheSideBar, TheHeader },
   data() {
     return {
       content: 'test',
@@ -185,12 +176,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.page {
-  display: flex;
-  gap: 12px;
-  padding: 20px;
-  background-color: #F3F4F7;
-}
 main {
   display: flex;
   flex-direction: column;
