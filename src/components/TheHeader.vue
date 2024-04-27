@@ -3,8 +3,11 @@
   <div class="logo pointer" @click="$router.push({name: 'home'})">{{ $route.meta.title }}</div>
   <div class="user" @click="toggle">
     <Avatar :label="firstWord" style="background-color: #ece9fc; color: #2a1261" />
-    <div class="rounded-lg p-1-4 bg-[#58dc13d3]">{{store.user.balance }} ₽</div>
     {{ store.user.name }}
+    <div class="d-flex gap-4 rounded-lg" style="border: 1px solid #58dc13d3">
+      <span class="ml-4">{{store.user.balance }} ₽</span>
+      <div class="p-1-4 bg-[#58dc13d3] pointer" style="border-radius: inherit">Пополнить</div>
+    </div>
   </div>
 </header>
 </template>
