@@ -20,7 +20,7 @@
       <span class="p-text-secondary block mb-5">Введите сумму и способ пополнения</span>
       <div class="flex align-center gap-3 mb-3">
         <label for="username" class="font-semibold w-6rem">Сумма</label>
-        <InputNumber v-model="form.amount" inputId="integeronly" />
+        <InputNumber v-model="form.amount" inputId="integeronly" :min="500" />
       </div>
       <div class="d-flex-column align-items-center gap-3 mb-2">
         <label class="font-semibold ">Пополнить с помощью:</label>
