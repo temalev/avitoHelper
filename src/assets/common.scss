@@ -6,6 +6,8 @@
   background-color: #F3F4F7;
   max-height: calc(100vh - 40px);
   max-width: calc(100vw - 60px);
+  min-height: calc(100vh - 40px);
+  min-width: calc(100vw - 60px);
 }
 @for $i from 0 through 16 {
   .m-#{$i} {
