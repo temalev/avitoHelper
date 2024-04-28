@@ -5,7 +5,7 @@
       <Avatar :label="firstWord" style="background-color: #ece9fc; color: #2a1261" />
       {{ store.user.name }}
       <div class="d-flex gap-4 rounded-lg" style="border: 1px solid #58dc13d3">
-        <span class="ml-4">{{ store.user.balance }} ₽</span>
+        <span class="ml-4" style="text-wrap: nowrap">{{ store.user.balance }} ₽</span>
         <div
           class="p-1-4 bg-[#58dc13d3] pointer"
           style="border-radius: inherit"
