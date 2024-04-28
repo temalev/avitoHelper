@@ -180,16 +180,9 @@ main {
   display: flex;
   flex-direction: column;
   background-color: inherit;
-}
-.body {
-  margin: 20px;
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-  align-content: flex-start;
   overflow-y: auto;
-
 }
+
 .editor {
   border: 1px solid #eee;
   border-radius: 6px;

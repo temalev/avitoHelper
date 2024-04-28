@@ -102,6 +102,7 @@ main {
   display: flex;
   flex-direction: column;
   background-color: inherit;
+  overflow: hidden;
 }
 .body {
   margin: 20px;

@@ -213,13 +213,14 @@ main {
   display: flex;
   flex-direction: column;
   background-color: inherit;
+  overflow-y: auto;
+
 }
 .body {
   margin: 20px;
   display: flex;
   gap: 18px;
   align-content: flex-start;
-  overflow-y: auto;
 
 }
 
