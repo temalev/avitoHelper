@@ -74,6 +74,10 @@ export default {
   & .active {
     color: #fff;
     background-color: #1c55fc;
+    &:hover {
+      color: #fff;
+      background-color: #1543cc;
+    }
   }
 
   &-item {
