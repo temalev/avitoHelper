@@ -62,7 +62,7 @@
 .page {
   display: flex;
   gap: 12px;
-  padding: 20px;
+  padding: 0 20px;
   background-color: #F3F4F7;
 }
 main {
