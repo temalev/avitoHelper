@@ -2,7 +2,7 @@
     <main>
       <div class="body flex justify-content-center">
         <div class="d-flex-column align-flex-start">
-          <Tree :value="categoriesFiltered" class="w-full md:w-20rem">
+          <Tree :value="categoriesFiltered" class="w-full md:w-20rem" style="box-sizing: content-box">
             <template #default="slotProps">
               <b class="item">{{ slotProps.node.name }}</b>
             </template>
