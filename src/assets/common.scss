@@ -12,6 +12,9 @@
 .p-icon-field > .p-input-icon {
   top: 30%;
 }
+.p-password-input {
+  width: 100%;
+}
 @for $i from 0 through 16 {
   .m-#{$i} {
     margin: $i * 4px !important;
