@@ -9,6 +9,9 @@
   min-height: calc(100vh - 40px);
   min-width: calc(100vw - 60px);
 }
+.p-icon-field > .p-input-icon {
+  top: 30%;
+}
 @for $i from 0 through 16 {
   .m-#{$i} {
     margin: $i * 4px !important;
