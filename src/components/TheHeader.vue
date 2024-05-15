@@ -14,6 +14,16 @@
           Пополнить
         </div>
       </div>
+      <div
+      @click="logout"
+          class="ico pointer"
+          style="
+            backgroundImage: url(/src/assets/icons/logout.svg);
+            width: 20px;
+            height: 20px;
+            color: #eee;
+          "
+        />
     </div>
     <Dialog v-model:visible="showPanel" modal header="Edit Profile" :style="{ width: '25rem' }">
       <template #header> Пополнить баланс </template>
@@ -44,7 +54,10 @@
 <script>
 import { useUserStore } from '@/stores/user'
 import {payment} from '@/api/payment'
+import {logout} from '@/api/login'
+import SvgIcon from '@/components/SvgIcon/index.vue'
 export default {
+  components: {SvgIcon},
   data() {
     return {
       store: useUserStore(),
@@ -78,6 +91,16 @@ export default {
       }
       catch(e) {
         console.error(e);
+      }
+    },
+    async logout() {
+      try {
+        await logout()
+        window.open('https://avi_group.tilda.ws', '_self')
+      }
+      catch(e) {
+        console.error(e)
+
       }
     }
   }

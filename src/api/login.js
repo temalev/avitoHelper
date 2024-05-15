@@ -23,6 +23,17 @@ export function signIn(data) {
 }
 
 /**
+ * Выход
+ */
+export function logout(data) {
+  return request({
+    url: '/logout',
+    method: 'post',
+    data,
+  });
+}
+
+/**
  * Вход
  */
 export function getMe() {

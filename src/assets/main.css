@@ -6,7 +6,7 @@
 a,
 .green {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color: rgb(0, 107, 189);
   transition: 0.4s;
   padding: 3px;
 }
@@ -14,12 +14,6 @@ a,
 main {
   display: flex;
   background-color: #fff;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
 }
 
 .d-flex {
