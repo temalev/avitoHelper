@@ -42,6 +42,21 @@ export default {
           id: 5,
           name: 'Парсинг',
           value: 'parser'
+        },
+        {
+          id: 6,
+          name: 'Авито сообщения',
+          value: 'chats'
+        },
+        {
+          id: 7,
+          name: 'Инструменты для Маркетолога',
+          value: 'calculators'
+        },
+        {
+          id: 8,
+          name: 'Настройки',
+          value: 'settings'
         }
       ]
     }
