@@ -3,7 +3,7 @@
     <main>
       <div class="d-flex-column">
       <Card v-for="item in list" :key="item.id" class="mt-4 w-full pointer" @click="$router.push({name: 'chat', params: {chatId: item.id}})">
-        <template #title>{{ item.avitoAccount.name }}</template>
+        <template #title>{{ item.title }}</template>
         <template #content> 
           <div class="d-flex-column">
             <div>{{ item.avitoAccount.email }}</div>
