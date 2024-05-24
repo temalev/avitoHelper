@@ -9,3 +9,24 @@ export function getChats() {
     method: 'get',
   });
 }
+
+/**
+ * Получить сообщения чата
+ */
+export function getChatMessages(chatId) {
+  return request({
+    url: `/conversation/${chatId}/messages`,
+    method: 'get',
+  });
+}
+
+/**
+ * Отправить сообщение
+ */
+export function sendMessage(chatId, data) {
+  return request({
+    url: `/conversation/${chatId}/message`,
+    method: 'post',
+    data,
+  });
+}

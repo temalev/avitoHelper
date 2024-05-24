@@ -63,11 +63,43 @@ const router = createRouter({
     {
       path: '/chats',
       name: 'chats',
+      props: true,
       meta: {
         name: 'chats',
         title: 'Авито сообщения'
       },
-      component: () => import('../views/Chats.vue')
+      component: () => import('../views/ChatsRoute.vue'),
+      children: [
+        {
+          path: 'list',
+          name: 'chatsList',
+          meta: {
+            name: 'chatsList',
+            title: 'Авито сообщения'
+          },
+          component: () => import('../views/Chats.vue')
+        },
+        {
+          path: ':chatId',
+          name: 'chat',
+          props: true,
+          meta: {
+            name: 'chat',
+            title: 'Авито сообщения'
+          },
+          component: () => import('../views/Chat.vue')
+        },
+      ]
+    },
+
+    {
+      path: '/auto-replies',
+      name: 'autoReplies',
+      meta: {
+        name: 'autoReplies',
+        title: 'Автоответы'
+      },
+      component: () => import('../views/autoReplies.vue')
     },
 
     {

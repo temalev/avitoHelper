@@ -2,7 +2,7 @@
 <template>
     <main>
       <div class="d-flex-column">
-      <Card v-for="item in list" :key="item.id" class="mt-4 w-full">
+      <Card v-for="item in list" :key="item.id" class="mt-4 w-full pointer" @click="$router.push({name: 'chat', params: {chatId: item.id}})">
         <template #title>{{ item.avitoAccount.name }}</template>
         <template #content> 
           <div class="d-flex-column">
@@ -19,6 +19,9 @@
 import { useUserStore } from '@/stores/user'
 import { getChats } from '@/api/chats';
 export default {
+  props: {
+    chatId: [String]
+  },
   data() {
     return {
       list: '',
@@ -68,7 +71,6 @@ export default {
       }
     },
     sendMessage() {
-      console.log(this.store.user.uuid);
       this.connection.send(JSON.stringify({"type":"subscribe","userUuid": this.store.user.uuid}))
     }
   }

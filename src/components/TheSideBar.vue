@@ -46,15 +46,20 @@ export default {
         {
           id: 6,
           name: 'Авито сообщения',
-          value: 'chats'
+          value: 'chatsList'
         },
         {
           id: 7,
+          name: 'Автоответы',
+          value: 'autoReplies'
+        },
+        {
+          id: 8,
           name: 'Инструменты для Маркетолога',
           value: 'calculators'
         },
         {
-          id: 8,
+          id: 9,
           name: 'Настройки',
           value: 'settings'
         }
