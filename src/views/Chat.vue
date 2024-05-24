@@ -39,7 +39,7 @@ export default {
     async getChatMessages() {
       try {
         const res = await getChatMessages(this.chatId)
-        this.messages = res
+        this.messages = res.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt))
       } catch (e) {
         console.error(e)
       }
