@@ -7,6 +7,10 @@ import VueAxios from 'vue-axios'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+
+import VueChartkick from 'vue-chartkick'
+import 'chartkick/chart.js'
+
 import PrimeVue from 'primevue/config';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
@@ -35,6 +39,8 @@ app.use(PrimeVue);
 app.use(createPinia())
 app.use(router)
 app.use(VueAxios, axios)
+app.use(VueChartkick)
+
 app.component('InputText', InputText);
 app.component('Button', Button);
 app.component('Dialog', Dialog);
