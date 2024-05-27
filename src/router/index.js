@@ -305,6 +305,16 @@ const router = createRouter({
         },
       ]
     },
+
+    {
+      path: '/stats',
+      name: 'stats',
+      meta: {
+        name: 'stats',
+        title: 'Статистика'
+      },
+      component: () => import('../views/Stats.vue')
+    },
     
     {
       path: '/settings',

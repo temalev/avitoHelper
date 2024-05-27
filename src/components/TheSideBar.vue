@@ -60,6 +60,11 @@ export default {
         },
         {
           id: 9,
+          name: 'Статистика',
+          value: 'stats'
+        },
+        {
+          id: 10,
           name: 'Настройки',
           value: 'settings'
         }

@@ -18,7 +18,7 @@
               </div>
               <div class="editor-footer">
                 <div class="d-flex-column gap-2">
-                  <label for="minmax">Введите желаемое количество вариантов</label>
+                  <label for="minmax">Вес</label>
                   <InputNumber
                     v-model="count"
                     inputId="minmax"

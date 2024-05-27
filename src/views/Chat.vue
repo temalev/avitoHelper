@@ -1,21 +1,24 @@
 <template>
   <div class="chat">
     <div class="chat-messages">
-      <div v-for="message in messages" :key="message.id" class="message-container" :style="{justifyContent: message.isMyMessage ? 'flex-end' : 'flex-start'}">
-        <div class="message">
+      <div
+        v-for="message in messages"
+        :key="message.id"
+        class="message-container"
+        :style="{ 
+        justifyContent: message.isMyMessage ? 'flex-end' : 'flex-start',
+        }"
+      >
+        <div class="message" :style="{
+          backgroundColor: message.isMyMessage ? '#506bb68a' : '',
+        }">
           {{ message.text }}
         </div>
-
       </div>
     </div>
     <div class="chat-bottom">
       <InputText id="email" v-model="inputMessage" class="flex-auto" autocomplete="off" />
-      <Button
-          type="button"
-          label="Отправить"
-          severity="secondary"
-          @click="sendMessage"
-        ></Button>
+      <Button type="button" label="Отправить" severity="secondary" @click="sendMessage"></Button>
     </div>
   </div>
 </template>
@@ -29,7 +32,7 @@ export default {
   data() {
     return {
       messages: '',
-      inputMessage: null,
+      inputMessage: null
     }
   },
   mounted() {
@@ -39,7 +42,7 @@ export default {
     async getChatMessages() {
       try {
         const res = await getChatMessages(this.chatId)
-        this.messages = res.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt))
+        this.messages = res.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
       } catch (e) {
         console.error(e)
       }
@@ -52,11 +55,10 @@ export default {
         const res = await sendMessage(this.chatId, data)
         this.inputMessage = null
         setTimeout(() => {
-        this.getChatMessages();
-        }, 500);
-      }
-      catch(e) {
-        console.error(e);
+          this.getChatMessages()
+        }, 500)
+      } catch (e) {
+        console.error(e)
       }
     }
   }
@@ -86,7 +88,7 @@ export default {
   & .message {
     width: fit-content;
     border: 1px solid #506bb623;
-    background-color:#506bb623 !important;
+    background-color: #506bb623;
     border-radius: 12px;
     padding: 12px;
   }

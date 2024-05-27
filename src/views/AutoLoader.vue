@@ -174,12 +174,12 @@ export default {
     },
     async onSelectFile(e) {
       this.uuid = uuidv4()
-      const files = e.target.files
+      const file = e.target.files
       const params = {
         albumUuid: this.uuid,
       }
       try {
-        const file = await uploadFile(files[0], params)
+        const file = await uploadFile(file[0], params)
       } catch (e) {
         console.error(e)
       }

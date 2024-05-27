@@ -9,3 +9,15 @@ export function getAutoReplies() {
     method: 'get',
   });
 }
+
+/**
+ * Создать автоответ
+ */
+export function createAutoReply(data) {
+  return request({
+    url: '/autoreply-message-scenario',
+    method: 'post',
+    data,
+  });
+}
+
