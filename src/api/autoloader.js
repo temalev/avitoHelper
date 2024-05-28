@@ -28,6 +28,5 @@ export function createFile(data) {
     url: `/autoloader/file`,
     method: 'post',
     data,
-    responseType: 'blob'
   });
 }

@@ -1,90 +1,95 @@
 <template>
-    <main>
-      <div class="body flex justify-content-center">
-        <div class="d-flex-column align-flex-start">
-          <Tree :value="categoriesFiltered" class="w-full md:w-20rem" style="box-sizing: content-box">
-            <template #default="slotProps">
-              <b class="item">{{ slotProps.node.name }}</b>
-            </template>
-            <template #url="slotProps">
-              <span class="lastChild hover:link" @click="getFields(slotProps.node.id)">{{
-                slotProps.node.name
-              }}</span>
-            </template>
-          </Tree>
-          <div class="m-0-6 d-flex-column">
-            <label for="integeronly" class="font-bold block mb-2"> Количество </label>
-            <InputNumber v-model="count" inputId="integeronly" />
-            <Button type="button" @click="createFile" label="Сгенерировать файл" :loading="generateFileProcess" style="height: 32px" class="mt-5"
-              ></Button
-            >
-          </div>
-        </div>
-        <div class="fields d-flex-column gap-4">
-          <Panel v-for="field in fields" :key="field.id" toggleable>
-            <template #header>
-              <div>
-                {{ field.tag }}
-                <span class="ml-4 text-orange-400 text-xs" v-if="field.required">Обязательный</span>
-              </div>
-            </template>
-            <p class="text-sm description" style="overflow-wrap: anywhere">
-              {{ field.description }}
-            </p>
-            <div class="d-flex-column mt-4 bg-[#eee9] p-2 rounded-md">
-              <b>Пример заполнения</b>
-              <p>{{ field.example }}</p>
-            </div>
-            <div class="mt-4">
-              <Textarea
-                v-if="field.type === 'input' && field.tag !== 'ImageUrls'"
-                type="text"
-                style="width: 500px"
-                v-model="field.inputValue"
-                placeholder="Введите значение..."
-                rows="5"
-                cols="30"
-              />
-              <template v-if="field.type === 'checkbox'">
-                <div
-                  v-for="item in field.data.values"
-                  :key="item.value"
-                  class="flex align-items-center gap-2"
-                >
-                  <Checkbox
-                    v-model="field.inputValue"
-                    :inputId="item.value"
-                    name="category"
-                    :value="item.value"
-                  />
-                  <label :for="item.value">{{ item.value }}</label>
-                </div>
-              </template>
-              <Dropdown
-                v-if="field.type === 'select'"
-                v-model="field.inputValue"
-                editable
-                :options="field.data.values"
-                optionValue="value"
-                optionLabel="value"
-                placeholder="Одно из значений"
-              />
-              <Button v-if="field.tag === 'ImageUrls'" @click="openFileDialog">Загрузить</Button>
-              <input
-                v-if="field.tag === 'ImageUrls'"
-                hidden
-                ref="fileInput"
-                type="file"
-                id="avatar"
-                name="avatar"
-                accept="image/png, image/jpeg"
-                @change="onSelectFile"
-              />
-            </div>
-          </Panel>
+  <main>
+    <div class="body flex justify-content-center">
+      <div class="d-flex-column align-flex-start">
+        <Tree :value="categoriesFiltered" class="w-full md:w-20rem" style="box-sizing: content-box">
+          <template #default="slotProps">
+            <b class="item">{{ slotProps.node.name }}</b>
+          </template>
+          <template #url="slotProps">
+            <span class="lastChild hover:link" @click="getFields(slotProps.node.id)">{{
+              slotProps.node.name
+            }}</span>
+          </template>
+        </Tree>
+        <div class="m-0-6 d-flex-column">
+          <label for="integeronly" class="font-bold block mb-2"> Количество </label>
+          <InputNumber v-model="count" inputId="integeronly" />
+          <Button
+            type="button"
+            @click="createFile"
+            label="Сгенерировать файл"
+            :loading="generateFileProcess"
+            style="height: 32px"
+            class="mt-5"
+          ></Button>
         </div>
       </div>
-    </main>
+      <div class="fields d-flex-column gap-4">
+        <Panel v-for="field in fields" :key="field.id" toggleable>
+          <template #header>
+            <div>
+              {{ field.tag }}
+              <span class="ml-4 text-orange-400 text-xs" v-if="field.required">Обязательный</span>
+            </div>
+          </template>
+          <p class="text-sm description" style="overflow-wrap: anywhere">
+            {{ field.description }}
+          </p>
+          <div class="d-flex-column mt-4 bg-[#eee9] p-2 rounded-md">
+            <b>Пример заполнения</b>
+            <p>{{ field.example }}</p>
+          </div>
+          <div class="mt-4">
+            <Textarea
+              v-if="field.type === 'input' && field.tag !== 'ImageUrls'"
+              type="text"
+              style="width: 500px"
+              v-model="field.inputValue"
+              placeholder="Введите значение..."
+              rows="5"
+              cols="30"
+            />
+            <template v-if="field.type === 'checkbox'">
+              <div
+                v-for="item in field.data.values"
+                :key="item.value"
+                class="flex align-items-center gap-2"
+              >
+                <Checkbox
+                  v-model="field.inputValue"
+                  :inputId="item.value"
+                  name="category"
+                  :value="item.value"
+                />
+                <label :for="item.value">{{ item.value }}</label>
+              </div>
+            </template>
+            <Dropdown
+              v-if="field.type === 'select'"
+              v-model="field.inputValue"
+              editable
+              :options="field.data.values"
+              optionValue="value"
+              optionLabel="value"
+              placeholder="Одно из значений"
+            />
+            <Button v-if="field.tag === 'ImageUrls'" @click="openFileDialog">Загрузить</Button>
+            <input
+              v-if="field.tag === 'ImageUrls'"
+              hidden
+              ref="fileInput"
+              type="file"
+              id="avatar"
+              name="avatar"
+              accept="image/png, image/jpeg"
+              @change="onSelectFile"
+            />
+          </div>
+        </Panel>
+      </div>
+    </div>
+  </main>
 </template>
 <script>
 import { getCategories, getFields, createFile } from '@/api/autoloader'
@@ -105,7 +110,7 @@ export default {
       accept: '.jpg, .png',
       uuid: null,
       categoryId: null,
-      generateFileProcess: false,
+      generateFileProcess: false
     }
   },
 
@@ -140,7 +145,7 @@ export default {
 
   methods: {
     async createFile() {
-    this.generateFileProcess = true;
+      this.generateFileProcess = true
       const fields = []
       this.fields.forEach((el) => {
         if (el.tag === 'ImageUrls' && this.uuid) {
@@ -164,11 +169,11 @@ export default {
         // link.href = window.URL.createObjectURL(blob)
         // link.download = 'template.xlsx'
         // link.click()
-        window.location.href = res.body.url
+        window.open(res.url, '_blank')
       } catch (e) {
         console.error(e)
       }
-      this.generateFileProcess = false;
+      this.generateFileProcess = false
     },
     openFileDialog() {
       this.$refs.fileInput[0].click()
@@ -177,7 +182,7 @@ export default {
       this.uuid = uuidv4()
       const file = e.target.files
       const params = {
-        albumUuid: this.uuid,
+        albumUuid: this.uuid
       }
       try {
         const file = await uploadFile(file[0], params)
@@ -215,14 +220,12 @@ main {
   flex-direction: column;
   background-color: inherit;
   overflow-y: auto;
-
 }
 .body {
   margin: 20px;
   display: flex;
   gap: 18px;
   align-content: flex-start;
-
 }
 
 .fields {
