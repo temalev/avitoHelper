@@ -1,7 +1,8 @@
 
 <template>
     <main>
-      <div class="d-flex-column">
+      <Dropdown v-model="selectedAccount" :options="accounts" optionLabel="name" optionValue="id" placeholder="Выберите аккаунт" class="w-full md:w-14rem" />
+      <div class="chats">
       <Card v-for="item in list" :key="item.id" class="mt-4 w-full pointer" @click="$router.push({name: 'chat', params: {chatId: item.id}})">
         <template #title>{{ item.title }}</template>
         <template #content> 
@@ -27,6 +28,13 @@ export default {
       list: '',
       connection: null,
       store: useUserStore(),
+      selectedAccount: 1,
+      accounts: [
+        {
+          id: 1,
+          name: 'Паша'
+        }
+      ]
     }
   },
   mounted(){
@@ -83,6 +91,12 @@ main {
   background-color: inherit;
   width: 100%;
   min-height: 100vh;
+  height: 100%;
+}
+.chats {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
 }
 iframe {
   width: 100%;
