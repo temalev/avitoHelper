@@ -1,6 +1,13 @@
 <template>
   <main>
     <!-- <img src="/public/img/chart.png" alt="" width="80%"> -->
+    <h3 class="m-4">График просмотры/избранное/звонки по всем аккаунтам и объявлениям</h3>
+    <line-chart :data="data" download="boom" />
+    <h3 class="m-4">Звонки</h3>
+    <line-chart :data="data" download="boom" />
+    <h3 class="m-4">Сообщения</h3>
+    <line-chart :data="data" download="boom" />
+    <h3 class="m-4">Баланс</h3>
     <line-chart :data="data" download="boom" />
   </main>
 </template>
