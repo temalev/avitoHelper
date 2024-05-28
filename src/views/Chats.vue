@@ -19,6 +19,7 @@
 <script>
 import { useUserStore } from '@/stores/user'
 import { getChats } from '@/api/chats';
+import {getAccounts} from '@/api/avitoAccount'
 export default {
   props: {
     chatId: [String]
@@ -37,8 +38,14 @@ export default {
       ]
     }
   },
+  watch: {
+    selectedAccount(val) {
+      this.getChats()
+    }
+  },
   mounted(){
     this.getChats()
+    this.getAccounts()
   },
   created() {
     this.connection = new WebSocket("wss://api.avigroup.site/ws")
@@ -64,20 +71,31 @@ export default {
       console.log('Successfully connected to the echo websocket server...');
       this.sendMessage()
     }
-
-
   },
 
   methods: {
     async getChats(){
+      const params = {
+        accountId: this.selectedAccount
+      }
       try {
-        const res = await getChats()
+        const res = await getChats(params)
         this.list = res
       }
       catch(e) {
         console.error(e);
       }
     },
+    async getAccounts(){
+      try {
+        const res = await getAccounts()
+        this.accounts = res.accounts
+      }
+      catch(e) {
+        console.error(e);
+      }
+    },
+
     sendMessage() {
       this.connection.send(JSON.stringify({"type":"subscribe","userUuid": this.store.user.uuid}))
     }

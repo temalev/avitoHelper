@@ -1,5 +1,6 @@
 <template>
   <main>
+    <the-tabs :data="tabs" />
     <h1>Интеграции</h1>
     <Button
       type="button"
@@ -66,6 +67,16 @@ export default {
         clientSecret: ''
       },
       list: [],
+      tabs: [
+        {
+          id: 1,
+          label: 'Интеграции' 
+        },
+        {
+          id: 2,
+          label: 'Реферральная программа' 
+        }
+      ]
     }
   },
 

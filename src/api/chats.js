@@ -3,10 +3,11 @@ import request from '@/utils/request';
 /**
  * Получить чаты
  */
-export function getChats() {
+export function getChats(params) {
   return request({
     url: '/conversations',
     method: 'get',
+    params
   });
 }
 
