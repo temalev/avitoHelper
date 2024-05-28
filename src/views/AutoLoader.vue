@@ -159,11 +159,12 @@ export default {
       })
       try {
         const res = await createFile({ fields, count: this.count, categoryId: this.categoryId })
-        var blob = new Blob([res], { type: res.type })
-        var link = document.createElement('a')
-        link.href = window.URL.createObjectURL(blob)
-        link.download = 'template.xlsx'
-        link.click()
+        // var blob = new Blob([res], { type: res.type })
+        // var link = document.createElement('a')
+        // link.href = window.URL.createObjectURL(blob)
+        // link.download = 'template.xlsx'
+        // link.click()
+        window.location.href = res.body.url
       } catch (e) {
         console.error(e)
       }
