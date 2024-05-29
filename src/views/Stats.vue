@@ -1,5 +1,7 @@
 <template>
   <main>
+    <Dropdown v-model="selectedAccount" :options="accounts" optionLabel="name" optionValue="id" placeholder="Выберите аккаунт" class="w-full md:w-14rem" />
+
     <!-- <img src="/public/img/chart.png" alt="" width="80%"> -->
     <h3 class="m-4">График просмотры/избранное/звонки по всем аккаунтам и объявлениям</h3>
     <line-chart :data="data" download="boom" />
@@ -12,6 +14,9 @@
   </main>
 </template>
 <script>
+
+import { getContactsFavoritesViews } from '@/api/avitoStatistics'
+import {getAccounts} from '@/api/avitoAccount'
 export default {
   data() {
     return {
@@ -43,8 +48,41 @@ export default {
             '2024-02-02 00:00:00 -0800': 18
           }
         }
-      ]
+      ],
+      accounts: [],
+      selectedAccount: null,
+      contactsFavoritesViews: []
     }
+  },
+  mounted() {
+    this.getAccounts()
+  },
+  watch: {
+    selectedAccount(val) {
+      this.getContactsFavouritesViews()
+    }
+  },
+  methods: {
+    async getContactsFavouritesViews() {
+      try {
+        const res = await getContactsFavoritesViews(this.selectedAccount)
+        res.forEach(element => {
+          
+        });
+      }
+      catch(e) {
+        console.error(e);
+      }
+    },
+    async getAccounts(){
+      try {
+        const res = await getAccounts()
+        this.accounts = res.accounts
+      }
+      catch(e) {
+        console.error(e);
+      }
+    },
   }
 }
 </script>
