@@ -18,15 +18,10 @@
               </div>
               <div class="editor-footer">
                 <div class="d-flex-column gap-2">
-                  <label for="minmax">Вес</label>
-                  <InputNumber
-                    v-model="count"
-                    inputId="minmax"
-                    :min="0"
-                    :max="maxCount"
-                    style="width: 80px"
-                  />
+                  <label for="minmax" class="mb-2">Частота повторений шаблонов</label>
+                  <Slider v-model="count" class="w-14rem" />
                   <Button
+                  class="mt-8"
                     type="button"
                     label="Создать автоответ"
                     @click="createAutoReply"
@@ -143,4 +138,11 @@ main {
     border-top: 1px solid #eee;
   }
 }
+
+::v-deep {
+  .p-slider-handle {
+  top: -8px;
+}
+}
+
 </style>

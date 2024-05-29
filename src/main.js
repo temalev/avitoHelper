@@ -30,6 +30,7 @@ import FileUpload from 'primevue/fileupload';
 import Textarea from 'primevue/textarea';
 import RadioButton from 'primevue/radiobutton';
 import TheTabs from '@/ui/TheTabs.vue';
+import Slider from 'primevue/slider';
 
 import App from './App.vue'
 import router from './router'
@@ -60,5 +61,7 @@ app.component('InlineMessage', InlineMessage);
 app.component('FileUpload', FileUpload);
 app.component('Textarea', Textarea);
 app.component('RadioButton', RadioButton);
+app.component('Slider', Slider);
+
 
 app.mount('#app')
