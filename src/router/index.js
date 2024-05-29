@@ -315,6 +315,16 @@ const router = createRouter({
       },
       component: () => import('../views/Stats.vue')
     },
+
+    {
+      path: '/accounts',
+      name: 'accounts',
+      meta: {
+        name: 'accounts',
+        title: 'Аккаунты'
+      },
+      component: () => import('../views/Accounts.vue')
+    },
     
     {
       path: '/settings',

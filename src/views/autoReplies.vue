@@ -1,75 +1,98 @@
-
 <template>
-    <main>
-      <div class="body h-full">
-        <Card>
-          <template #title>Создание автоответа</template>
-          <template #content>
-            <div class="editor">
-              <div class="editor-header">
-                <button @click="insertAtCursor('|')">Вставить "|"</button>
-                <button @click="insertAtCursor('||||')">Вставить "||||"</button>
-                <button @click="insertAtCursor('{||||}')">Вставить "{a|b|c|d|}"</button>
-                <button @click="insertAtCursor('[||||]')">Вставить "[a|b|c|d|]"</button>
-                <button @click="insertAtCursor('[+, +||||]')">Вставить "[+, +a|b|c|d|]"</button>
-              </div>
-              <div class="editor-body">
-                <textarea v-model="content" id="textarea" />
-              </div>
-              <div class="editor-footer">
+  <main>
+    <div class="body h-full">
+      <Card>
+        <template #title>Создание автоответа</template>
+        <template #content>
+          <div class="editor">
+            <div class="editor-header">
+              <button @click="insertAtCursor('|')">Вставить "|"</button>
+              <button @click="insertAtCursor('||||')">Вставить "||||"</button>
+              <button @click="insertAtCursor('{||||}')">Вставить "{a|b|c|d|}"</button>
+              <button @click="insertAtCursor('[||||]')">Вставить "[a|b|c|d|]"</button>
+              <button @click="insertAtCursor('[+, +||||]')">Вставить "[+, +a|b|c|d|]"</button>
+            </div>
+            <div class="editor-body">
+              <textarea v-model="content" id="textarea" />
+            </div>
+            <div class="editor-footer">
+              <div class="d-flex gap-12 align-flex-start">
+                <div class="d-flex-column gap-2">
+                  <label for="minmax" class="mb-2">Аккаунт, к которому будет применен шаблон</label>
+                  <Dropdown
+                    v-model="selectedAccount"
+                    :options="accounts"
+                    optionLabel="name"
+                    optionValue="id"
+                    placeholder="Выберите аккаунт"
+                    class="w-full md:w-14rem"
+                  />
+                </div>
                 <div class="d-flex-column gap-2">
                   <label for="minmax" class="mb-2">Частота повторений шаблонов</label>
                   <Slider v-model="count" class="w-14rem" />
-                  <Button
-                  class="mt-8"
-                    type="button"
-                    label="Создать автоответ"
-                    @click="createAutoReply"
-                    style="flex-shrink: 0; width: fit-content"
-                  />
                 </div>
               </div>
+              <Button
+                class="mt-8"
+                type="button"
+                label="Создать автоответ"
+                @click="createAutoReply"
+                style="flex-shrink: 0; width: fit-content"
+              />
             </div>
-          </template>
-        </Card>
+          </div>
+        </template>
+      </Card>
 
-        <Card v-for="item in list" :key="item.id" class="mt-4 w-full">
-          <template #title>{{ item }}</template>
-          <template #content>
-           content
-          </template>
-          <template #footer>
-            
-          </template>
-        </Card>
-      </div>
-    </main>
+      <Card v-for="item in list" :key="item.id" class="mt-4 w-full">
+        <template #title>{{ item.name }}</template>
+        <template #content> {{ item.value }} </template>
+        <template #footer> </template>
+      </Card>
+    </div>
+  </main>
 </template>
 <script>
-import {getAutoReplies} from '@/api/autoReplies'
+import { getAutoReplies, createAutoReply } from '@/api/autoReplies'
+import { getAccounts } from '@/api/avitoAccount'
 export default {
   data() {
     return {
       list: [],
       content: null,
       count: 0,
+      selectedAccount: 1,
+      accounts: []
     }
   },
-  mounted(){
+  mounted() {
     this.getAutoReplies()
+    this.getAccounts()
   },
   methods: {
     async getAutoReplies() {
       try {
         const res = await getAutoReplies()
         this.list = res.scenarios
-      } 
-      catch(e) {
-        console.error(e);
+      } catch (e) {
+        console.error(e)
       }
     },
     async createAutoReply() {
-      console.log(true);
+      const data = {
+        name: '',
+        accountId: this.selectedAccount,
+        randomWeight: this.count,
+        value: this.content
+      }
+      try {
+        const res = await createAutoReply(data)
+        this.getAutoReplies()
+      }
+      catch(e) {
+        console.error(e);
+      }
     },
     async insertAtCursor(myValue) {
       const myField = document.querySelector('#textarea')
@@ -87,6 +110,14 @@ export default {
         this.content += myValue
       }
     },
+    async getAccounts() {
+      try {
+        const res = await getAccounts()
+        this.accounts = res.accounts
+      } catch (e) {
+        console.error(e)
+      }
+    }
   }
 }
 </script>
@@ -97,6 +128,7 @@ main {
   background-color: inherit;
   width: 100%;
   min-height: 100vh;
+  overflow: auto;
 }
 .editor {
   border: 1px solid #eee;
@@ -141,8 +173,7 @@ main {
 
 ::v-deep {
   .p-slider-handle {
-  top: -8px;
+    top: -8px;
+  }
 }
-}
-
 </style>
