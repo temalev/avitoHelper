@@ -12,7 +12,8 @@
         <div class="message" :style="{
           backgroundColor: message.isMyMessage ? '#506bb68a' : '',
         }">
-          {{ message.text }}
+        <p>{{ message.text }}</p>
+          <p class="capture text-secondary" style="text-align: right">{{ formatDate(message.createdAt) }}</p>
         </div>
       </div>
     </div>
@@ -39,6 +40,38 @@ export default {
     this.getChatMessages()
   },
   methods: {
+    formatDate(date) {
+    // Проверка, является ли date объектом Date
+    date = new Date(date)
+
+    const currentDay = new Date()
+
+      // Получение текущей даты без времени
+      const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Получение даты без времени для сравнения
+    const inputDate = new Date(date);
+    inputDate.setHours(0, 0, 0, 0);
+
+    // Получение компонентов времени
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const time = `${hours}:${minutes}`;
+
+    // Проверка, является ли переданная дата сегодняшним днем
+    if (inputDate.getTime() === today.getTime()) {
+        return time; // Возвращаем только время
+    }
+
+    // Получение компонентов даты
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // месяцы начинаются с 0
+    const year = date.getFullYear();
+
+    // Формирование строки в нужном формате
+    return `${day}.${month}.${year} ${time}`;
+},
     async getChatMessages() {
       try {
         const res = await getChatMessages(this.chatId)
@@ -68,7 +101,9 @@ export default {
 .chat {
   background-color: #fff;
   border-radius: 12px;
-  height: 100%;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
 
   &-messages {
     background-color: #eef5fb;
@@ -78,6 +113,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    overflow: auto;
   }
 
   & .message-container {

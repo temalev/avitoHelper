@@ -19,3 +19,11 @@ main {
 .d-flex {
   display: flex;
 }
+
+.capture {
+  font-size: 11px;
+}
+
+.text-secondary {
+  color: #6c6c6c;
+}
