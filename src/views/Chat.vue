@@ -1,5 +1,6 @@
 <template>
   <div class="chat">
+    <Button type="button" class="w-50" label="Назад" severity="secondary" @click="$router.push('../list')"></Button>
     <div class="chat-messages">
       <div
         v-for="message in messages"
@@ -28,7 +29,8 @@ import { getChatMessages, sendMessage } from '@/api/chats'
 
 export default {
   props: {
-    chatId: [String]
+    chatId: [String],
+    accountId: [String]
   },
   data() {
     return {
@@ -99,7 +101,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .chat {
-  background-color: #fff;
+  background-color: inherit;
   border-radius: 12px;
   height: calc(100vh - 80px);
   display: flex;

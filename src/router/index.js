@@ -80,7 +80,7 @@ const router = createRouter({
           component: () => import('../views/Chats.vue')
         },
         {
-          path: ':chatId',
+          path: ':chatId/:accountId',
           name: 'chat',
           props: true,
           meta: {

@@ -91,6 +91,7 @@
               ref="fileInput"
               type="file"
               id="avatar"
+              multiple
               name="avatar"
               accept="image/png, image/jpeg"
               @change="onSelectFile"
@@ -197,12 +198,17 @@ export default {
     },
     async onSelectFile(e) {
       this.uuid = uuidv4()
-      const file = e.target.files
+      const files = Object.entries(e.target.files)
+      files.forEach(file => {
+        this.uploadFile(file)
+      })
+    },
+    async uploadFile(file) {
       const params = {
         albumUuid: this.uuid
       }
       try {
-        const file = await uploadFile(file[0], params)
+        const res = await uploadFile(file[1], params)
       } catch (e) {
         console.error(e)
       }

@@ -32,7 +32,7 @@
         v-for="item in list"
         :key="item.id"
         class="mt-4 w-full pointer"
-        @click="$router.push({ name: 'chat', params: { chatId: item.id } })"
+        @click="$router.push({ name: 'chat', params: { chatId: item.id, accountId: selectedAccount } })"
       >
         <template #title>{{ item.title }}</template>
         <template #content>

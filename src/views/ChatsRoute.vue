@@ -1,12 +1,13 @@
 
 <template>
-    <router-view :chatId="chatId" />
+    <router-view :chatId="chatId" :accountId="accountId" />
 </template>
 <script>
 
 export default {
   props: {
-    chatId: [String]
+    chatId: [String],
+    accountId: [String],
   },
   data() {
     return {
