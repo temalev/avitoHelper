@@ -1,6 +1,7 @@
 <template>
   <main>
     <Dropdown
+      v-if="selectedAccount"
       v-model="selectedAccount"
       :options="accounts"
       optionLabel="name"
@@ -8,6 +9,24 @@
       placeholder="Выберите аккаунт"
       class="w-full md:w-14rem"
     />
+    <div v-if="!selectedAccount" class="d-flex-column">
+      <h3>Выберите аккаунт</h3>
+      <Card
+        v-for="item in accounts"
+        :key="item.id"
+        class="mt-4 w-full pointer"
+        @click="selectedAccount = item.id"
+      >
+        <template #title>{{ item.name }}</template>
+        <template #content>
+          <div class="d-flex-column">
+            <div>{{ item.email }}</div>
+            <a :href="item.profile_url">{{ item.profile_url }}</a>
+          </div>
+        </template>
+        <template #footer> </template>
+      </Card>
+    </div>
     <div class="chats">
       <Card
         v-for="item in list"
@@ -40,7 +59,7 @@ export default {
       list: '',
       connection: null,
       store: useUserStore(),
-      selectedAccount: 1,
+      selectedAccount: null,
       accounts: []
     }
   },
@@ -50,7 +69,6 @@ export default {
     }
   },
   mounted() {
-    this.getChats()
     this.getAccounts()
   },
   created() {

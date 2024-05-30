@@ -50,6 +50,16 @@
               rows="5"
               cols="30"
             />
+            <div v-if="field.tag === 'DateBegin'" class="d-flex align-center">
+              <Checkbox
+                  v-model="field.shouldSkipNight"
+                  name="shouldSkipNight"
+                  inputId="shouldSkipNight"
+                  :binary="true"
+                />
+                <label class="ml-2" for="shouldSkipNight">Пропускать ночное время</label>
+            </div>
+
             <template v-if="field.type === 'checkbox'">
               <div
                 v-for="item in field.data.values"
@@ -117,6 +127,11 @@ export default {
   mounted() {
     this.getCategories()
   },
+  watch: {
+    'field.shouldSkipNight'(val){
+      console.log(val);
+    }
+  },
 
   computed: {
     categoriesFiltered() {
@@ -159,8 +174,10 @@ export default {
 
         fields.push({
           fieldId: el.id,
-          value: Array.isArray(el.inputValue) ? el.inputValue.join('|') : el.inputValue
+          value: Array.isArray(el.inputValue) ? el.inputValue.join('|') : el.inputValue,
+          shouldSkipNight: el.shouldSkipNight
         })
+        console.log(fields);
       })
       try {
         const res = await createFile({ fields, count: this.count, categoryId: this.categoryId })
@@ -195,7 +212,7 @@ export default {
       try {
         const res = await getFields(id)
         res.forEach((el) => {
-          this.fields.push({ ...el, inputValue: null })
+          this.fields.push({ ...el, inputValue: null, shouldSkipNight: false })
         })
       } catch (e) {
         console.error(e)
