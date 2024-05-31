@@ -52,12 +52,12 @@
             />
             <div v-if="field.tag === 'DateBegin'" class="d-flex align-center">
               <Checkbox
-                  v-model="field.shouldSkipNight"
-                  name="shouldSkipNight"
-                  inputId="shouldSkipNight"
-                  :binary="true"
-                />
-                <label class="ml-2" for="shouldSkipNight">Пропускать ночное время</label>
+                v-model="field.shouldSkipNight"
+                name="shouldSkipNight"
+                inputId="shouldSkipNight"
+                :binary="true"
+              />
+              <label class="ml-2" for="shouldSkipNight">Пропускать ночное время</label>
             </div>
 
             <template v-if="field.type === 'checkbox'">
@@ -84,18 +84,32 @@
               optionLabel="value"
               placeholder="Одно из значений"
             />
-            <Button v-if="field.tag === 'ImageUrls'" @click="openFileDialog">Загрузить</Button>
+            <div v-if="field.tag === 'ImageUrls'" class="d-flex-column gap-4">
+              <Button
+              style="width: 140px"
+              @click="openFileDialog"
+              :loading="uploadingProcess"
+              label="Загрузить"
+            ></Button>
             <input
-              v-if="field.tag === 'ImageUrls'"
               hidden
               ref="fileInput"
               type="file"
               id="avatar"
-              multiple
               name="avatar"
               accept="image/png, image/jpeg"
               @change="onSelectFile"
             />
+            <img
+              v-if="urlFile"
+              :src="urlFile"
+              alt=""
+              width="200"
+              height="200"
+              style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
+            />
+            </div>
+           
           </div>
         </Panel>
       </div>
@@ -121,7 +135,9 @@ export default {
       accept: '.jpg, .png',
       uuid: null,
       categoryId: null,
-      generateFileProcess: false
+      generateFileProcess: false,
+      uploadingProcess: false,
+      urlFile: null
     }
   },
 
@@ -129,8 +145,8 @@ export default {
     this.getCategories()
   },
   watch: {
-    'field.shouldSkipNight'(val){
-      console.log(val);
+    'field.shouldSkipNight'(val) {
+      console.log(val)
     }
   },
 
@@ -178,7 +194,7 @@ export default {
           value: Array.isArray(el.inputValue) ? el.inputValue.join('|') : el.inputValue,
           shouldSkipNight: el.shouldSkipNight
         })
-        console.log(fields);
+        console.log(fields)
       })
       try {
         const res = await createFile({ fields, count: this.count, categoryId: this.categoryId })
@@ -197,21 +213,19 @@ export default {
       this.$refs.fileInput[0].click()
     },
     async onSelectFile(e) {
+      this.uploadingProcess = true
       this.uuid = uuidv4()
-      const files = Object.entries(e.target.files)
-      files.forEach(file => {
-        this.uploadFile(file)
-      })
-    },
-    async uploadFile(file) {
+      const file = e.target.files
       const params = {
         albumUuid: this.uuid
       }
       try {
-        const res = await uploadFile(file[1], params)
+        const res = await uploadFile(file[0], params)
+        this.urlFile = URL.createObjectURL(file[0])
       } catch (e) {
         console.error(e)
       }
+      this.uploadingProcess = false
     },
     async getFields(id) {
       this.categoryId = id
@@ -268,6 +282,11 @@ main {
   &:hover {
     color: #000;
   }
+}
+
+img {
+  object-fit: contain;
+  box-shadow: 0 0 10px 5px #d7d7d75b;
 }
 
 ::v-deep {
