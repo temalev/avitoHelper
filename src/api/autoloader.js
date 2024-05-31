@@ -30,3 +30,16 @@ export function createFile(data) {
     data,
   });
 }
+
+/**
+ * Создать файл автозагрузки
+ */
+export function uploadFieldFile(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  return request({
+    url: `/autoloader/field/file`,
+    method: 'post',
+    data: formData,
+  });
+}

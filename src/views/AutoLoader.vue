@@ -34,7 +34,7 @@
             </div>
           </template>
           <p class="text-sm description" style="overflow-wrap: anywhere">
-              <Markdown :source="field.description" />
+            <Markdown :source="field.description" />
           </p>
           <div class="d-flex-column mt-4 bg-[#eee9] p-2 rounded-md">
             <b>Пример заполнения</b>
@@ -85,83 +85,99 @@
               placeholder="Одно из значений"
             />
             <div class="d-flex-column gap-4" v-if="field.tag === 'ImageUrls'">
-              
-            <div class="d-flex-column gap-2 photos-container">
-              <span>Основное фото</span>
-              <Button
-              style="width: 140px"
-              @click="openFileDialog"
-              :loading="uploadingProcess"
-              label="Загрузить"
-            ></Button>
-            <input
-              hidden
-              ref="fileInput"
-              type="file"
-              id="avatar"
-              name="avatar"
-              accept="image/png, image/jpeg"
-              @change="onSelectFile"
-            />
-            <img
-              v-if="urlFile"
-              :src="urlFile"
-              alt=""
-              width="100"
-              height="100"
-              style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
-            />
+              <div class="d-flex-column gap-2 photos-container">
+                <span>Основное фото</span>
+                <Button
+                  style="width: 140px"
+                  @click="openFileDialog"
+                  :loading="uploadingProcess"
+                  label="Загрузить"
+                ></Button>
+                <input
+                  hidden
+                  ref="fileInput"
+                  type="file"
+                  id="avatar"
+                  name="avatar"
+                  accept="image/png, image/jpeg"
+                  @change="onSelectFile"
+                />
+                <img
+                  v-if="urlFile"
+                  :src="urlFile"
+                  alt=""
+                  width="100"
+                  height="100"
+                  style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
+                />
+              </div>
+
+              <div class="d-flex-column gap-2 photos-container">
+                <span>Дополнительные фото</span>
+                <Message v-if="!urlFile" :closable="false"
+                  >Для начала загрузите основное фото</Message
+                >
+                <Button
+                  :disabled="!urlFile"
+                  style="width: 140px"
+                  @click="openFileDialogAdditional"
+                  :loading="uploadingAdditionalProcess"
+                  label="Загрузить"
+                ></Button>
+                <input
+                  hidden
+                  ref="fileInputAdditional"
+                  type="file"
+                  id="avatar"
+                  name="avatar"
+                  multiple
+                  accept="image/png, image/jpeg"
+                  @change="onSelectFileAdditional"
+                />
+                <div v-if="urlFilesAdditional.length" class="d-flex gap-4">
+                  <img
+                    v-for="urlFile in urlFilesAdditional"
+                    :key="urlFile"
+                    :src="urlFile"
+                    alt=""
+                    width="100"
+                    height="100"
+                    style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
+                  />
+                </div>
+              </div>
             </div>
-            
-            <div class="d-flex-column gap-2 photos-container">
-              <span>Дополнительные фото</span>
-              <Message v-if="!urlFile" :closable="false">Для начала загрузите основное фото</Message>
-              <Button
-              :disabled="!urlFile"
-              style="width: 140px"
-              @click="openFileDialogAdditional"
-              :loading="uploadingAdditionalProcess"
-              label="Загрузить"
+          </div>
+          <template #footer>
+            <Button
+              style="width: 180px"
+              @click="openFieldFileDialog"
+              :loading="uploadFieldFileProcess"
+              label="Загрузить файлом"
             ></Button>
             <input
               hidden
-              ref="fileInputAdditional"
+              ref="fieldFileInput"
               type="file"
               id="avatar"
               name="avatar"
-              multiple
-              accept="image/png, image/jpeg"
-              @change="onSelectFileAdditional"
+              accept=".txt,text/plain,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+              @change="(e) => uploadFieldFile(e, field)"
             />
-            <div v-if="urlFilesAdditional.length" class="d-flex gap-4">
-            <img
-              v-for="urlFile in urlFilesAdditional" :key="urlFile"
-              :src="urlFile"
-              alt=""
-              width="100"
-              height="100"
-              style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
-            />
-          </div>
-            </div>      
-          </div>
-           
-          </div>
+            <InlineMessage v-if="field?.uuidFieldFile" severity="success">Success Message</InlineMessage>
+          </template>
         </Panel>
       </div>
     </div>
   </main>
 </template>
 <script>
-import { getCategories, getFields, createFile } from '@/api/autoloader'
+import { getCategories, getFields, createFile, uploadFieldFile } from '@/api/autoloader'
 import { uploadFile } from '@/api/image'
-import TheHeader from '../components/TheHeader.vue'
-import TheSideBar from '../components/TheSideBar.vue'
+
 import { v4 as uuidv4 } from 'uuid'
 
 export default {
-  components: { TheHeader, TheSideBar },
-
   data() {
     return {
       count: 1,
@@ -175,6 +191,7 @@ export default {
       uploadingProcess: false,
       urlFile: null,
       urlFilesAdditional: [],
+      uploadFieldFileProcess: false
     }
   },
 
@@ -224,14 +241,17 @@ export default {
           })
           return
         }
-        if (!el.inputValue) return
+        if (!el.inputValue && !el.uuidFieldFile) return
 
         fields.push({
           fieldId: el.id,
-          value: Array.isArray(el.inputValue) ? el.inputValue.join('|') : el.inputValue,
+          value: el.uuidFieldFile
+            ? `file:${el.uuidFieldFile}`
+            : Array.isArray(el.inputValue)
+              ? el.inputValue.join('|')
+              : el.inputValue,
           shouldSkipNight: el.shouldSkipNight
         })
-        console.log(fields)
       })
       try {
         const res = await createFile({ fields, count: this.count, categoryId: this.categoryId })
@@ -252,6 +272,9 @@ export default {
     openFileDialogAdditional() {
       this.$refs.fileInputAdditional[0].click()
     },
+    openFieldFileDialog() {
+      this.$refs.fieldFileInput[0].click()
+    },
     async onSelectFile(e) {
       this.uploadingProcess = true
       this.uuid = uuidv4()
@@ -269,7 +292,7 @@ export default {
       this.uploadingProcess = false
     },
     async onSelectFileAdditional(e) {
-      Array.from(e.target.files).forEach(file => {
+      Array.from(e.target.files).forEach((file) => {
         this.uploadFileAdditional(file)
       })
     },
@@ -288,12 +311,23 @@ export default {
       }
       this.uploadingAdditionalProcess = false
     },
+    async uploadFieldFile(e, field) {
+      this.uploadFieldFileProcess = true
+      const file = e.target.files
+      try {
+        const res = await uploadFieldFile(file[0])
+        field.uuidFieldFile = res.fileName
+      } catch (e) {
+        console.error(e)
+      }
+      this.uploadFieldFileProcess = false
+    },
     async getFields(id) {
       this.categoryId = id
       try {
         const res = await getFields(id)
         res.forEach((el) => {
-          this.fields.push({ ...el, inputValue: null, shouldSkipNight: false })
+          this.fields.push({ ...el, inputValue: null, shouldSkipNight: false, uuidFieldFile: null })
         })
       } catch (e) {
         console.error(e)
