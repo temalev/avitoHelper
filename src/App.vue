@@ -24,7 +24,8 @@ methods: {
         this.store.user = res
       } catch(e) {
         console.error(e)
-        if (this.$route.path !== '/confirm/email') {
+        console.log(this.$route);
+        if (this.$route.meta.title !== 'email') {
           this.$router.push({name: 'login'})
         }
       }
