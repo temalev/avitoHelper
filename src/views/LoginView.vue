@@ -19,7 +19,6 @@
       </div>
     </Dialog>
     <Dialog v-model:visible="visibleSignInModal" modal header="Войти" :style="{ width: '25rem' }" @close="redirectTo()">
-      <span class="p-text-secondary block mb-5">Заполните все поля</span>
       <div class="flex align-items-center gap-3 mb-5">
         <label for="email" class="font-semibold w-6rem">Email</label>
         <InputText id="email" v-model="form.email" class="flex-auto" autocomplete="off" />
@@ -28,20 +27,14 @@
         <label for="email" class="font-semibold w-6rem">Пароль</label>
         <Password v-model="form.password" toggleMask :feedback="false" />
       </div>
-      <div class="d-flex-column">
-        <a class="pointer" @click="visible = true" style="width: fit-content">Регистрация</a>
-        <a class="pointer" @click="showRecoveryPassModal = true" style="width: fit-content">Забыли пароль</a>
+
+      <div class="flex justify-content-end mt-2">
+        <Button type="button" label="Войти" style="flex-shrink: 0; width: 350px" @click="onSignIn"></Button>
       </div>
 
-      <div class="flex justify-content-end gap-2 mt-2">
-        <Button
-          type="button"
-          label="Отмена"
-          severity="secondary"
-          @click="redirectTo"
-        ></Button>
-
-        <Button type="button" label="Войти" style="flex-shrink: 0; width: 200px" @click="onSignIn"></Button>
+      <div class="d-flex gap-10 margin-top-10" style="justify-content: space-around; margin-top: 15px">
+        <a class="pointer color-gray" @click="visible = true" style="width: fit-content">Регистрация</a>
+        <a class="pointer color-gray" @click="showRecoveryPassModal = true" style="width: fit-content;">Забыли пароль</a>
       </div>
     </Dialog>
     <Dialog v-model:visible="showRecoveryPassModal" modal header="Восстановить пароль" :style="{ width: '25rem' }">
