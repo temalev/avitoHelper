@@ -15,7 +15,9 @@ export default {
     }
   },
 mounted() {
-  this.getMe()
+  setInterval(() => {
+    this.getMe()
+  }, 1000);
 },
 methods: {
     async getMe() {
