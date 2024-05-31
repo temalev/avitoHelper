@@ -48,13 +48,19 @@
       <Card v-for="item in list" :key="item.id" class="mt-4 w-full">
         <template #title>{{ item.name }}</template>
         <template #content> {{ item.value }} </template>
-        <template #footer> </template>
+        <template #footer>  <Button
+                class="mt-8"
+                type="button"
+                label="Удалить сценарий"
+                @click="deleteAutoReply(item.id)"
+                style="flex-shrink: 0; width: fit-content"
+              /> </template>
       </Card>
     </div>
   </main>
 </template>
 <script>
-import { getAutoReplies, createAutoReply } from '@/api/autoReplies'
+import { getAutoReplies, createAutoReply, deleteAutoReply } from '@/api/autoReplies'
 import { getAccounts } from '@/api/avitoAccount'
 export default {
   data() {
@@ -77,6 +83,15 @@ export default {
         this.list = res.scenarios
       } catch (e) {
         console.error(e)
+      }
+    },
+    async deleteAutoReply(id) {
+      try {
+        const res = await deleteAutoReply(id)
+        this.getAutoReplies()
+      }
+      catch(e) {
+        console.error(e);
       }
     },
     async createAutoReply() {
@@ -127,8 +142,12 @@ main {
   flex-direction: column;
   background-color: inherit;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   overflow: auto;
+}
+.body {
+  overflow: auto;
+
 }
 .editor {
   border: 1px solid #eee;

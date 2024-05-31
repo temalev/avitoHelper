@@ -21,3 +21,13 @@ export function createAutoReply(data) {
   });
 }
 
+/**
+ * Удалить автоответ
+ */
+export function deleteAutoReply(id) {
+  return request({
+    url: `/autoreply-message-scenario/${id}`,
+    method: 'delete',
+  });
+}
+
