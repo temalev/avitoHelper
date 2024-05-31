@@ -34,11 +34,11 @@
             </div>
           </template>
           <p class="text-sm description" style="overflow-wrap: anywhere">
-            {{ field.description }}
+              <Markdown :source="field.description" />
           </p>
           <div class="d-flex-column mt-4 bg-[#eee9] p-2 rounded-md">
             <b>Пример заполнения</b>
-            <p>{{ field.example }}</p>
+            <p><Markdown :source="field.example" /></p>
           </div>
           <div class="mt-4">
             <Textarea

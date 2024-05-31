@@ -2,6 +2,7 @@ import './assets/main.css'
 import './assets/common.scss'
 import 'virtual:uno.css'
 import 'primevue/resources/themes/aura-light-green/theme.css'
+import 'highlight.js/styles/monokai.css';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
@@ -31,6 +32,7 @@ import Textarea from 'primevue/textarea';
 import RadioButton from 'primevue/radiobutton';
 import TheTabs from '@/ui/TheTabs.vue';
 import Slider from 'primevue/slider';
+import Markdown from 'vue3-markdown-it';
 
 import App from './App.vue'
 import router from './router'
@@ -42,6 +44,7 @@ app.use(createPinia())
 app.use(router)
 app.use(VueAxios, axios)
 app.use(VueChartkick)
+app.use(Markdown)
 
 app.component('TheTabs', TheTabs);
 app.component('InputText', InputText);
@@ -62,6 +65,7 @@ app.component('FileUpload', FileUpload);
 app.component('Textarea', Textarea);
 app.component('RadioButton', RadioButton);
 app.component('Slider', Slider);
+app.component('Markdown', Markdown);
 
 
 app.mount('#app')
