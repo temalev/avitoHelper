@@ -31,6 +31,7 @@ import Textarea from 'primevue/textarea';
 import RadioButton from 'primevue/radiobutton';
 import TheTabs from '@/ui/TheTabs.vue';
 import Slider from 'primevue/slider';
+import Message from 'primevue/message';
 
 import App from './App.vue'
 import router from './router'
@@ -44,6 +45,7 @@ app.use(VueAxios, axios)
 app.use(VueChartkick)
 
 app.component('TheTabs', TheTabs);
+app.component('Message', Message);
 app.component('InputText', InputText);
 app.component('Button', Button);
 app.component('Dialog', Dialog);

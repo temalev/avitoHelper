@@ -115,7 +115,9 @@
             
             <div class="d-flex-column gap-2 photos-container">
               <span>Дополнительные фото</span>
+              <Message v-if="!urlFile" :closable="false">Для начала загрузите основное фото</Message>
               <Button
+              :disabled="!urlFile"
               style="width: 140px"
               @click="openFileDialogAdditional"
               :loading="uploadingAdditionalProcess"
@@ -127,17 +129,20 @@
               type="file"
               id="avatar"
               name="avatar"
+              multiple
               accept="image/png, image/jpeg"
               @change="onSelectFileAdditional"
             />
+            <div v-if="urlFilesAdditional.length" class="d-flex gap-4">
             <img
-              v-if="urlFile"
+              v-for="urlFile in urlFilesAdditional" :key="urlFile"
               :src="urlFile"
               alt=""
               width="100"
               height="100"
               style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
             />
+          </div>
             </div>      
           </div>
            
@@ -168,7 +173,8 @@ export default {
       categoryId: null,
       generateFileProcess: false,
       uploadingProcess: false,
-      urlFile: null
+      urlFile: null,
+      urlFilesAdditional: [],
     }
   },
 
@@ -251,7 +257,8 @@ export default {
       this.uuid = uuidv4()
       const file = e.target.files
       const params = {
-        albumUuid: this.uuid
+        albumUuid: this.uuid,
+        type: 'basic'
       }
       try {
         const res = await uploadFile(file[0], params)
@@ -262,14 +269,20 @@ export default {
       this.uploadingProcess = false
     },
     async onSelectFileAdditional(e) {
+      Array.from(e.target.files).forEach(file => {
+        this.uploadFileAdditional(file)
+      })
+    },
+    async uploadFileAdditional(file) {
       this.uploadingAdditionalProcess = true
-      const file = e.target.files
+
       const params = {
-        albumUuid: this.uuid
+        albumUuid: this.uuid,
+        type: 'additional'
       }
       try {
-        const res = await uploadFile(file[0], params)
-        this.urlFile = URL.createObjectURL(file[0])
+        const res = await uploadFile(file, params)
+        this.urlFilesAdditional.push(URL.createObjectURL(file))
       } catch (e) {
         console.error(e)
       }
