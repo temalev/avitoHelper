@@ -84,7 +84,10 @@
               optionLabel="value"
               placeholder="Одно из значений"
             />
-            <div v-if="field.tag === 'ImageUrls'" class="d-flex-column gap-4">
+            <div class="d-flex-column gap-4" v-if="field.tag === 'ImageUrls'">
+              
+            <div class="d-flex-column gap-2 photos-container">
+              <span>Основное фото</span>
               <Button
               style="width: 140px"
               @click="openFileDialog"
@@ -104,11 +107,39 @@
               v-if="urlFile"
               :src="urlFile"
               alt=""
-              width="200"
-              height="200"
+              width="100"
+              height="100"
               style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
             />
             </div>
+            
+            <div class="d-flex-column gap-2 photos-container">
+              <span>Дополнительные фото</span>
+              <Button
+              style="width: 140px"
+              @click="openFileDialogAdditional"
+              :loading="uploadingAdditionalProcess"
+              label="Загрузить"
+            ></Button>
+            <input
+              hidden
+              ref="fileInputAdditional"
+              type="file"
+              id="avatar"
+              name="avatar"
+              accept="image/png, image/jpeg"
+              @change="onSelectFileAdditional"
+            />
+            <img
+              v-if="urlFile"
+              :src="urlFile"
+              alt=""
+              width="100"
+              height="100"
+              style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
+            />
+            </div>      
+          </div>
            
           </div>
         </Panel>
@@ -212,6 +243,9 @@ export default {
     openFileDialog() {
       this.$refs.fileInput[0].click()
     },
+    openFileDialogAdditional() {
+      this.$refs.fileInputAdditional[0].click()
+    },
     async onSelectFile(e) {
       this.uploadingProcess = true
       this.uuid = uuidv4()
@@ -226,6 +260,20 @@ export default {
         console.error(e)
       }
       this.uploadingProcess = false
+    },
+    async onSelectFileAdditional(e) {
+      this.uploadingAdditionalProcess = true
+      const file = e.target.files
+      const params = {
+        albumUuid: this.uuid
+      }
+      try {
+        const res = await uploadFile(file[0], params)
+        this.urlFile = URL.createObjectURL(file[0])
+      } catch (e) {
+        console.error(e)
+      }
+      this.uploadingAdditionalProcess = false
     },
     async getFields(id) {
       this.categoryId = id
@@ -287,6 +335,12 @@ main {
 img {
   object-fit: contain;
   box-shadow: 0 0 10px 5px #d7d7d75b;
+}
+
+.photos-container {
+  background-color: #eeeeeea1;
+  padding: 12px;
+  border-radius: 8px;
 }
 
 ::v-deep {
