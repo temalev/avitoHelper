@@ -1,8 +1,8 @@
 <template>
 <div class="">
   <Card class="m-3">
-    <template #title>Подтвердите Ваш {{$route.meta.title}}</template>
-    <template #footer>  <Button @click="onConfirm">Подтвердить</Button></template>
+    <template #title>Почта подтверждена</template>
+    <template #footer><Button @click="$router.push({name: 'loginView'})">Войти</Button></template>
 </Card>
 
 </div>
