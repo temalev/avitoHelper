@@ -15,9 +15,12 @@ export default {
     }
   },
 mounted() {
-  setInterval(() => {
+  if (this.store.user) {
+    setInterval(() => {
     this.getMe()
   }, 15000);
+  }
+
 },
 methods: {
     async getMe() {
@@ -26,10 +29,6 @@ methods: {
         this.store.user = res
       } catch(e) {
         console.error(e)
-        console.log(this.$route);
-        if (this.$route.meta.title !== 'email') {
-          this.$router.push({name: 'login'})
-        }
       }
     },
   }
