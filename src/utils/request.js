@@ -34,12 +34,15 @@ service.interceptors.response.use(
 
   },
   error => {
-
     console.error('err', error); // for debug
     console.error('err', error.response); // for debug
 
-    if (error.response?.status === 401) {
-      // window.location.href = '/login'
+    if (error.response?.status === 401 || error.response?.status === 403) {
+      window.location.href = '/login'
+    }
+
+    if (error.response?.status >= 400) {
+      alert(error.response.data) 
     }
 
     return Promise.reject(error)
