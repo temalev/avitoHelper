@@ -28,8 +28,10 @@
         <Password v-model="form.password" toggleMask :feedback="false" />
       </div>
 
-      <div class="flex justify-content-end mt-2">
-        <Button type="button" label="Войти" style="flex-shrink: 0; width: 350px" @click="onSignIn"></Button>
+      <div class="d-flex-column mt-2 gap-2">
+        <Button type="button" :loading="loginProcess" label="Войти" style="flex-shrink: 0; width: 350px" @click="onSignIn"></Button>
+        <span style="color: red; font-size: 13px">{{ loginError }}</span>
+
       </div>
 
       <div class="d-flex gap-10 margin-top-10" style="justify-content: space-around; margin-top: 15px">
@@ -73,6 +75,8 @@ export default {
       recoveryPassProcess: false,
       showSuccessModal: false,
       showRecoveryPassModal: false,
+      loginProcess: false,
+      loginError: null,
     }
   },
   methods: {
@@ -103,6 +107,7 @@ export default {
     },
 
     async onSignIn() {
+      this.loginProcess = true
       const data = {
         email: this.form.email,
         password: this.form.password
@@ -111,8 +116,10 @@ export default {
         const res = await signIn(data)
         this.$router.push('/')
       } catch (e) {
+        this.loginError = e
         console.error(e)
       }
+      this.loginProcess = false
     },
     redirectTo() {
       window.open('https://avi_group.tilda.ws')
