@@ -112,6 +112,9 @@ export default {
         this.$router.push('/')
       } catch (e) {
         console.error(e)
+        if (e.response?.status >= 400) {
+      alert(e.response.data) 
+    }
       }
     },
     redirectTo() {
