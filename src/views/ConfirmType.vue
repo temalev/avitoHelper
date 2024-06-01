@@ -14,6 +14,9 @@ export default {
     return {
     }
   },
+  mounted() {
+    this.onConfirm() 
+  },
   methods: {
     // TODO: Валидация полей
     async onConfirm() {
