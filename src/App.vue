@@ -15,11 +15,10 @@ export default {
     }
   },
 mounted() {
-  if (this.store.user) {
+  this.getMe()
     setInterval(() => {
     this.getMe()
   }, 15000);
-  }
 
 },
 methods: {
