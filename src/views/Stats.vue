@@ -19,8 +19,8 @@
     />
     </div>
 
-    <div v-if="contactsFavoritesViews" class="satistics">
-      <Panel header="Контакты" style="width: 200px">
+    <div class="satistics">
+      <Panel v-if="contactsFavoritesViews" header="Контакты" style="width: 200px">
         <p class="m-0">
           <span class="font-bold">{{ contactsFavoritesViews.contacts.current }}</span>
           <span :style="{ color: contactsFavoritesViews.contacts.prev > 0 ? 'green' : 'red' }">
@@ -29,7 +29,7 @@
           >
         </p>
       </Panel>
-      <Panel header="Избранное" style="width: 200px">
+      <Panel v-if="contactsFavoritesViews" header="Избранное" style="width: 200px">
         <p class="m-0">
           <span class="font-bold">{{ contactsFavoritesViews.favorites.current }}</span>
           <span :style="{ color: contactsFavoritesViews.favorites.prev > 0 ? 'green' : 'red' }">
@@ -38,7 +38,7 @@
           >
         </p>
       </Panel>
-      <Panel header="Просмотры" style="width: 200px">
+      <Panel v-if="contactsFavoritesViews" header="Просмотры" style="width: 200px">
         <p class="m-0">
           <span class="font-bold">{{ contactsFavoritesViews.views.current }}</span>
           <span :style="{ color: contactsFavoritesViews.views.prev > 0 ? 'green' : 'red' }">
@@ -47,11 +47,29 @@
           >
         </p>
       </Panel>
+      <Panel v-if="callsStats" header="Звонки" style="width: 200px">
+        <p class="m-0">
+          <span class="font-bold">{{ callsStats.current }}</span>
+          <span :style="{ color: callsStats.prev > 0 ? 'green' : 'red' }">
+            <span class="ml-2" style="margin-right: -4px">{{ callsStats.prev > 0 ? '+' : '-' }}</span>
+            {{ callsStats.prev }}%</span
+          >
+        </p>
+      </Panel>
+      <Panel v-if="messagesStats" header="Сообщения" style="width: 200px">
+        <p class="m-0">
+          <span class="font-bold">{{ messagesStats.current }}</span>
+          <span :style="{ color: messagesStats.prev > 0 ? 'green' : 'red' }">
+            <span class="ml-2" style="margin-right: -4px">{{ messagesStats.prev > 0 ? '+' : '-' }}</span>
+            {{ messagesStats.prev }}%</span
+          >
+        </p>
+      </Panel>
     </div>
   </main>
 </template>
 <script>
-import { getContactsFavoritesViews, getBalanceStat } from '@/api/avitoStatistics'
+import { getContactsFavoritesViews, getBalanceStat, getСallStat, getMessagesStat } from '@/api/avitoStatistics'
 import { getAccounts } from '@/api/avitoAccount'
 export default {
   data() {
@@ -75,6 +93,8 @@ export default {
       selectedAccount: null,
       contactsFavoritesViews: null,
       balanseStats: null,
+      callsStats: null,
+      messagesStats: null,
     }
   },
   mounted() {
@@ -92,6 +112,8 @@ export default {
     getStats() {
       this.getContactsFavouritesViews();
       this.getBalanceStat()
+      this.getСallStat()
+      this.getMessagesStat()
     },
     async getContactsFavouritesViews() {
       const params = {
@@ -110,7 +132,29 @@ export default {
       }
       try {
         // const res = await getBalanceStat(this.selectedAccount, params)
-        this.balanseStats = res
+        // this.balanseStats = res
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    async getСallStat(){
+      const params = {
+        group: this.selectedGroup
+      }
+      try {
+        const res = await getСallStat(this.selectedAccount, params)
+        this.callsStats = res
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    async getMessagesStat() {
+      const params = {
+        group: this.selectedGroup
+      }
+      try {
+        const res = await getMessagesStat(this.selectedAccount, params)
+        this.messagesStats = res
       } catch (e) {
         console.error(e)
       }

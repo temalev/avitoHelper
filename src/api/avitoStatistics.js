@@ -12,11 +12,33 @@ export function getContactsFavoritesViews(accountId, params) {
 }
 
 /**
- * Получить Контакты/Избранное/Просмотры
+ * Получить баланс
  */
 export function getBalanceStat(accountId, params) {
   return request({
     url: `/avito-accounts/${accountId}/statistics/balance`,
+    method: 'get',
+    params
+  });
+}
+
+/**
+ * Получить звонки
+ */
+export function getСallStat(accountId, params) {
+  return request({
+    url: `/avito-accounts/${accountId}/statistics/call`,
+    method: 'get',
+    params
+  });
+}
+
+/**
+ * Получить сообщения
+ */
+export function getMessagesStat(accountId, params) {
+  return request({
+    url: `/avito-accounts/${accountId}/statistics/messages`,
     method: 'get',
     params
   });
