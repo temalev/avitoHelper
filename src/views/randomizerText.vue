@@ -151,6 +151,7 @@ export default {
       try {
         const res = await createRandomText(data)
         this.template = res
+        this.getAllRandomizer()
       } catch (e) {
         console.error(e)
       }
