@@ -116,7 +116,7 @@ export default {
     },
 
     sendMessage() {
-      this.connection.send(JSON.stringify({ type: 'subscribe', userUuid: this.store.user?.uuid }))
+      this.connection.send(JSON.stringify({ type: 'subscribe', userUuid: this.store.user.uuid }))
     }
   }
 }

@@ -1,57 +1,80 @@
 <template>
   <main>
-    <Dropdown v-model="selectedAccount" :options="accounts" optionLabel="name" optionValue="id" placeholder="Выберите аккаунт" class="w-full md:w-14rem" />
+    <div class="d-flex gap-4">
+      <Dropdown
+      v-model="selectedAccount"
+      :options="accounts"
+      optionLabel="name"
+      optionValue="id"
+      placeholder="Аккаунт"
+      class="w-full md:w-14rem"
+    />
+    <Dropdown
+      v-model="selectedGroup"
+      :options="groups"
+      optionLabel="name"
+      optionValue="value"
+      placeholder="Период"
+      class="w-full md:w-14rem"
+    />
+    </div>
 
-    <!-- <img src="/public/img/chart.png" alt="" width="80%"> -->
-    <h3 class="m-4">График просмотры/избранное/звонки по всем аккаунтам и объявлениям</h3>
-    <line-chart :data="data" download="boom" />
-    <h3 class="m-4">Звонки</h3>
-    <line-chart :data="data" download="boom" />
-    <h3 class="m-4">Сообщения</h3>
-    <line-chart :data="data" download="boom" />
-    <h3 class="m-4">Баланс</h3>
-    <line-chart :data="data" download="boom" />
+    <div v-if="contactsFavoritesViews" class="satistics">
+      <Panel header="Контакты" style="width: 200px">
+        <p class="m-0">
+          <span class="font-bold">{{ contactsFavoritesViews.contacts.current }}</span>
+          <span :style="{ color: contactsFavoritesViews.contacts.prev > 0 ? 'green' : 'red' }">
+            <span class="ml-2" style="margin-right: -4px">{{ contactsFavoritesViews.contacts.prev > 0 ? '+' : '-' }}</span>
+            {{ contactsFavoritesViews.contacts.prev }}%</span
+          >
+        </p>
+      </Panel>
+      <Panel header="Избранное" style="width: 200px">
+        <p class="m-0">
+          <span class="font-bold">{{ contactsFavoritesViews.favorites.current }}</span>
+          <span :style="{ color: contactsFavoritesViews.favorites.prev > 0 ? 'green' : 'red' }">
+            <span class="ml-2" style="margin-right: -4px">{{ contactsFavoritesViews.favorites.prev > 0 ? '+' : '-' }}</span>
+            {{ contactsFavoritesViews.favorites.prev }}%</span
+          >
+        </p>
+      </Panel>
+      <Panel header="Просмотры" style="width: 200px">
+        <p class="m-0">
+          <span class="font-bold">{{ contactsFavoritesViews.views.current }}</span>
+          <span :style="{ color: contactsFavoritesViews.views.prev > 0 ? 'green' : 'red' }">
+            <span class="ml-2" style="margin-right: -4px">{{ contactsFavoritesViews.views.prev > 0 ? '+' : '-' }}</span>
+            {{ contactsFavoritesViews.views.prev }}%</span
+          >
+        </p>
+      </Panel>
+    </div>
   </main>
 </template>
 <script>
-
-import { getContactsFavoritesViews } from '@/api/avitoStatistics'
-import {getAccounts} from '@/api/avitoAccount'
+import { getContactsFavoritesViews, getBalanceStat } from '@/api/avitoStatistics'
+import { getAccounts } from '@/api/avitoAccount'
 export default {
   data() {
     return {
-      data: [
+      groups: [
         {
-          name: 'Workout',
-          data: {
-            '2022-01-01 00:00:00 -0800': 3,
-            '2022-05-02 00:00:00 -0800': 4,
-            '2023-02-02 00:00:00 -0800': 5,
-            '2024-02-02 00:00:00 -0800': 2
-          }
+          name: 'День',
+          value: 'day'
         },
         {
-          name: 'Call parents',
-          data: {
-            '2022-01-01 00:00:00 -0800': 1,
-            '2022-05-02 00:00:00 -0800': 2,
-            '2023-02-02 00:00:00 -0800': 3,
-            '2024-02-02 00:00:00 -0800': 10
-          }
+          name: 'Неделя',
+          value: 'week'
         },
         {
-          name: 'Call parents',
-          data: {
-            '2022-01-01 00:00:00 -0800': 22,
-            '2022-05-02 00:00:00 -0800': 10,
-            '2023-02-02 00:00:00 -0800': 23,
-            '2024-02-02 00:00:00 -0800': 18
-          }
+          name: 'Месяц',
+          value: 'month'
         }
       ],
+      selectedGroup: 'day',
       accounts: [],
       selectedAccount: null,
-      contactsFavoritesViews: []
+      contactsFavoritesViews: null,
+      balanseStats: null,
     }
   },
   mounted() {
@@ -59,30 +82,47 @@ export default {
   },
   watch: {
     selectedAccount(val) {
-      this.getContactsFavouritesViews()
+      this.getStats()
+    },
+    selectedGroup(val) {
+      this.getStats()
     }
   },
   methods: {
+    getStats() {
+      this.getContactsFavouritesViews();
+      this.getBalanceStat()
+    },
     async getContactsFavouritesViews() {
-      try {
-        const res = await getContactsFavoritesViews(this.selectedAccount)
-        res.forEach(element => {
-          
-        });
+      const params = {
+        group: this.selectedGroup
       }
-      catch(e) {
-        console.error(e);
+      try {
+        const res = await getContactsFavoritesViews(this.selectedAccount, params)
+        this.contactsFavoritesViews = res
+      } catch (e) {
+        console.error(e)
       }
     },
-    async getAccounts(){
+    async getBalanceStat(){
+      const params = {
+        group: this.selectedGroup
+      }
+      try {
+        // const res = await getBalanceStat(this.selectedAccount, params)
+        this.balanseStats = res
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    async getAccounts() {
       try {
         const res = await getAccounts()
         this.accounts = res.accounts
+      } catch (e) {
+        console.error(e)
       }
-      catch(e) {
-        console.error(e);
-      }
-    },
+    }
   }
 }
 </script>
@@ -94,5 +134,12 @@ main {
   width: 100%;
   min-height: 100vh;
   overflow: auto;
+}
+
+.satistics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
 }
 </style>
