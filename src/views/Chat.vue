@@ -38,6 +38,11 @@ export default {
       inputMessage: null
     }
   },
+  watch: {
+    $toast(val) {
+      console.log(val);
+    }
+  },
   mounted() {
     this.getChatMessages()
   },

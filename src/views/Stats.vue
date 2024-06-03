@@ -25,7 +25,7 @@
           <span class="font-bold">{{ contactsFavoritesViews.contacts.current }}</span>
           <span :style="{ color: contactsFavoritesViews.contacts.prev > 0 ? 'green' : 'red' }">
             <span class="ml-2" style="margin-right: -4px">{{ contactsFavoritesViews.contacts.prev > 0 ? '+' : '-' }}</span>
-            {{ contactsFavoritesViews.contacts.prev }}%</span
+            {{ (contactsFavoritesViews.contacts.current - contactsFavoritesViews.contacts.prev) / contactsFavoritesViews.contacts.current }}%</span
           >
         </p>
       </Panel>
@@ -34,7 +34,7 @@
           <span class="font-bold">{{ contactsFavoritesViews.favorites.current }}</span>
           <span :style="{ color: contactsFavoritesViews.favorites.prev > 0 ? 'green' : 'red' }">
             <span class="ml-2" style="margin-right: -4px">{{ contactsFavoritesViews.favorites.prev > 0 ? '+' : '-' }}</span>
-            {{ contactsFavoritesViews.favorites.prev }}%</span
+            {{ (contactsFavoritesViews.favorites.current - contactsFavoritesViews.favorites.prev) / contactsFavoritesViews.favorites.current }}%</span
           >
         </p>
       </Panel>
@@ -43,7 +43,7 @@
           <span class="font-bold">{{ contactsFavoritesViews.views.current }}</span>
           <span :style="{ color: contactsFavoritesViews.views.prev > 0 ? 'green' : 'red' }">
             <span class="ml-2" style="margin-right: -4px">{{ contactsFavoritesViews.views.prev > 0 ? '+' : '-' }}</span>
-            {{ contactsFavoritesViews.views.prev }}%</span
+            {{ ( contactsFavoritesViews.views.current - contactsFavoritesViews.views.prev) /contactsFavoritesViews.views.current }}%</span
           >
         </p>
       </Panel>
@@ -52,7 +52,7 @@
           <span class="font-bold">{{ callsStats.current }}</span>
           <span :style="{ color: callsStats.prev > 0 ? 'green' : 'red' }">
             <span class="ml-2" style="margin-right: -4px">{{ callsStats.prev > 0 ? '+' : '-' }}</span>
-            {{ callsStats.prev }}%</span
+            {{ (callsStats.current - callsStats.prev) / callsStats.current }}%</span
           >
         </p>
       </Panel>
@@ -61,7 +61,7 @@
           <span class="font-bold">{{ messagesStats.current }}</span>
           <span :style="{ color: messagesStats.prev > 0 ? 'green' : 'red' }">
             <span class="ml-2" style="margin-right: -4px">{{ messagesStats.prev > 0 ? '+' : '-' }}</span>
-            {{ messagesStats.prev }}%</span
+            {{ (messagesStats.current - messagesStats.prev) / messagesStats.current }}%</span
           >
         </p>
       </Panel>

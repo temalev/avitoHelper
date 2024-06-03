@@ -57,7 +57,6 @@ export default {
   data() {
     return {
       list: '',
-      connection: null,
       store: useUserStore(),
       selectedAccount: null,
       accounts: []
@@ -70,28 +69,6 @@ export default {
   },
   mounted() {
     this.getAccounts()
-  },
-  created() {
-    this.connection = new WebSocket('wss://api.avigroup.site/ws')
-    this.connection.onmessage = (e) => {
-      const resOnMessage = JSON.parse(e.data)
-      switch (resOnMessage) {
-        case 'NEW_MESSAGE':
-          break
-        case 'PARSING_IS_OVER':
-          break
-        case 'PARSING_FAILED':
-          break
-
-        default:
-          break
-      }
-    }
-    this.connection.onopen = (e) => {
-      console.log(e)
-      console.log('Successfully connected to the echo websocket server...')
-      this.sendMessage()
-    }
   },
 
   methods: {
@@ -114,10 +91,6 @@ export default {
         console.error(e)
       }
     },
-
-    sendMessage() {
-      this.connection.send(JSON.stringify({ type: 'subscribe', userUuid: this.store.user.uuid }))
-    }
   }
 }
 </script>

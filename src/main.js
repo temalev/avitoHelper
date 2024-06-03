@@ -8,6 +8,7 @@ import VueAxios from 'vue-axios'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import ToastService from 'primevue/toastservice';
 
 import VueChartkick from 'vue-chartkick'
 import 'chartkick/chart.js'
@@ -34,6 +35,7 @@ import TheTabs from '@/ui/TheTabs.vue';
 import Slider from 'primevue/slider';
 import Markdown from 'vue3-markdown-it';
 import Message from 'primevue/message';
+import Toast from 'primevue/toast';
 
 import App from './App.vue'
 import router from './router'
@@ -46,8 +48,10 @@ app.use(router)
 app.use(VueAxios, axios)
 app.use(VueChartkick)
 app.use(Markdown)
+app.use(ToastService);
 
 app.component('TheTabs', TheTabs);
+app.component('Toast', Toast);
 app.component('Message', Message);
 app.component('InputText', InputText);
 app.component('Button', Button);

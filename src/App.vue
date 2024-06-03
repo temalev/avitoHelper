@@ -11,16 +11,42 @@ export default {
   },
   data(){
     return {
-      store: useUserStore()
+      store: useUserStore(),
+      connection: null,
+    }
+  },
+  created() {
+  this.getMe()
+    this.connection = new WebSocket('wss://api.avigroup.site/ws')
+    this.connection.onmessage = (e) => {
+      const resOnMessage = JSON.parse(e.data)
+      switch (resOnMessage.event) {
+        case 'NEW_MESSAGE': {
+          this.show()
+        }
+          break
+        case 'PARSING_IS_OVER':
+          break
+        case 'PARSING_FAILED':
+          break
+
+        default:
+          break
+      }
+    }
+    this.connection.onopen = (e) => {
+      console.log(e)
+      console.log('Successfully connected to the echo websocket server...')
+      this.sendMessage()
     }
   },
 mounted() {
-  this.getMe()
     setInterval(() => {
     this.getMe()
   }, 15000);
 
 },
+
 methods: {
     async getMe() {
       try {
@@ -30,12 +56,19 @@ methods: {
         console.error(e)
       }
     },
+    sendMessage() {
+      this.connection.send(JSON.stringify({ type: 'subscribe', userUuid: this.store.user.uuid }))
+    },
+    show() {
+      this.$toast.add({ severity: 'contrast', summary: 'Получено новое сообщение', detail: 'Проверьте чаты', life: 3000 });
+        }
   }
 }
 </script>
 
 <template>
       <TheSideBar />
+      <Toast position="bottom-left" />
       <div class="page d-flex-column w-full">
         <TheHeader />
     <RouterView />
