@@ -23,45 +23,40 @@
       <Panel v-if="contactsFavoritesViews" header="Контакты" style="width: 200px">
         <p class="m-0">
           <span class="font-bold">{{ contactsFavoritesViews.contacts.current }}</span>
-          <span :style="{ color: contactsFavoritesViews.contacts.prev > 0 ? 'green' : 'red' }">
-            <span class="ml-2" style="margin-right: -4px">{{ contactsFavoritesViews.contacts.prev > 0 ? '+' : '-' }}</span>
-            {{ (contactsFavoritesViews.contacts.current - contactsFavoritesViews.contacts.prev) / contactsFavoritesViews.contacts.current }}%</span
+          <span class="ml-2" :style="{ color: contactsFavoritesViews.contacts.prev > 0 ? 'green' : 'red' }">
+            {{ getPercent(contactsFavoritesViews.contacts.current, contactsFavoritesViews.contacts.prev) }}%</span
           >
         </p>
       </Panel>
       <Panel v-if="contactsFavoritesViews" header="Избранное" style="width: 200px">
         <p class="m-0">
           <span class="font-bold">{{ contactsFavoritesViews.favorites.current }}</span>
-          <span :style="{ color: contactsFavoritesViews.favorites.prev > 0 ? 'green' : 'red' }">
-            <span class="ml-2" style="margin-right: -4px">{{ contactsFavoritesViews.favorites.prev > 0 ? '+' : '-' }}</span>
-            {{ (contactsFavoritesViews.favorites.current - contactsFavoritesViews.favorites.prev) / contactsFavoritesViews.favorites.current }}%</span
+          <span class="ml-2" :style="{ color: contactsFavoritesViews.favorites.prev > 0 ? 'green' : 'red' }">
+            {{ getPercent(contactsFavoritesViews.favorites.current, contactsFavoritesViews.favorites.prev)  }}%</span
           >
         </p>
       </Panel>
       <Panel v-if="contactsFavoritesViews" header="Просмотры" style="width: 200px">
         <p class="m-0">
           <span class="font-bold">{{ contactsFavoritesViews.views.current }}</span>
-          <span :style="{ color: contactsFavoritesViews.views.prev > 0 ? 'green' : 'red' }">
-            <span class="ml-2" style="margin-right: -4px">{{ contactsFavoritesViews.views.prev > 0 ? '+' : '-' }}</span>
-            {{ ( contactsFavoritesViews.views.current - contactsFavoritesViews.views.prev) /contactsFavoritesViews.views.current }}%</span
+          <span class="ml-2" :style="{ color: contactsFavoritesViews.views.prev > 0 ? 'green' : 'red' }">
+            {{ getPercent(contactsFavoritesViews.views.current, contactsFavoritesViews.views.prev) }}%</span
           >
         </p>
       </Panel>
       <Panel v-if="callsStats" header="Звонки" style="width: 200px">
         <p class="m-0">
           <span class="font-bold">{{ callsStats.current }}</span>
-          <span :style="{ color: callsStats.prev > 0 ? 'green' : 'red' }">
-            <span class="ml-2" style="margin-right: -4px">{{ callsStats.prev > 0 ? '+' : '-' }}</span>
-            {{ (callsStats.current - callsStats.prev) / callsStats.current }}%</span
+          <span class="ml-2" :style="{ color: callsStats.prev > 0 ? 'green' : 'red' }">
+            {{ getPercent(callsStats.current, callsStats.prev) }}%</span
           >
         </p>
       </Panel>
       <Panel v-if="messagesStats" header="Сообщения" style="width: 200px">
         <p class="m-0">
           <span class="font-bold">{{ messagesStats.current }}</span>
-          <span :style="{ color: messagesStats.prev > 0 ? 'green' : 'red' }">
-            <span class="ml-2" style="margin-right: -4px">{{ messagesStats.prev > 0 ? '+' : '-' }}</span>
-            {{ (messagesStats.current - messagesStats.prev) / messagesStats.current }}%</span
+          <span class="ml-2" :style="{ color: messagesStats.prev > 0 ? 'green' : 'red' }">
+            {{ getPercent(messagesStats.current, messagesStats.prev) }}%</span
           >
         </p>
       </Panel>
@@ -109,6 +104,11 @@ export default {
     }
   },
   methods: {
+    getPercent(current, prev) {
+      if (current === 0) return 0
+      
+      return Math.round((current - prev) / current)
+    },
     getStats() {
       this.getContactsFavouritesViews();
       this.getBalanceStat()
