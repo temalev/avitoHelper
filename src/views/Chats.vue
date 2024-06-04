@@ -34,7 +34,7 @@
         class="mt-4 w-full pointer"
         @click="$router.push({ name: 'chat', params: { chatId: item.id, accountId: selectedAccount } })"
       >
-        <template #title>{{`${item.avitoAccount.name}: ${item.ad.title}`}}</template>
+        <template #title>{{`${item.avitoAccount.name}: ${item?.ad?.title || ''}`}}</template>
         <template #content>
           {{ item.lastMessage.text }}
         </template>
