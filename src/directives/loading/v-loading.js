@@ -49,13 +49,13 @@ export const vLoading = {
       if (binding.value) {
         appendEl(el);
       } else {
-        // removeEl(el);
+        removeEl(el);
       }
     }
   },
   unmounted(el) {
     if (el.instance) {
-      // removeEl(el);
+      removeEl(el);
       el.instance.$el.remove();
       el.instance = null;
     }

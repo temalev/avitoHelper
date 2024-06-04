@@ -1,7 +1,8 @@
 <template>
   <div class="chat">
     <Button type="button" class="w-50" label="Назад" severity="secondary" @click="$router.push('../list')"></Button>
-    <div class="chat-messages">
+    <div v-loading="loadingMessages" class="chat-messages">
+      <template v-if="messages.length">
       <div
         v-for="message in messages"
         :key="message.id"
@@ -17,6 +18,8 @@
           <p class="capture text-secondary" style="text-align: right">{{ formatDate(message.createdAt) }}</p>
         </div>
       </div>
+    </template>
+
     </div>
     <div class="chat-bottom">
       <InputText id="email" v-model="inputMessage" class="flex-auto" autocomplete="off" />
@@ -35,7 +38,8 @@ export default {
   data() {
     return {
       messages: '',
-      inputMessage: null
+      inputMessage: null,
+      loadingMessages: false
     }
   },
   watch: {
@@ -80,12 +84,14 @@ export default {
     return `${day}.${month}.${year} ${time}`;
 },
     async getChatMessages() {
+      this.loadingMessages = true
       try {
         const res = await getChatMessages(this.chatId)
         this.messages = res.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
       } catch (e) {
         console.error(e)
       }
+      this.loadingMessages = false
     },
     async sendMessage() {
       const data = {
