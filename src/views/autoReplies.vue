@@ -30,7 +30,7 @@
                 </div>
                 <div class="d-flex-column gap-2">
                   <label for="minmax" class="mb-2">Частота повторений шаблонов</label>
-                  <Slider v-model="count" class="w-14rem" />
+                  <Slider v-model="count" :min="1" class="w-14rem" />
                 </div>
               </div>
               <Button
@@ -67,7 +67,7 @@ export default {
     return {
       list: [],
       content: null,
-      count: 0,
+      count: 1,
       selectedAccount: 1,
       accounts: []
     }

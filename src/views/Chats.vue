@@ -34,14 +34,11 @@
         class="mt-4 w-full pointer"
         @click="$router.push({ name: 'chat', params: { chatId: item.id, accountId: selectedAccount } })"
       >
-        <template #title>{{ item.title }}</template>
+        <template #title>{{`${item.avitoAccount.name}: ${item.ad.title}`}}</template>
         <template #content>
-          <div class="d-flex-column">
-            <div>{{ item.avitoAccount.email }}</div>
-            <a :href="item.profile_url">{{ item.profile_url }}</a>
-          </div>
+          {{ item.lastMessage.text }}
         </template>
-        <template #footer> {{ item.lastMessage.text }} </template>
+        <template #footer>  </template>
       </Card>
     </div>
   </main>
