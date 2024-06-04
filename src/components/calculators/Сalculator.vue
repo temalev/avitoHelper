@@ -193,7 +193,6 @@ export default {
 
 .cards {
   overflow-x: auto;
-  height: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
