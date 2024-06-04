@@ -25,7 +25,7 @@
           ></Button>
         </div>
       </div>
-      <div class="fields d-flex-column gap-4">
+      <div v-loading="loadingFields" class="fields d-flex-column gap-4 w-full">
         <Panel v-for="field in fields" :key="field.id" toggleable>
           <template #header>
             <div>
@@ -191,7 +191,8 @@ export default {
       uploadingProcess: false,
       urlFile: null,
       urlFilesAdditional: [],
-      uploadFieldFileProcess: false
+      uploadFieldFileProcess: false,
+      loadingFields: false,
     }
   },
 
@@ -323,7 +324,9 @@ export default {
       this.uploadFieldFileProcess = false
     },
     async getFields(id) {
+      this.loadingFields = true
       this.categoryId = id
+      this.fields = []
       try {
         const res = await getFields(id)
         res.forEach((el) => {
@@ -332,6 +335,7 @@ export default {
       } catch (e) {
         console.error(e)
       }
+      this.loadingFields = false
     },
     async getCategories() {
       try {

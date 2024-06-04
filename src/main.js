@@ -5,6 +5,7 @@ import 'primevue/resources/themes/aura-light-green/theme.css'
 import 'highlight.js/styles/monokai.css';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import { vLoading } from './directives/loading/v-loading';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -41,6 +42,8 @@ import App from './App.vue'
 import router from './router'
 
 const app = createApp(App)
+
+app.directive('loading', vLoading);
 
 app.use(PrimeVue);
 app.use(createPinia())
