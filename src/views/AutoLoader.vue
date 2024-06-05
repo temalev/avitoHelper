@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="body flex justify-content-center">
-      <div class="d-flex-column align-flex-start">
+      <div class="tree d-flex-column align-flex-start gap-4">
         <Tree :value="categoriesFiltered" class="w-full md:w-20rem" style="box-sizing: content-box">
           <template #default="slotProps">
             <b class="item">{{ slotProps.node.name }}</b>
@@ -50,7 +50,8 @@
               rows="5"
               cols="30"
             />
-            <div v-if="field.tag === 'DateBegin'" class="d-flex align-center">
+
+            <div v-else-if="field.tag === 'DateBegin'" class="d-flex align-center">
               <Checkbox
                 v-model="field.shouldSkipNight"
                 name="shouldSkipNight"
@@ -60,7 +61,7 @@
               <label class="ml-2" for="shouldSkipNight">Пропускать ночное время</label>
             </div>
 
-            <template v-if="field.type === 'checkbox'">
+            <template v-else-if="field.type === 'checkbox'">
               <div
                 v-for="item in field.data.values"
                 :key="item.value"
@@ -76,7 +77,7 @@
               </div>
             </template>
             <Dropdown
-              v-if="field.type === 'select'"
+              v-else-if="field.type === 'select'"
               v-model="field.inputValue"
               editable
               :options="field.data.values"
@@ -84,7 +85,7 @@
               optionLabel="value"
               placeholder="Одно из значений"
             />
-            <div class="d-flex-column gap-4" v-if="field.tag === 'ImageUrls'">
+            <div class="d-flex-column gap-4" v-else-if="field.tag === 'ImageUrls'">
               <div class="d-flex-column gap-2 photos-container">
                 <span>Основное фото</span>
                 <Button
@@ -147,6 +148,15 @@
                 </div>
               </div>
             </div>
+            <Textarea
+              v-else
+              type="text"
+              style="width: 500px"
+              v-model="field.inputValue"
+              placeholder="Введите значение..."
+              rows="5"
+              cols="30"
+            />
           </div>
           <template #footer>
             <Button
@@ -355,7 +365,7 @@ main {
   display: flex;
   flex-direction: column;
   background-color: inherit;
-  overflow-y: auto;
+  overflow: hidden;
 }
 .body {
   margin: 20px;
@@ -364,8 +374,22 @@ main {
   align-content: flex-start;
 }
 
+.tree {
+  // overflow: auto;
+  height: calc(100vh - 150px);
+  width: 460px;
+}
+
+::v-deep {
+  .p-tree {
+    overflow: auto;
+    height: calc(100vh - 150px);
+  }
+}
+
 .fields {
   overflow: auto;
+  height: calc(100vh - 100px);
   padding: 20px;
   box-sizing: border-box;
   flex-grow: 0;
