@@ -158,7 +158,7 @@
               cols="30"
             />
           </div>
-          <template #footer>
+          <template v-if="field.tag !== 'ImageUrls'" #footer>
             <Button
               style="width: 180px"
               @click="openFieldFileDialog"
