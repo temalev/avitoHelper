@@ -51,7 +51,7 @@
               cols="30"
             />
 
-            <div v-else-if="field.tag === 'DateBegin'" class="d-flex align-center">
+            <div v-if="field.tag === 'DateBegin'" class="d-flex align-center">
               <Checkbox
                 v-model="field.shouldSkipNight"
                 name="shouldSkipNight"
@@ -61,7 +61,7 @@
               <label class="ml-2" for="shouldSkipNight">Пропускать ночное время</label>
             </div>
 
-            <template v-else-if="field.type === 'checkbox'">
+            <template v-if="field.type === 'checkbox'">
               <div
                 v-for="item in field.data.values"
                 :key="item.value"
