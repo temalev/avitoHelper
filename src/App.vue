@@ -17,7 +17,7 @@ export default {
   },
   created() {
   this.getMe()
-    this.connection = new WebSocket('wss://api.avigroup.site/ws')
+    this.connection = new WebSocket('wss://p.avigroup.site/ws')
     this.connection.onmessage = (e) => {
       const resOnMessage = JSON.parse(e.data)
       switch (resOnMessage.event) {
