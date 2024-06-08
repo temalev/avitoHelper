@@ -23,6 +23,16 @@ export function createRandomText(data) {
 }
 
 /**
+ * Удалить шаблон
+ */
+export function deleteTemplate(templateId) {
+  return request({
+    url: `/randomizer/templates/${templateId}`,
+    method: 'delete',
+  });
+}
+
+/**
  * Получить прошлые рандомизации
  */
 export function getAllRandomizer() {

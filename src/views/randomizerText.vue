@@ -1,91 +1,119 @@
 <template>
-    <main>
-        <Card>
-          <template #title>Рандомайзер текста</template>
-          <template #content>
-            <p>
-              Для создания перестановок подстрок используйте конструкцию
-              <b class="text-black">[text1|text2|…]</b>.
-              <br />
-              Для выбора одного из предложенных вариантов используйте конструкцию
-              <b class="text-black">{text1|text2|...}</b>.
-              <br />
-              Для генерации случайного артикля, используйте конструкцию
-              <b class="text-black">ARTICLE(00-aA000)</b>, где вместо
-              <b class="text-black">0</b> подставятся случайные числа, а вместо
-              <b class="text-black">а и А</b> – буквы выбранного регистра и языка
-            </p>
-            <br />
-            <div class="editor">
-              <div class="editor-header">
-                <button @click="insertAtCursor('|')">Вставить "|"</button>
-                <button @click="insertAtCursor('||||')">Вставить "||||"</button>
-                <button @click="insertAtCursor('{||||}')">Вставить "{a|b|c|d|}"</button>
-                <button @click="insertAtCursor('[||||]')">Вставить "[a|b|c|d|]"</button>
-                <button @click="insertAtCursor('[+, +||||]')">Вставить "[+, +a|b|c|d|]"</button>
-              </div>
-              <div class="editor-body">
-                <textarea v-model="content" id="textarea" />
-              </div>
-              <div class="editor-footer">
-                <div class="d-flex-column gap-2">
-                  <span
-                    >Число всех возможных вариантов: <b class="text-black">{{ maxCount }}</b></span
-                  >
-                  <label for="minmax">Введите желаемое количество варинтов</label>
-                  <InputNumber
-                    v-model="count"
-                    inputId="minmax"
-                    :min="0"
-                    :max="maxCount"
-                    style="width: 80px"
-                  />
-                  <Button
-                    type="button"
-                    label="Рандомизировать"
-                    @click="startRandomizer"
-                    style="flex-shrink: 0; width: fit-content"
-                  />
-                </div>
-              </div>
+  <main>
+    <Card>
+      <template #title>Рандомайзер текста</template>
+      <template #content>
+        <p>
+          Для создания перестановок подстрок используйте конструкцию
+          <b class="text-black">[text1|text2|…]</b>.
+          <br />
+          Для выбора одного из предложенных вариантов используйте конструкцию
+          <b class="text-black">{text1|text2|...}</b>.
+          <br />
+          Для генерации случайного артикля, используйте конструкцию
+          <b class="text-black">ARTICLE(00-aA000)</b>, где вместо
+          <b class="text-black">0</b> подставятся случайные числа, а вместо
+          <b class="text-black">а и А</b> – буквы выбранного регистра и языка
+        </p>
+        <br />
+        <div class="editor">
+          <div class="editor-header">
+            <button @click="insertAtCursor('|')">Вставить "|"</button>
+            <button @click="insertAtCursor('||||')">Вставить "||||"</button>
+            <button @click="insertAtCursor('{||||}')">Вставить "{a|b|c|d|}"</button>
+            <button @click="insertAtCursor('[||||]')">Вставить "[a|b|c|d|]"</button>
+            <button @click="insertAtCursor('[+, +||||]')">Вставить "[+, +a|b|c|d|]"</button>
+          </div>
+          <div class="editor-body">
+            <textarea v-model="content" id="textarea" />
+          </div>
+          <div class="editor-footer">
+            <div class="d-flex-column gap-2">
+              <span
+                >Число всех возможных вариантов: <b class="text-black">{{ maxCount }}</b></span
+              >
+              <label for="minmax">Введите желаемое количество варинтов</label>
+              <InputNumber
+                v-model="count"
+                inputId="minmax"
+                :min="0"
+                :max="maxCount"
+                style="width: 80px"
+              />
+              <Button
+                type="button"
+                label="Рандомизировать"
+                @click="startRandomizer"
+                style="flex-shrink: 0; width: fit-content"
+              />
+            </div>
+          </div>
+        </div>
+      </template>
+      <template v-if="template?.texts?.length" #footer>
+        <Panel header="Header" toggleable>
+          <template #header>
+            <div class="flex align-items-center pl-2 gap-4">
+              <span class="font-bold" style="align-content: center"
+                >Шаблон: {{ template?.templateId }}</span
+              >
+              <Button
+                label="Скачать шаблон"
+                style="height: 30px"
+                @click="downloadTemplate(template?.templateId)"
+              />
+              <Button
+                label="Удалить шаблон"
+                severity="danger"
+                style="height: 30px"
+                @click="deleteTemplate(template?.templateId)"
+              />
             </div>
           </template>
-          <template v-if="template?.texts?.length" #footer>
-            <Panel header="Header" toggleable>
-              <template #header>
-                <div class="flex align-items-center pl-2 gap-4">
-                  <span class="font-bold" style="align-content: center">Шаблон: {{ template?.templateId }}</span>
-                  <Button label="Скачать шаблон" style="height: 30px" @click="downloadTemplate(template?.templateId)" />
-                </div>
-              </template>
-              <textarea
-                v-for="(text, idx) in template?.texts"
-                :key="idx"
-                :value="text"
-                class="output"
+          <textarea
+            v-for="(text, idx) in template?.texts"
+            :key="idx"
+            :value="text"
+            class="output"
+          />
+        </Panel>
+      </template>
+    </Card>
+    <Panel class="mt-4" header="История" toggleable>
+      <Card v-for="item in templates" :key="item.id" class="mt-4">
+        <template #title>
+          <div class="flex align-items-center pl-2 gap-4">
+            <span class="font-bold" style="align-content: center">Шаблон: {{ item?.id }}</span>
+            <Button
+              label="Скачать шаблон"
+              style="height: 30px"
+              @click="downloadTemplate(item?.id)"
+            />
+            <Button
+                label="Удалить шаблон"
+                severity="danger"
+                style="height: 30px"
+                @click="deleteTemplate(item?.id)"
               />
-            </Panel>
-          </template>
-        </Card>
-        <Panel class="mt-4" header="История" toggleable>
-        <Card v-for="item in templates" :key="item.id" class="mt-4">
-          <template #title>
-            <div class="flex align-items-center pl-2 gap-4">
-                  <span class="font-bold" style="align-content: center">Шаблон: {{ item?.id }}</span>
-                  <Button label="Скачать шаблон" style="height: 30px" @click="downloadTemplate(item?.id)" />
-                </div>
-          </template>
-          <template #content>
-            <p :href="item.fileUrl">{{ item.template }}</p>
-          </template>
-        </Card>
-      </Panel>
-    </main>
+          </div>
+        </template>
+        <template #content>
+          <p :href="item.fileUrl">{{ item.template }}</p>
+        </template>
+      </Card>
+    </Panel>
+  </main>
 </template>
 <script>
 import { debounce } from '@/utils/debounce.js'
 
-import { getRandomizerCount, createRandomText, getAllRandomizer, downloadTemplate } from '@/api/randomizer'
+import {
+  getRandomizerCount,
+  createRandomText,
+  getAllRandomizer,
+  downloadTemplate,
+  deleteTemplate
+} from '@/api/randomizer'
 
 export default {
   data() {
@@ -131,14 +159,24 @@ export default {
         console.error(e)
       }
     },
+    async deleteTemplate(templateId) {
+      try {
+        const res = await deleteTemplate(templateId)
+        this.getAllRandomizer()
+      } catch (e) {
+        console.error(e)
+      }
+    },
     async downloadTemplate(templateId) {
       try {
         const res = await downloadTemplate(templateId, 'xlsx')
-        var blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = 'template.xlsx';
-        link.click();
+        var blob = new Blob([res], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        })
+        var link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = 'template.xlsx'
+        link.click()
       } catch (e) {
         console.error(e)
       }

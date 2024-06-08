@@ -2,7 +2,7 @@
   <header>
     <div class="logo pointer" @click="$router.push({ name: 'home' })">{{ $route.meta.title }}</div>
     <div class="user" @click="toggle">
-      <Avatar :label="firstWord" style="background-color: #ece9fc; color: #2a1261" />
+      <img src="/src/assets/icons/head.svg" alt="" width="60px" height="60px">
       {{ store.user?.name }}
       <div class="d-flex gap-4 rounded-lg" style="border: 1px solid #1c55fc">
         <span class="ml-4" style="text-wrap: nowrap">{{ store.user?.balance }} ₽</span>
