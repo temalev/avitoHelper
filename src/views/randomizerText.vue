@@ -32,12 +32,12 @@
               <span
                 >Число всех возможных вариантов: <b class="text-black">{{ maxCount }}</b></span
               >
-              <label for="minmax">Введите желаемое количество варинтов</label>
+              <label for="minmax">Введите желаемое количество варинтов (максимум 1000000)</label>
               <InputNumber
                 v-model="count"
                 inputId="minmax"
                 :min="0"
-                :max="maxCount"
+                :max="1000000"
                 style="width: 80px"
               />
               <Button

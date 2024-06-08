@@ -7,7 +7,7 @@
             <label for="link">Ссылка</label>
             <InputText style="width: 100%" type="text" id="link" v-model="link" />
             <div class="d-flex-column mt-2">
-              <label for="minmax">Введите желаемое количество страниц</label>
+              <label for="minmax">Введите желаемое количество страниц (максимум 50)</label>
               <InputNumber v-model="count" inputId="minmax" :max="50" style="width: 80px" />
             </div>
           </template>
