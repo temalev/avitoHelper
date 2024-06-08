@@ -33,6 +33,16 @@ export function deleteTemplate(templateId) {
 }
 
 /**
+ * Удалить все шаблоны
+ */
+export function deleteTemplates() {
+  return request({
+    url: `/randomizer/templates`,
+    method: 'delete',
+  });
+}
+
+/**
  * Получить прошлые рандомизации
  */
 export function getAllRandomizer() {

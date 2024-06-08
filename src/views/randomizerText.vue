@@ -80,6 +80,12 @@
       </template>
     </Card>
     <Panel class="mt-4" header="История" toggleable>
+      <Button
+                label="Удалить все шаблоны"
+                severity="danger"
+                style="height: 30px"
+                @click="deleteTemplates()"
+              />
       <Card v-for="item in templates" :key="item.id" class="mt-4">
         <template #title>
           <div class="flex align-items-center pl-2 gap-4">
@@ -112,7 +118,8 @@ import {
   createRandomText,
   getAllRandomizer,
   downloadTemplate,
-  deleteTemplate
+  deleteTemplate,
+  deleteTemplates
 } from '@/api/randomizer'
 
 export default {
@@ -162,6 +169,14 @@ export default {
     async deleteTemplate(templateId) {
       try {
         const res = await deleteTemplate(templateId)
+        this.getAllRandomizer()
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    async deleteTemplates(templateId) {
+      try {
+        const res = await deleteTemplates()
         this.getAllRandomizer()
       } catch (e) {
         console.error(e)
