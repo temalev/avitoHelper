@@ -70,6 +70,11 @@ export default {
         },
         {
           id: 11,
+          name: 'Реферылы',
+          value: 'referrals'
+        },
+        {
+          id: 12,
           name: 'Настройки',
           value: 'settings'
         }

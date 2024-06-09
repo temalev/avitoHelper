@@ -1,19 +1,20 @@
+
 <template>
-  <main>
-   <span>User ID: {{ store.user?.id }}</span>
-  </main>
+    <main>
+      Рефералы
+    </main>
 </template>
 <script>
-import { useUserStore } from '@/stores/user'
+
 
 export default {
   data() {
     return {
-      store: useUserStore(),
+      hash: '',
     }
   },
+  mounted(){
 
-  mounted() {
   },
   methods: {
    
@@ -26,7 +27,8 @@ main {
   flex-direction: column;
   background-color: inherit;
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
+  overflow: auto;
 }
 iframe {
   width: 100%;

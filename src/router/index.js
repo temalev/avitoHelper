@@ -325,6 +325,16 @@ const router = createRouter({
       },
       component: () => import('../views/Accounts.vue')
     },
+
+    {
+      path: '/referrals',
+      name: 'referrals',
+      meta: {
+        name: 'referrals',
+        title: 'Реферальная система'
+      },
+      component: () => import('../views/Referrals.vue')
+    },
     
     {
       path: '/settings',
