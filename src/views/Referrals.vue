@@ -1,7 +1,14 @@
 
 <template>
     <main>
-    <span>Реферальная ссылка:</span> <a :href="`/p.avigroup.site/k?r=${store.user?.id}`" target="blank">p.avigroup.site/k?r={{store.user?.id}}</a>
+    <span>Реферальная ссылка (клик чтобы скопировать):</span> 
+    <div class="d-flex-column mt-2">
+      <Transition name="slide-up">
+      <Button v-if="!isWritedText" :label="`p.avigroup.site/k?r=${store.user?.id}`" class="w-80" @click="writeClipboardText" />
+      <InlineMessage v-else class="w-80" severity="success">Ссылка скопирована</InlineMessage>
+      </Transition>
+    </div>
+
     </main>
 </template>
 <script>
@@ -11,13 +18,24 @@ export default {
   data() {
     return {
       store: useUserStore(),
+      isWritedText: false
     }
   },
   mounted(){
 
   },
   methods: {
-   
+   async writeClipboardText() {
+    try {
+    await navigator.clipboard.writeText(`p.avigroup.site/k?r=${this.store.user?.id}`);
+    this.isWritedText = true
+    setTimeout(() => {
+      this.isWritedText = false
+    },2000)
+  } catch (error) {
+    console.error(error.message);
+  }
+   }
   }
 }
 </script>
@@ -38,5 +56,20 @@ iframe {
   & body {
     background-color: inherit;
   }
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.25s ease-out;
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 </style>
