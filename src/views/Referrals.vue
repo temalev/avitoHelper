@@ -1,16 +1,16 @@
 
 <template>
     <main>
-      Рефералы
+    <span>Реферальная ссылка:</span> <a :href="`/p.avigroup.site/k?r=${store.user?.id}`" target="blank">p.avigroup.site/k?r={{store.user?.id}}</a>
     </main>
 </template>
 <script>
-
+import { useUserStore } from '@/stores/user'
 
 export default {
   data() {
     return {
-      hash: '',
+      store: useUserStore(),
     }
   },
   mounted(){
