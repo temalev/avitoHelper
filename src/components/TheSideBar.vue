@@ -70,7 +70,7 @@ export default {
         },
         {
           id: 11,
-          name: 'Реферылы',
+          name: 'Реферальная система',
           value: 'referrals'
         },
         {

@@ -1,41 +1,62 @@
-
 <template>
-    <main>
-    <span>Реферальная ссылка (клик чтобы скопировать):</span> 
+  <main>
+    <span>Реферальная ссылка (клик чтобы скопировать):</span>
     <div class="d-flex-column mt-2">
       <Transition name="slide-up">
-      <Button v-if="!isWritedText" :label="`p.avigroup.site/k?r=${store.user?.id}`" class="w-80" @click="writeClipboardText" />
-      <InlineMessage v-else class="w-80" severity="success">Ссылка скопирована</InlineMessage>
+        <Button
+          v-if="!isWritedText"
+          :label="`p.avigroup.site/k?r=${store.user?.id}`"
+          class="w-80"
+          @click="writeClipboardText"
+        />
+        <InlineMessage v-else class="w-80" severity="success">Ссылка скопирована</InlineMessage>
       </Transition>
     </div>
-
-    </main>
+    <div class="d-flex-column mt-4">
+      <Card v-for="referral in referrals" :key="referral.Name">
+        <template #title>{{ referral?.Name }}</template>
+        <template #content>
+          <p class="m-0"></p>
+        </template>
+      </Card>
+    </div>
+  </main>
 </template>
 <script>
 import { useUserStore } from '@/stores/user'
+import { getReferrals } from '@/api/referrals'
 
 export default {
   data() {
     return {
       store: useUserStore(),
-      isWritedText: false
+      isWritedText: false,
+      referrals: []
     }
   },
-  mounted(){
-
+  mounted() {
+    this.getReferrals()
   },
   methods: {
-   async writeClipboardText() {
-    try {
-    await navigator.clipboard.writeText(`p.avigroup.site/k?r=${this.store.user?.id}`);
-    this.isWritedText = true
-    setTimeout(() => {
-      this.isWritedText = false
-    },2000)
-  } catch (error) {
-    console.error(error.message);
-  }
-   }
+    async writeClipboardText() {
+      try {
+        await navigator.clipboard.writeText(`p.avigroup.site/k?r=${this.store.user?.id}`)
+        this.isWritedText = true
+        setTimeout(() => {
+          this.isWritedText = false
+        }, 2000)
+      } catch (error) {
+        console.error(error.message)
+      }
+    },
+    async getReferrals() {
+      try {
+        const res = await getReferrals()
+        this.referrals = res
+      } catch (e) {
+        console.error(e)
+      }
+    }
   }
 }
 </script>
