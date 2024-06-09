@@ -48,13 +48,15 @@
       <Card v-for="item in list" :key="item.id" class="mt-4 w-full">
         <template #title>{{ item.name }}</template>
         <template #content> {{ item.value }} </template>
-        <template #footer>  <Button
-                class="mt-8"
-                type="button"
-                label="Удалить сценарий"
-                @click="deleteAutoReply(item.id)"
-                style="flex-shrink: 0; width: fit-content"
-              /> </template>
+        <template #footer>
+          <Button
+            class="mt-8"
+            type="button"
+            label="Удалить сценарий"
+            @click="deleteAutoReply(item.id)"
+            style="flex-shrink: 0; width: fit-content"
+          />
+        </template>
       </Card>
     </div>
   </main>
@@ -89,9 +91,8 @@ export default {
       try {
         const res = await deleteAutoReply(id)
         this.getAutoReplies()
-      }
-      catch(e) {
-        console.error(e);
+      } catch (e) {
+        console.error(e)
       }
     },
     async createAutoReply() {
@@ -104,9 +105,8 @@ export default {
       try {
         const res = await createAutoReply(data)
         this.getAutoReplies()
-      }
-      catch(e) {
-        console.error(e);
+      } catch (e) {
+        console.error(e)
       }
     },
     async insertAtCursor(myValue) {
@@ -147,7 +147,6 @@ main {
 }
 .body {
   overflow: auto;
-
 }
 .editor {
   border: 1px solid #eee;

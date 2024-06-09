@@ -11,6 +11,26 @@ export function getAllParsers() {
 }
 
 /**
+ * Удалить все шаблоны парсинга
+ */
+export function deleteAllParserTemplates() {
+  return request({
+    url: `/parser`,
+    method: 'delete',
+  });
+}
+
+/**
+ * Удалить один шаблон парсинга
+ */
+export function deleteParserTemplate(parserTemplateId) {
+  return request({
+    url: `/parser/${parserTemplateId}`,
+    method: 'delete',
+  });
+}
+
+/**
  * Запустить парсер
  */
 export function startParser(data) {
