@@ -117,9 +117,10 @@ export default {
   height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
+  gap: 12px;
 
   &-messages {
-    background-color: #eef5fb;
+    background-color: var(--background-color);
     height: calc(100% - 50px);
     padding: 20px;
     box-sizing: border-box;
@@ -137,7 +138,7 @@ export default {
   & .message {
     width: fit-content;
     border: 1px solid #506bb623;
-    background-color: #506bb623;
+    background-color: #ffffffe8;
     border-radius: 12px;
     padding: 12px;
   }
@@ -145,11 +146,11 @@ export default {
   &-bottom {
     height: 50px;
     width: 100%;
-    background-color: #cbd2d8;
+    background-color: var(--background-color);
     display: flex;
     padding: 8px;
     gap: 12px;
-    border-radius: 12px 12px 0 0;
+    border-radius: 12px;
   }
 }
 </style>

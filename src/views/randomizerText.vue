@@ -238,17 +238,17 @@ main {
 }
 
 .editor {
-  border: 1px solid #eee;
+  border: 1px solid var( --border-color);
   border-radius: 6px;
 
   &-header {
     padding: 12px;
-    border-bottom: 1px solid #eee;
+    border: 1px solid var( --border-color);
     display: flex;
     gap: 4px;
 
     & button {
-      border: 1px solid #ececec;
+      border: 1px solid var( --border-color);
       border-radius: 4px;
       cursor: pointer;
       height: 36px;
@@ -269,12 +269,14 @@ main {
       height: 300px;
       outline: none;
       border: none;
+      background-color: #ffffffe1;
+
     }
   }
 
   &-footer {
     padding: 12px;
-    border-top: 1px solid #eee;
+    border: 1px solid var( --border-color);
   }
 }
 
@@ -284,6 +286,6 @@ main {
   border-radius: 6px;
   padding: 12px;
   height: 120px;
-  border: 1px solid #eee;
+  border: 1px solid var( --border-color);
 }
 </style>
