@@ -1,6 +1,6 @@
 .p-tree {
   background-color: var(--background-color);
-  color: var(--vt-c-white)
+  color: var(--vt-c-white);
 }
 .p-panel {
   background-color: var(--background-color);
@@ -17,6 +17,38 @@
   border: 1px solid var(--border-color);
 }
 
-  .link:hover {
-    color: var(--vt-c-white)
+.link:hover {
+  color: var(--vt-c-white);
+}
+
+.p-button {
+  background: linear-gradient(145deg, #1db700, #0a8900);
+  // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 255, 0, 0.5);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: all .3s ease;
+  &:hover {
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 47, 0, 0.5);
   }
+}
+
+.p-button-danger {
+  background: linear-gradient(145deg, #b70000, #890000);
+  // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 0, 0, 0.5);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: all .3s ease;
+  &:hover {
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(47, 0, 0, 0.362);
+  }
+}
+
+.p-button-secondary {
+  background: linear-gradient(145deg, #0052523f, #2425255e);
+  // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 0, 0, 0.5);
+  border: 1px solid var( --border-color);
+  color: #eee;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: all .3s ease;
+  &:hover {
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(47, 0, 0, 0.362);
+  }
+}
