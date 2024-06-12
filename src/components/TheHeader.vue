@@ -5,7 +5,7 @@
       <img src="/src/assets/icons/head.svg" alt="" width="60px" height="60px">
       <span style="color: #fff"> {{ store.user?.name }}</span>
       <div class="d-flex gap-4 rounded-lg" style="border: 1px solid #1c55fc">
-        <span class="ml-4" style="text-wrap: nowrap">{{ store.user?.balance }} ₽</span>
+        <span class="ml-4" style="text-wrap: nowrap; color: #fff">{{ store.user?.balance }} ₽</span>
         <div
           class="p-1-4 bg-[#1c55fc] pointer"
           style="border-radius: inherit; color: white"

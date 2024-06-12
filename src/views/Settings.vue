@@ -1,6 +1,6 @@
 <template>
   <main>
-   <span>ID: {{ store.user?.id }}</span>
+   <span style="color: #fff">ID: {{ store.user?.id }}</span>
   </main>
 </template>
 <script>

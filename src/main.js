@@ -1,5 +1,6 @@
 import './assets/main.css'
 import './assets/common.scss'
+import './assets/primary-ui.scss'
 import 'virtual:uno.css'
 import 'primevue/resources/themes/aura-light-green/theme.css'
 import 'highlight.js/styles/monokai.css';

@@ -1,0 +1,22 @@
+.p-tree {
+  background-color: var(--background-color);
+  color: var(--vt-c-white)
+}
+.p-panel {
+  background-color: var(--background-color);
+  color: var(--vt-c-white);
+  border: 1px solid var(--border-color);
+  &-header {
+    color: var(--vt-c-white);
+  }
+}
+
+.p-card {
+  background-color: var(--background-color);
+  color: var(--vt-c-white);
+  border: 1px solid var(--border-color);
+}
+
+  .link:hover {
+    color: var(--vt-c-white)
+  }

@@ -102,7 +102,7 @@ export default {
   & .logo {
     padding: 0 20px;
     font-size: 22px;
-    color: #000;
+    color: var(--vt-c-white);
   }
 
   & a {
