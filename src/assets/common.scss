@@ -3,7 +3,10 @@
   margin: 0;
   padding: 20px;
   font-weight: normal;
-  background-color: #F3F4F7;
+  background-image: url('./img/background.svg'); /* Путь к вашей SVG-картинке */
+  background-repeat: repeat-y; /* Повторять по вертикали */
+  background-size: 100% auto; /* Растягивать по ширине, высота автоматическая */
+  background-attachment: local; /* Прокручивать фон вместе с содержимым */
   max-height: 100vh;
   max-width: 100vw;
   min-height: 100vh;
