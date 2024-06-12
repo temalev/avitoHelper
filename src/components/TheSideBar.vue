@@ -92,10 +92,10 @@ export default {
 .menu {
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: #2425253f;
   width: 300px;
   flex-shrink: 0;
-  color: #6e6e6e;
+  color: #f3f3f3;
   padding-top: 12px;
   border-radius: 8px;
 
@@ -106,17 +106,17 @@ export default {
   }
 
   & a {
-    color: #6e6e6e;
+    color: #d6d6d6;
     margin: 2px 20px;
     border-radius: 8px;
   }
 
   & .active {
-    color: #fff;
-    background-color: #1c55fc;
+    color: #d6d6d6;
+    background-color: #0d1810d6;
     &:hover {
-      color: #fff;
-      background-color: #1543cc;
+      color: #d6d6d6;
+      background-color: #0d18106f;
     }
   }
 
@@ -125,8 +125,8 @@ export default {
     cursor: pointer;
 
     &:hover {
-      color: #000000;
-      background-color: #1c54fc15;
+      color: #fff;
+      background-color: #0d18106f;
     }
   }
 }

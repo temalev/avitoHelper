@@ -12,9 +12,9 @@
         <InlineMessage v-else class="w-80" severity="success">Ссылка скопирована</InlineMessage>
       </Transition>
     </div>
-    <div class="d-flex-column mt-4">
+    <div v-if="referrals.length" class="d-flex-column mt-4">
       <Card v-for="referral in referrals" :key="referral.Name">
-        <template #title>{{ referral?.Name }}</template>
+        <template #title>{{ referral?.name }}</template>
         <template #content>
           <p class="m-0"></p>
         </template>

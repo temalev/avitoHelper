@@ -77,7 +77,7 @@ methods: {
 
 <style scoped scss>
 .page {
-  background-color: #F3F4F7;
+  background-color: transparent;
 }
 
 .logo {

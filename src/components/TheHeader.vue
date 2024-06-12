@@ -3,7 +3,7 @@
     <div class="logo pointer" @click="$router.push({ name: 'home' })">{{ $route.meta.title }}</div>
     <div class="user" @click="toggle">
       <img src="/src/assets/icons/head.svg" alt="" width="60px" height="60px">
-      {{ store.user?.name }}
+      <span style="color: #fff"> {{ store.user?.name }}</span>
       <div class="d-flex gap-4 rounded-lg" style="border: 1px solid #1c55fc">
         <span class="ml-4" style="text-wrap: nowrap">{{ store.user?.balance }} ₽</span>
         <div
@@ -116,7 +116,7 @@ header {
   z-index: 10000;
 
   .logo {
-    color: #0c0c0c;
+    color: #fff;
     margin: 16px 0px;
     font-size: 24px;
   }
