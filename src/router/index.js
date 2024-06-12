@@ -335,6 +335,16 @@ const router = createRouter({
       },
       component: () => import('../views/Referrals.vue')
     },
+
+    {
+      path: '/history',
+      name: 'history',
+      meta: {
+        name: 'history',
+        title: 'История транзакций'
+      },
+      component: () => import('../views/History.vue')
+    },
     
     {
       path: '/settings',

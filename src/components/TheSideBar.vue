@@ -65,16 +65,21 @@ export default {
         },
         {
           id: 10,
+          name: 'История транзакций',
+          value: 'history'
+        },
+        {
+          id: 11,
           name: 'Аккаунты',
           value: 'accounts'
         },
         {
-          id: 11,
+          id: 12,
           name: 'Реферальная система',
           value: 'referrals'
         },
         {
-          id: 12,
+          id: 13,
           name: 'Настройки',
           value: 'settings'
         }
