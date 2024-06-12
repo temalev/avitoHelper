@@ -40,7 +40,7 @@ export default {
   methods: {
     async writeClipboardText() {
       try {
-        await navigator.clipboard.writeText(`p.avigroup.site/k?r=${this.store.user?.id}`)
+        await navigator.clipboard.writeText(`https://p.avigroup.site/k?r=${this.store.user?.uuid}`)
         this.isWritedText = true
         setTimeout(() => {
           this.isWritedText = false
