@@ -5,7 +5,7 @@
       <Transition name="slide-up">
         <Button
           v-if="!isWritedText"
-          :label="`p.avigroup.site/k?r=${store.user?.id}`"
+          :label="`p.avigroup.site/k?r=${store.user?.uuid}`"
           class="w-80"
           @click="writeClipboardText"
         />
