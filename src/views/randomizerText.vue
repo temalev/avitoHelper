@@ -5,15 +5,15 @@
       <template #content>
         <p>
           Для создания перестановок подстрок используйте конструкцию
-          <b class="text-black">[text1|text2|…]</b>.
+          <b class="font-bold">[text1|text2|…]</b>.
           <br />
           Для выбора одного из предложенных вариантов используйте конструкцию
-          <b class="text-black">{text1|text2|...}</b>.
+          <b class="font-bold">{text1|text2|...}</b>.
           <br />
           Для генерации случайного артикля, используйте конструкцию
-          <b class="text-black">ARTICLE(00-aA000)</b>, где вместо
-          <b class="text-black">0</b> подставятся случайные числа, а вместо
-          <b class="text-black">а и А</b> – буквы выбранного регистра и языка
+          <b class="font-bold">ARTICLE(00-aA000)</b>, где вместо
+          <b class="font-bold">0</b> подставятся случайные числа, а вместо
+          <b class="font-bold">а и А</b> – буквы выбранного регистра и языка
         </p>
         <br />
         <div class="editor">
@@ -30,7 +30,7 @@
           <div class="editor-footer">
             <div class="d-flex-column gap-2">
               <span
-                >Число всех возможных вариантов: <b class="text-black">{{ maxCount }}</b></span
+                >Число всех возможных вариантов: <b class="font-bold">{{ maxCount }}</b></span
               >
               <label for="minmax">Введите желаемое количество варинтов (максимум 1000000)</label>
               <InputNumber
