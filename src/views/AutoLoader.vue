@@ -51,16 +51,6 @@
               cols="30"
             />
 
-            <div v-else-if="field.tag === 'DateBegin'" class="checkbox d-flex align-center">
-              <Checkbox
-                v-model="field.shouldSkipNight"
-                name="shouldSkipNight"
-                inputId="shouldSkipNight"
-                :binary="true"
-              />
-              <label class="ml-2" for="shouldSkipNight">Пропускать ночное время</label>
-            </div>
-
             <template v-else-if="field.type === 'checkbox'">
               <div
                 v-for="item in field.data.values"
@@ -158,6 +148,15 @@
               rows="5"
               cols="30"
             />
+            <div v-if="field.tag === 'DateBegin'" class="checkbox d-flex align-center">
+              <Checkbox
+                v-model="field.shouldSkipNight"
+                name="shouldSkipNight"
+                inputId="shouldSkipNight"
+                :binary="true"
+              />
+              <label class="ml-2" for="shouldSkipNight">Пропускать ночное время</label>
+            </div>
           </div>
           <template v-if="field.tag !== 'ImageUrls'" #footer>
             <Button
