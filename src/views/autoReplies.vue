@@ -6,7 +6,6 @@
         <template #content>
           <div class="editor">
             <div class="editor-header">
-              <button @click="insertAtCursor('|')">|</button>
               <button @click="insertAtCursor('{||||}')">{a|b|c|d}</button>
               <button @click="insertAtCursor('[||||]')">[a|b|c|d]</button>
               <button @click="insertAtCursor('ARTICLE(00-aA000)')">ARTICLE(00-aA000)</button>
