@@ -55,7 +55,7 @@ export default {
         },
         {
           id: 8,
-          name: 'Дополнительно',
+          name: 'Калькуляторы',
           value: 'calculators'
         },
         {

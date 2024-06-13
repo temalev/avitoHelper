@@ -107,7 +107,7 @@ const router = createRouter({
       name: 'calculatorRoute',
       meta: {
         name: 'calculatorRoute',
-        title: 'Дополнительно'
+        title: 'Калькуляторы'
       },
       component: () => import('../views/CalculatorRoute.vue'),
       children: [
@@ -116,7 +116,7 @@ const router = createRouter({
           name: 'calculators',
           meta: {
             name: 'calculators',
-            title: 'Дополнительно'
+            title: 'Калькуляторы'
           },
           component: () => import('../views/Calculators.vue'),
           

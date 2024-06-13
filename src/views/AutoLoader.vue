@@ -13,7 +13,7 @@
           </template>
         </Tree>
         <div class="m-0-6 d-flex-column">
-          <label for="integeronly" class="font-bold block mb-2"> Количество (максимум 10000) </label>
+          <label for="integeronly" style="color: #fff;" class="font-bold block mb-2"> Количество (максимум 10000) </label>
           <InputNumber v-model="count" inputId="integeronly" :max="10000" />
           <Button
             type="button"
