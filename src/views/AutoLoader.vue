@@ -101,19 +101,24 @@
                   accept="image/png, image/jpeg"
                   @change="onSelectFile"
                 />
-                <img
-                  v-if="urlFile"
-                  :src="urlFile"
-                  alt=""
-                  width="100"
-                  height="100"
-                  style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
-                />
+
+                <div v-if="urlFiles.length" class="d-flex gap-4">
+                  <img
+                    v-for="urlFile in urlFiles"
+                    :key="urlFile"
+                    :src="urlFile"
+                    alt=""
+                    width="100"
+                    height="100"
+                    style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
+                  />
+                </div>
+                
               </div>
 
               <div class="d-flex-column gap-2 photos-container">
                 <span>Дополнительные фото</span>
-                <Message v-if="!urlFile" :closable="false"
+                <Message v-if="!urlFiles.length" :closable="false"
                   >Для начала загрузите основное фото</Message
                 >
                 <Button
@@ -209,7 +214,7 @@ export default {
       categoryId: null,
       generateFileProcess: false,
       uploadingProcess: false,
-      urlFile: null,
+      urlFiles: [],
       urlFilesAdditional: [],
       uploadFieldFileProcess: false,
       loadingFields: false,
@@ -298,16 +303,20 @@ export default {
       this.$refs.fieldFileInput[0].click()
     },
     async onSelectFile(e) {
-      this.uploadingProcess = true
       this.uuid = uuidv4()
-      const file = e.target.files
+      Array.from(e.target.files).forEach((file) => {
+        this.onUploadFile(file)
+      })
+    },
+    async onUploadFile(file) {
+      this.uploadingProcess = true
       const params = {
         albumUuid: this.uuid,
         type: 'basic'
       }
       try {
-        const res = await uploadFile(file[0], params)
-        this.urlFile = URL.createObjectURL(file[0])
+         await uploadFile(file, params)
+        this.urlFiles.push(URL.createObjectURL(file))
       } catch (e) {
         console.error(e)
       }
