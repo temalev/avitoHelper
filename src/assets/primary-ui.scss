@@ -52,3 +52,14 @@
     box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(47, 0, 0, 0.362);
   }
 }
+
+.flex {
+ & label {
+  color: #fff;
+  cursor: pointer;
+
+  &:hover {
+  color: #bcbcbc;
+  }
+}
+}

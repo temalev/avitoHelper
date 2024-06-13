@@ -29,7 +29,7 @@
         <Panel v-for="field in fields" :key="field.id" toggleable>
           <template #header>
             <div>
-              {{ field.tag }}
+              {{ field.label }}
               <span class="ml-4 text-orange-400 text-xs" v-if="field.required">Обязательный</span>
             </div>
           </template>
@@ -65,7 +65,7 @@
               <div
                 v-for="item in field.data.values"
                 :key="item.value"
-                class="flex align-items-center gap-2"
+                class="flex align-center gap-2"
               >
                 <Checkbox
                   v-model="field.inputValue"
