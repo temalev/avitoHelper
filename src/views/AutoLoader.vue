@@ -432,7 +432,9 @@ main {
 
 img {
   object-fit: contain;
-  box-shadow: 0 0 10px 5px #d7d7d75b;
+  box-shadow: 0 0 10px 5px #111;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
 }
 
 .photos-container {
