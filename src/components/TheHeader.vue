@@ -146,7 +146,7 @@ header {
 }
 .glow-on-hover:before {
     content: '';
-    background: linear-gradient(45deg, #ff0000, #00ffd5, #002bff, #7a00ff, #ff0000);
+    background: linear-gradient(45deg, #ffffff, #002bff, #001ba3, #e0e6fe);
     position: absolute;
     top: -2px;
     left:-2px;
