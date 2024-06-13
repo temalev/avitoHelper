@@ -36,8 +36,8 @@
           <p class="text-sm description" style="overflow-wrap: anywhere">
             <Markdown :source="field.description" />
           </p>
-          <div class="d-flex-column mt-4 bg-[#eee9] p-2 rounded-md">
-            <b>Пример заполнения</b>
+          <div class="d-flex-column mt-4 p-2 rounded-md example-card">
+            <b style="color: #eee;">Пример заполнения</b>
             <p><Markdown :source="field.example" /></p>
           </div>
           <div class="mt-4">
@@ -361,6 +361,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.example-card {
+  background-color: #2425257d;
+}
 main {
   width: 100%;
   display: flex;
