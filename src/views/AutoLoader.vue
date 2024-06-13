@@ -102,7 +102,7 @@
                   @change="onSelectFile"
                 />
 
-                <div v-if="urlFiles.length" class="d-flex gap-4 container" style="overflow: auto">
+                <div v-if="urlFiles.length" class="d-flex gap-4 photos" style="overflow: auto">
                   <img
                     v-for="urlFile in urlFiles"
                     :key="urlFile"
@@ -138,7 +138,7 @@
                   accept="image/png, image/jpeg"
                   @change="onSelectFileAdditional"
                 />
-                <div v-if="urlFilesAdditional.length" class="d-flex gap-4" style="overflow: auto">
+                <div v-if="urlFilesAdditional.length" class="d-flex gap-4 photos" style="overflow: auto">
                   <img
                     v-for="urlFile in urlFilesAdditional"
                     :key="urlFile"
@@ -449,6 +449,12 @@ backdrop-filter: blur(4.9px);
 -webkit-backdrop-filter: blur(4.9px);
 border: 1px solid var(--border-color);
 color: #eee;
+}
+
+.photos {
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
 }
 
 ::v-deep {
