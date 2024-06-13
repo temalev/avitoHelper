@@ -122,7 +122,7 @@
                   >Для начала загрузите основное фото</Message
                 >
                 <Button
-                  :disabled="!urlFile"
+                  :disabled="!urlFiles.length"
                   style="width: 140px"
                   @click="openFileDialogAdditional"
                   :loading="uploadingAdditionalProcess"
