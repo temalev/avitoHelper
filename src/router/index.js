@@ -47,7 +47,7 @@ const router = createRouter({
       name: 'autoloader',
       meta: {
         name: 'autoloader',
-        title: 'Создание файлов автозагрузки'
+        title: 'Создать таблицу'
       },
       component: () => import('../views/AutoLoader.vue')
     },
@@ -56,7 +56,7 @@ const router = createRouter({
       name: 'parser',
       meta: {
         name: 'parser',
-        title: 'Сборщик объявлений авито'
+        title: 'Парсер'
       },
       component: () => import('../views/Parser.vue')
     },
@@ -66,7 +66,7 @@ const router = createRouter({
       props: true,
       meta: {
         name: 'chats',
-        title: 'Авито сообщения'
+        title: 'Центр сообщений'
       },
       component: () => import('../views/ChatsRoute.vue'),
       children: [
@@ -75,7 +75,7 @@ const router = createRouter({
           name: 'chatsList',
           meta: {
             name: 'chatsList',
-            title: 'Авито сообщения'
+            title: 'Центр сообщений'
           },
           component: () => import('../views/Chats.vue')
         },
@@ -85,7 +85,7 @@ const router = createRouter({
           props: true,
           meta: {
             name: 'chat',
-            title: 'Авито сообщения'
+            title: 'Центр сообщений'
           },
           component: () => import('../views/Chat.vue')
         },
@@ -107,7 +107,7 @@ const router = createRouter({
       name: 'calculatorRoute',
       meta: {
         name: 'calculatorRoute',
-        title: 'Кальк'
+        title: 'Дополнительно'
       },
       component: () => import('../views/CalculatorRoute.vue'),
       children: [
@@ -116,7 +116,7 @@ const router = createRouter({
           name: 'calculators',
           meta: {
             name: 'calculators',
-            title: 'Инструменты для Маркетолога'
+            title: 'Дополнительно'
           },
           component: () => import('../views/Calculators.vue'),
           
