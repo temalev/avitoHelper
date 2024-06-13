@@ -23,6 +23,13 @@
             style="height: 32px"
             class="mt-5"
           ></Button>
+          <Button
+            type="button"
+            @click="showUploadAutoloadFileModal = true"
+            label="Загрузка файла автозагрузки на Авито"
+            style="height: 52px"
+            class="mt-5"
+          ></Button>
         </div>
       </div>
       <div v-loading="loadingFields" class="fields d-flex-column gap-4 w-full">
@@ -179,6 +186,7 @@
         </Panel>
       </div>
     </div>
+    <upload-autoload-file-modal v-if="showUploadAutoloadFileModal" @close="showUploadAutoloadFileModal = false" />
   </main>
 </template>
 <script>
@@ -186,8 +194,10 @@ import { getCategories, getFields, createFile, uploadFieldFile } from '@/api/aut
 import { uploadFile } from '@/api/image'
 
 import { v4 as uuidv4 } from 'uuid'
+import UploadAutoloadFileModal from '@/components/UploadAutoloadFileModal.vue'
 
 export default {
+  components: { UploadAutoloadFileModal },
   data() {
     return {
       count: 1,
@@ -203,6 +213,7 @@ export default {
       urlFilesAdditional: [],
       uploadFieldFileProcess: false,
       loadingFields: false,
+      showUploadAutoloadFileModal: false,
     }
   },
 

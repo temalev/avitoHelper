@@ -31,6 +31,17 @@ export function createFile(data) {
   });
 }
 
+export function uploadAutoloadFile(id, file, params) {
+  const formData = new FormData();
+  formData.append('file', file);
+  return request({
+    url: `avito-account/${id}/autoloader/load/file`,
+    method: 'post',
+    data: formData,
+    params
+  });
+}
+
 /**
  * Создать файл автозагрузки
  */
