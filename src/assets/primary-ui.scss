@@ -70,6 +70,11 @@
   }
 }
 
+.p-overflow-hidden {
+  width: 100vw !important;
+  overflow: visible !important;
+}
+
 .p-panel-content {
  & p {
   color: #fff;
