@@ -65,11 +65,11 @@ export default {
       paymentType: [
         {
           id: 0,
-          name: 'карты'
+          name: 'ЮMoney'
         },
         {
           id: 1,
-          name: 'криптовалюты'
+          name: 'CryptoCloud'
         }
       ],
       form: {
