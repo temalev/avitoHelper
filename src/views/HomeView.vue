@@ -44,7 +44,7 @@
           </template>
         </Card>
         <Card
-          style="width: 25rem; overflow: hidden; height: 300px"
+          style="width: 25rem; overflow: hidden; height: 400px"
           @click="$router.push({ name: 'AutoLoader' })"
           class="pointer"
         >
@@ -60,7 +60,11 @@
             </p>
           </template>
           <template #footer>
-            <div class="mt-2">до 500 объяв - 800 руб, до 5000 - 1150, больше - 1500</div>
+            <div class="mt-2">
+              1,6р за одно объявление до 500 шт <br />
+              0,23р за одно объявление от 501 до 5000 шт <br />
+              0,15р за одно объявление от 5001 до 10000 шт в таблице
+            </div>
           </template>
         </Card>
         <Card
