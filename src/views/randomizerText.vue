@@ -1,7 +1,7 @@
 <template>
   <main>
     <Card>
-      <template #title>Рандомайзер текста</template>
+      <template #title>Генератор текста</template>
       <template #content>
         <p>
           Для создания перестановок подстрок используйте конструкцию

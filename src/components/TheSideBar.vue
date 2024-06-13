@@ -25,7 +25,7 @@ export default {
         },
         {
           id: 2,
-          name: 'Рандомайзер текста',
+          name: 'Генератор текста',
           value: 'randomizerText'
         },
         // {
@@ -35,27 +35,27 @@ export default {
         // },
         {
           id: 4,
-          name: 'Создание файлов автозагрузки',
+          name: 'Создать таблицу',
           value: 'autoloader'
         },
         {
           id: 5,
-          name: 'Парсинг',
+          name: 'Парсер',
           value: 'parser'
         },
         {
           id: 6,
-          name: 'Авито сообщения',
+          name: 'Центр сообщений',
           value: 'chatsList'
         },
         {
           id: 7,
-          name: 'Автоответы',
+          name: 'Автоответчик',
           value: 'autoReplies'
         },
         {
           id: 8,
-          name: 'Инструменты для Маркетолога',
+          name: 'Дополнительно',
           value: 'calculators'
         },
         {
