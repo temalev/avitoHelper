@@ -100,6 +100,7 @@
                   type="file"
                   id="avatar"
                   name="avatar"
+                  multiple
                   accept="image/png, image/jpeg"
                   @change="onSelectFile"
                 />
