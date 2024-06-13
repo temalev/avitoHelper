@@ -102,7 +102,7 @@
                   @change="onSelectFile"
                 />
 
-                <div v-if="urlFiles.length" class="d-flex gap-4">
+                <div v-if="urlFiles.length" class="d-flex gap-4" style="overflow: auto">
                   <img
                     v-for="urlFile in urlFiles"
                     :key="urlFile"
@@ -138,7 +138,7 @@
                   accept="image/png, image/jpeg"
                   @change="onSelectFileAdditional"
                 />
-                <div v-if="urlFilesAdditional.length" class="d-flex gap-4">
+                <div v-if="urlFilesAdditional.length" class="d-flex gap-4" style="overflow: auto">
                   <img
                     v-for="urlFile in urlFilesAdditional"
                     :key="urlFile"
