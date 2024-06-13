@@ -180,14 +180,16 @@ main {
 }
 .calcCard {
   padding: 20px;
-  border: 1px solid #eee;
-  background-color: #fff;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-color);
   border-radius: 12px;
   width: 500px;
   cursor: pointer;
+  color: var(--vt-c-white);
 
   &:hover {
-    box-shadow: 0 0 8px 5px #e3e4e9;
+    box-shadow: 0 0 8px 5px var(--background-color);
+    border-color: var(--border-color-hover);
   }
 }
 </style>
