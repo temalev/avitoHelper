@@ -61,9 +61,6 @@
             <div>
               {{ item.value }}
             </div>
-            <div>
-              {{ item.value }}
-            </div>
           </div>
         </template>
         <template #footer>
