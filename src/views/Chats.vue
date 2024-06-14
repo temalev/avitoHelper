@@ -20,11 +20,12 @@
         <template #title>{{ item.name }}</template>
         <template #content>
           <div class="d-flex-column">
-            <div>{{ item.email }}</div>
-            <a :href="item.profile_url">{{ item.profile_url }}</a>
+            <div>Email: {{ item.email }}</div>
+            <div>Телефон: {{ item.phone }}</div>
+            <a :href="item.profileUrl">Открыть на Авито</a>
           </div>
         </template>
-        <template #footer> </template>
+        <template #footer></template>
       </Card>
     </div>
     <div class="chats">
@@ -34,11 +35,21 @@
         class="mt-4 w-full pointer"
         @click="$router.push({ name: 'chat', params: { chatId: item.id, accountId: selectedAccount } })"
       >
-        <template #title>{{`${item.avitoAccount.name}: ${item?.ad?.title || ''}`}}</template>
+        <template #title>{{`${item.title}`}}</template>
         <template #content>
-          {{ item.lastMessage.text }}
+          <div class="d-flex-column mb-20px ml-20px">
+            <div>
+              {{ item?.ad?.title || '' }} {{ item?.ad?.price ? `| ${item.ad.price} ₽` : '' }}
+            </div>
+            <div>
+              {{ item?.ad?.address }}
+            </div>
+          </div>
+          <div>
+            {{ item.lastMessage.text }}
+          </div>
         </template>
-        <template #footer>  </template>
+        <template #footer></template>
       </Card>
     </div>
   </main>
