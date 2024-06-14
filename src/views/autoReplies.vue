@@ -55,8 +55,17 @@
       </Card>
 
       <Card v-for="item in list" :key="item.id" class="mt-4 w-full">
-        <template #title>{{ item.name }}</template>
-        <template #content> {{ item.value }} </template>
+        <template #title>{{ item?.avitoAccount?.name }}</template>
+        <template #content>
+          <div class="d-flex-column gap-2">
+            <div>
+              {{ item.value }}
+            </div>
+            <div>
+              {{ item.value }}
+            </div>
+          </div>
+        </template>
         <template #footer>
           <Button
             class="mt-8"

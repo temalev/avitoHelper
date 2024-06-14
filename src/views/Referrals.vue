@@ -1,21 +1,21 @@
 <template>
   <main>
-    <span>Реферальная ссылка (клик чтобы скопировать):</span>
-    <div class="d-flex-column mt-2">
-      <Transition name="slide-up">
-        <Button
-          v-if="!isWritedText"
-          :label="`p.avigroup.site/k?r=${store.user?.uuid}`"
-          class="w-80"
+    <span class="text-white mt-20 text-center">Получайте 5% от сумм пополнений, совершённых пользователями,<br>которых вы пригласили, используя эту уникальную ссылку:</span>
+    <div v-if="store.user?.uuid" class="d-flex mt-7 w-100% justify-center items-center gap-10">
+      <div class="text-white">{{`https://p.avigroup.site/k?r=${store.user?.uuid}`}}</div>
+      <Button
+          :label="!isWritedText ? 'Copy' : 'Copied'"
+          class="w-30"
           @click="writeClipboardText"
-        />
-        <InlineMessage v-else class="w-80" severity="success">Ссылка скопирована</InlineMessage>
-      </Transition>
+      />
     </div>
-    <div v-if="referrals.length" class="d-flex-column mt-4">
-      <Card v-for="referral in referrals" :key="referral.Name">
-        <template #title>{{ referral?.name }}</template>
+    <div v-if="referrals.length" class="d-flex-column mt-20">
+      <Card>
+        <template #title>Приведенные пользователи</template>
         <template #content>
+          <div v-for="referral in referrals" :key="referral.id">
+            {{ referrals.indexOf(referral) || 0 + 1 }}. {{ referral?.name }}
+          </div>
           <p class="m-0"></p>
         </template>
       </Card>
