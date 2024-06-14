@@ -87,3 +87,5 @@ app.component('Markdown', Markdown);
 
 
 app.mount('#app')
+
+export default app

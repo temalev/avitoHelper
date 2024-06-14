@@ -1,4 +1,6 @@
 import axios from 'axios'
+import {ToastSeverity} from 'primevue/api';
+import app from '@/main';
 // import { stringify } from 'query-string';
 
 // create an axios instance
@@ -37,11 +39,11 @@ service.interceptors.response.use(
     console.error('err', error); // for debug
     console.error('err', error.response); // for debug
 
-    if ((error.response?.status === 401 || error.response?.status === 403) && !window.location.href.includes('login')) {
+    if ((error.response?.status === 401) && !window.location.href.includes('login')) {
       window.location.href = '/login'
     }
     if (error.response?.status >= 400 && error.response?.status !== 401) {
-      alert(error.response.data) 
+      app.config.globalProperties.$toast.add({severity: ToastSeverity.ERROR, summary: 'Ошибка', detail:  error.response.data || 'Внутренняя ошибка', life: 3000});
     }
     return Promise.reject(error.response.data)
   }
