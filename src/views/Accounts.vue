@@ -12,7 +12,9 @@
         <template #title>{{ item.name }}</template>
         <template #content> 
           <div class="d-flex-column">
-            <div>{{ item.email }}</div>
+            <div>Email: {{ item.email }}</div>
+            <div>{{ item.phone ? `Телефон: ${item.phone}` : '' }}</div>
+            <a :href="item.profileUrl">Открыть на Авито</a>
           <a :href="item.profile_url">{{ item.profile_url }}</a>
         </div>
           </template>

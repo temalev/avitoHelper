@@ -30,6 +30,17 @@
                   <label for="minmax" class="mb-2">Частота повторений шаблонов</label>
                   <Slider v-model="count" :min="1" class="w-14rem" />
                 </div>
+                <div class="d-flex-column gap-2">
+                  <label for="minmax" class="mb-2">Таймаут отправки</label>
+                  <Dropdown
+                    v-model="timeoutSeconds"
+                    :options="timeoutGroups"
+                    optionLabel="name"
+                    optionValue="value"
+                    placeholder="Выберите таймаут"
+                    class="w-full md:w-14rem"
+                  />
+                </div>
               </div>
               <Button
                 class="mt-8"
@@ -69,7 +80,26 @@ export default {
       content: null,
       count: 1,
       selectedAccount: 1,
-      accounts: []
+      accounts: [],
+      timeoutGroups: [
+        {
+          name: "5 секунд",
+          value: 5,
+        },
+        {
+          name: "1 минута",
+          value: 60,
+        },
+        {
+          name: "1 час",
+          value: 60 * 60,
+        },
+        {
+          name: "1 день",
+          value: 24 * 60 * 60,
+        },
+      ],
+      timeoutSeconds: 24 * 60 * 60,
     }
   },
   mounted() {
@@ -98,7 +128,8 @@ export default {
         name: '',
         accountId: this.selectedAccount,
         randomWeight: this.count,
-        value: this.content
+        value: this.content,
+        timeoutSeconds: this.timeoutSeconds,
       }
       try {
         const res = await createAutoReply(data)
