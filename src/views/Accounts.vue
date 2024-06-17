@@ -33,8 +33,8 @@
       header="Добавить аккаунт"
       :style="{ width: '35rem' }"
     >
-      <span class="p-text-secondary block mb-5">Данные для подключения аккаунта можно получить
-        <a href="https://www.avito.ru/professionals/api" target="_blank">тут</a>
+      <span class="p-text-secondary block mb-5">
+        Данные для подключения аккаунта можно получить<a href="https://www.avito.ru/professionals/api" target="_blank">тут</a>
       </span>
       <div class="flex align-items-center gap-3 mb-3">
         <label for="clientId" class="font-semibold w-10rem">Client_id</label>
