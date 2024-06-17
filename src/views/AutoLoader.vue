@@ -150,6 +150,15 @@
                   />
                 </div>
               </div>
+              <div class="checkbox d-flex align-center">
+              <Checkbox
+                v-model="field.shouldSkipRandomize"
+                name="shouldSkipRandomize"
+                inputId="shouldSkipRandomize"
+                :binary="true"
+              />
+              <label class="ml-2" for="shouldSkipRandomize">Не рандомизировать фото</label>
+            </div>
             </div>
             <Textarea
               v-else-if="!field.type || field.type !== 'input'"
@@ -277,7 +286,8 @@ export default {
             : Array.isArray(el.inputValue)
               ? el.inputValue.join('|')
               : el.inputValue,
-          shouldSkipNight: el.shouldSkipNight
+          shouldSkipNight: el.shouldSkipNight,
+          shouldSkipRandomize: el.shouldSkipRandomize,
         })
       })
       try {
@@ -360,7 +370,7 @@ export default {
       try {
         const res = await getFields(id)
         res.forEach((el) => {
-          this.fields.push({ ...el, inputValue: null, shouldSkipNight: false, uuidFieldFile: null })
+          this.fields.push({ ...el, inputValue: null, shouldSkipNight: false, shouldSkipRandomize: false, uuidFieldFile: null })
         })
       } catch (e) {
         console.error(e)
