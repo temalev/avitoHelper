@@ -33,6 +33,20 @@
   }
 }
 
+.p-button-text {
+  background: none;
+  transition: all 0.3s ease;
+  border: none;
+  padding: 0;
+  width: fit-content;
+  &:hover {
+    color: green;
+    background: none;
+    box-shadow: none;
+    border: none;
+  }
+}
+
 .p-button-danger {
   background: linear-gradient(145deg, #b70000, #890000);
   // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 0, 0, 0.5);
