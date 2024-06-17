@@ -19,10 +19,11 @@
       @click="logout"
           class="ico pointer"
           style="
-            backgroundImage: url(/src/assets/icons/logout.svg);
+            background-image: url(/src/assets/icons/logout.svg);
             width: 20px;
             height: 20px;
             color: #eee;
+            background-repeat: no-repeat;
           "
         />
     </div>
