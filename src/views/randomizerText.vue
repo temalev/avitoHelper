@@ -123,7 +123,7 @@ import {
 export default {
   data() {
     return {
-      content: 'test',
+      content: '',
       maxCount: 0,
       count: 0,
       list: [],
