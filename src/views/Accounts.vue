@@ -33,15 +33,13 @@
       header="Добавить аккаунт"
       :style="{ width: '35rem' }"
     >
-      <span class="p-text-secondary block mb-5"
-        >Укажите данные для привязски аккаунта</span
-      >
+      <span class="p-text-secondary block mb-5">Данные для подключения аккаунта можно получить<a href="https://www.avito.ru/professionals/api">тут</a></span>
       <div class="flex align-items-center gap-3 mb-3">
-        <label for="clientId" class="font-semibold w-10rem">client ID</label>
+        <label for="clientId" class="font-semibold w-10rem">Client_id</label>
         <InputText id="email" v-model="form.clientId" class="flex-auto" autocomplete="off" />
       </div>
       <div class="flex align-items-center gap-3 mb-3">
-        <label for="clientId" class="font-semibold w-10rem">Секретный ключ</label>
+        <label for="clientId" class="font-semibold w-10rem">Client_secret</label>
         <InputText id="clientSecret" v-model="form.clientSecret" class="flex-auto" autocomplete="off" />
       </div>
       <div class="flex justify-content-end mt-8">
