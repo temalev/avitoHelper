@@ -25,11 +25,45 @@
               autocomplete="off"
             />
           </div>
-          <Button label="Изменить пароль" text />
+          <Button label="Изменить пароль" text @click="isEditPassModal = true" />
           <Button :loading="updatindUserProcess" type="button" label="Сохранить" @click="updateUser" style="width: 160px" />
         </div>
       </div>
     </div>
+    <Dialog
+      v-model:visible="isEditPassModal"
+      modal
+      header="Изменение пароля"
+      :style="{ width: '35rem', height: '350px' }"
+    >
+    <div class="d-flex-column" style="justify-content: space-between">
+    <div class="d-flex-column">
+      <div class="flex align-items-center gap-3 mb-3">
+        <label for="oldPassword" class="font-semibold w-10rem">Старый пароль</label>
+        <Password id="oldPassword" v-model="formForPass.oldPassword" class="flex-auto" :feedback="false" toggleMask />
+      </div>
+      <div class="flex align-items-center gap-3 mb-3">
+        <label for="password" class="font-semibold w-10rem">Новый пароль</label>
+        <Password id="password" v-model="formForPass.password" class="flex-auto" :feedback="false" toggleMask />
+      </div>
+      <div class="flex align-items-center gap-3 mb-3">
+        <label for="password2" class="font-semibold w-10rem">Повторите пароль</label>
+        <Password id="password2" v-model="formForPass.password2" class="flex-auto" :feedback="false" toggleMask />
+      </div>
+      <span style="color: red" v-if="formForPass.password2 && formForPass.password && formForPass.password2 !== formForPass.password">Пароли не совпадают</span>
+    </div>
+      <div class="flex justify-content-end mt-8">
+        <Button
+          type="button"
+          :loading="addAccountProcess"
+          class="w50"
+          label="Изменить"
+          :disabled="!formForPass.password2 || formForPass.password2 !== formForPass.password"
+          @click="onEditPass"
+        ></Button>
+      </div>
+    </div>
+    </Dialog>
   </main>
 </template>
 <script>
@@ -45,7 +79,13 @@ export default {
         { id: 2, label: 'Реферальная система', icon: 'pi pi-chart-line' },
       ],
       form: null,
+      formForPass: {
+        oldPassword: null,
+        password: null,
+        password2: null,
+      },
       updatindUserProcess: false,
+      isEditPassModal: false,
     }
   },
 
@@ -74,6 +114,19 @@ export default {
         const res = await getMe()
         this.form = JSON.parse(JSON.stringify(res))
         this.store.user = JSON.parse(JSON.stringify(res))
+      }
+      catch(e) {
+        console.error(e);
+      }
+    },
+    async onEditPass() {
+      const data = {
+        oldPassword: this.formForPass.oldPassword,
+        password: this.formForPass.password
+      }
+      try {
+        const res = await updateUser(data)
+        this.isEditPassModal = false
       }
       catch(e) {
         console.error(e);
