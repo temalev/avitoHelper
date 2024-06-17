@@ -1,7 +1,5 @@
 <template>
 <div class="page">
-  Подтвердить
-
   <router-view />
 </div>
 </template>

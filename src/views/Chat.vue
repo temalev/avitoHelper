@@ -29,12 +29,22 @@
 </template>
 <script>
 import { getChatMessages, sendMessage } from '@/api/chats'
+import { inject, watch } from 'vue';
+
+const websocketState = inject('websocketState');
+
+watch(() => websocketState?.message, (newMessage) => {
+  if (newMessage !== null) {
+    console.log('this.handleNewMessage(newMessage)111;')
+  }
+});
 
 export default {
   props: {
     chatId: [String],
     accountId: [String]
   },
+  inject: ['websocketState'],
   data() {
     return {
       messages: '',
@@ -45,6 +55,14 @@ export default {
   watch: {
     $toast(val) {
       console.log(val);
+    },
+    'websocketState.message': {
+      handler(newMessage) {
+        if (newMessage !== null) {
+          console.log('this.handleNewMessage(newMessage);')
+        }
+      },
+      deep: true // Используйте deep watch, если нужно следить за вложенными объектами
     }
   },
   mounted() {

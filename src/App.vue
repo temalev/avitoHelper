@@ -1,9 +1,17 @@
 <script>
+import { reactive, provide } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import { getMe } from '@/api/login'
 import { useUserStore } from '@/stores/user'
 import TheHeader from '@/components/TheHeader.vue'
 import TheSideBar from '@/components/TheSideBar.vue'
+
+const websocketState = reactive({
+  message: null,
+  payload: null,
+});
+
+provide('websocketState', websocketState);
 
 export default {
   components: {
@@ -23,6 +31,8 @@ export default {
       switch (resOnMessage.event) {
         case 'NEW_MESSAGE': {
           this.show()
+          websocketState.message = 'NEW_MESSAGE';
+          websocketState.payload = resOnMessage.payload;
         }
           break
         case 'PARSING_IS_OVER':
