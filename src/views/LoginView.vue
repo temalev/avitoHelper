@@ -58,6 +58,8 @@
 import { signUp, signIn } from '@/api/login'
 import { recoverPass } from '@/api/recovery-password'
 
+const urlParams = new URLSearchParams(window.location.search);
+
 export default {
   data() {
     return {
@@ -113,8 +115,10 @@ export default {
         password: this.form.password
       }
       try {
-        const res = await signIn(data)
-        this.$router.push('/')
+        await signIn(data)
+        
+        const redirectUrl = urlParams.get('redirect_url')
+        this.$router.push(redirectUrl || '/')
       } catch (e) {
         this.loginError = e
         console.error(e)

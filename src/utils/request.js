@@ -40,7 +40,7 @@ service.interceptors.response.use(
     console.error('err', error.response); // for debug
 
     if ((error.response?.status === 401) && !window.location.href.includes('login')) {
-      window.location.href = '/login'
+      window.location.href = `/login?redirect_url=${window.location.pathname}`
     }
     if (error.response?.status >= 400 && error.response?.status !== 401) {
       app.config.globalProperties.$toast.add({severity: ToastSeverity.ERROR, summary: 'Ошибка', detail:  error.response.data || 'Внутренняя ошибка', life: 3000});
