@@ -5,7 +5,7 @@ import app from '@/main';
 
 // create an axios instance
 const service = axios.create({
-  baseURL: 'http://127.0.0.1:8080/api/client',
+  baseURL: 'https://p.avigroup.site/api/client',
   // baseURL:`${process.env.VUE_APP_BASE_API}/`, // url = base url + request url
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000, // request timeout
@@ -43,7 +43,7 @@ service.interceptors.response.use(
       window.location.href = '/login'
     }
     if (error.response?.status >= 400 && error.response?.status !== 401) {
-      app.config.globalProperties.$toast.add({severity: ToastSeverity.ERROR, summary: 'Ошибка', detail:  error?.response?.data || 'Внутренняя ошибка', life: 3000});
+      app.config.globalProperties.$toast.add({severity: ToastSeverity.ERROR, summary: 'Ошибка', detail:  error.response.data || 'Внутренняя ошибка', life: 3000});
     }
     return Promise.reject(error.response.data)
   }
