@@ -7,6 +7,8 @@ import 'highlight.js/styles/monokai.css';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { vLoading } from './directives/loading/v-loading';
+import VCalendar from 'v-calendar';
+import 'v-calendar/style.css';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -34,6 +36,7 @@ import FileUpload from 'primevue/fileupload';
 import Textarea from 'primevue/textarea';
 import RadioButton from 'primevue/radiobutton';
 import TheTabs from '@/ui/TheTabs.vue';
+import Calendar from '@/ui/Calendar.vue';
 import Slider from 'primevue/slider';
 import Markdown from 'vue3-markdown-it';
 import Message from 'primevue/message';
@@ -57,12 +60,14 @@ app.use(VueAxios, axios)
 app.use(VueChartkick)
 app.use(Markdown)
 app.use(ToastService);
+app.use(VCalendar, {})
 
 app.component('DataTable', DataTable);
 app.component('Column', Column);
 app.component('ColumnGroup', ColumnGroup);
 app.component('Row', Row);
 app.component('TheTabs', TheTabs);
+app.component('Calendar', Calendar);
 app.component('Toast', Toast);
 app.component('Message', Message);
 app.component('InputText', InputText);
