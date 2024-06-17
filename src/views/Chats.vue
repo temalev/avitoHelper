@@ -10,7 +10,6 @@
       class="w-full md:w-14rem"
     />
     <div v-if="!selectedAccount" class="d-flex-column">
-      <h3>Выберите аккаунт</h3>
       <Card
         v-for="item in accounts"
         :key="item.id"
