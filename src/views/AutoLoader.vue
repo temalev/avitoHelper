@@ -109,6 +109,7 @@
                     v-for="urlFile in urlFiles"
                     :key="urlFile"
                     class="image-container"
+                                @click="deleteImage(filed)"
                   >
                     <img
                       :src="urlFile"
@@ -150,7 +151,6 @@
                   v-if="urlFilesAdditional.length"
                   class="d-flex gap-4 photos"
                   style="overflow: auto"
-                  @click="deleteImage(filed)"
                 >
                   <img
                     v-for="urlFile in urlFilesAdditional"
