@@ -60,7 +60,6 @@ export const vLoading = {
     if (binding.value !== binding.oldValue) {
       el.instance.visible = binding.value;
       if (binding.value) {
-        console.log('el', el);
         appendEl(el);
       } else {
         // removeEl(el);

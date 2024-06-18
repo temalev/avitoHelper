@@ -203,7 +203,7 @@
           <template v-if="field.tag !== 'ImageUrls'" #footer>
             <Button
               style="width: 180px"
-              @click="openFieldFileDialog"
+              @click="openFieldFileDialog(field)"
               :loading="uploadFieldFileProcess === field.id"
               label="Загрузить файлом"
             ></Button>
@@ -255,6 +255,7 @@ export default {
       loadingFields: false,
       showUploadAutoloadFileModal: false,
       uploadingAdditionalProcess: false,
+      idForLoading: null,
     }
   },
 
@@ -356,7 +357,8 @@ export default {
     openFileDialogAdditional() {
       this.$refs.fileInputAdditional[0].click()
     },
-    openFieldFileDialog() {
+    openFieldFileDialog(field) {
+      this.idForLoading = field.id
       this.$refs.fieldFileInput[0].click()
     },
     async onSelectFile(e) {
@@ -401,12 +403,12 @@ export default {
       }
       this.uploadingAdditionalProcess = false
     },
-    async uploadFieldFile(e, field) {
-      this.uploadFieldFileProcess = field.id
+    async uploadFieldFile(e) {
+      this.uploadFieldFileProcess = this.idForLoading
       const file = e.target.files
       try {
         const res = await uploadFieldFile(file[0])
-        field.uuidFieldFile = res.fileName
+        this.fields.find(el => el.id === this.idForLoading).uuidFieldFile = res.fileName
       } catch (e) {
         console.error(e)
       }
