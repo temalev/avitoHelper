@@ -114,7 +114,9 @@
                       height="100"
                       style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
                     />
+                    <div class="btn-delete">
                     <i class="pi pi-times"></i>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -485,6 +487,14 @@ img {
   padding: 12px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
+}
+
+.btn-delete { 
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  border: 1px solid #333;
 }
 
 ::v-deep {
