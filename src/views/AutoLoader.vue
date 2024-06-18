@@ -294,7 +294,7 @@ export default {
   methods: {
    async  deleteImage(type) {
     const data = {
-      fileName:,
+      fileName: 'hi',
       albumUuid: this.uuid,
       imageType: type,
     }
