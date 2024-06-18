@@ -492,10 +492,17 @@ img {
   border-radius: 8px;
 }
 
+.image-container {
+  position: relative;
+}
+
 .btn-delete {
+  flex-shrink: 0;
   position: absolute;
   top: 0;
   right: 0;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 1px solid #333;
 }
