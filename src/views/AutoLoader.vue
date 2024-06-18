@@ -150,6 +150,7 @@
                   v-if="urlFilesAdditional.length"
                   class="d-flex gap-4 photos"
                   style="overflow: auto"
+                  @click="deleteImage(filed)"
                 >
                   <img
                     v-for="urlFile in urlFilesAdditional"
@@ -207,7 +208,7 @@
               accept=".txt,text/plain,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
               @change="(e) => uploadFieldFile(e, field)"
             />
-            <InlineMessage v-if="field?.uuidFieldFile" severity="success" style="height: 36px"
+            <InlineMessage v-if="field?.uuidFieldFile" severity="success" style="height: 36px" class="ml-4"
               >Файл успешно загружен</InlineMessage
             >
           </template>
@@ -283,6 +284,9 @@ export default {
   },
 
   methods: {
+    deleteImage(filed) {
+      console.log(filed);
+    },
     async createFile() {
       this.generateFileProcess = true
       const fields = []
