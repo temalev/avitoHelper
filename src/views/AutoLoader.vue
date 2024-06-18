@@ -303,7 +303,7 @@ export default {
       console.log(this.urlFiles);
       if (type === 'basic') {
         this.urlFiles.filter(el => {
-          console.log(el.fileName, file.fileName);
+          console.log(el.fileName === file.fileName);
         })
       }
       else {
