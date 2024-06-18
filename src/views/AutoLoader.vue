@@ -109,7 +109,7 @@
                     v-for="urlFile in urlFiles"
                     :key="urlFile"
                     class="image-container"
-                     @click="deleteImage('basic')"
+                     @click="deleteImage(urlFile, 'basic')"
                   >
                     <img
                       :src="urlFile"
@@ -292,7 +292,8 @@ export default {
   },
 
   methods: {
-   async  deleteImage(type) {
+   async  deleteImage(file, type) {
+    console.log(file);
     const data = {
       fileName: 'hi',
       albumUuid: this.uuid,
