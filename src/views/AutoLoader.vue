@@ -204,7 +204,7 @@
             <Button
               style="width: 180px"
               @click="openFieldFileDialog"
-              :loading="uploadFieldFileProcess === field.tag"
+              :loading="uploadFieldFileProcess === field.id"
               label="Загрузить файлом"
             ></Button>
             <input
@@ -253,7 +253,8 @@ export default {
       urlFilesAdditional: [],
       uploadFieldFileProcess: null,
       loadingFields: false,
-      showUploadAutoloadFileModal: false
+      showUploadAutoloadFileModal: false,
+      uploadingAdditionalProcess: false,
     }
   },
 
@@ -401,7 +402,7 @@ export default {
       this.uploadingAdditionalProcess = false
     },
     async uploadFieldFile(e, field) {
-      this.uploadFieldFileProcess = field.tag
+      this.uploadFieldFileProcess = field.id
       const file = e.target.files
       try {
         const res = await uploadFieldFile(file[0])
