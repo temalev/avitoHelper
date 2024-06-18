@@ -108,10 +108,10 @@
                   <div
                     v-for="urlFile in urlFiles"
                     :key="urlFile"
-                    :src="urlFile"
                     class="image-container"
                   >
                     <img
+                      :src="urlFile"
                       alt=""
                       width="100"
                       height="100"
@@ -497,14 +497,18 @@ img {
 }
 
 .btn-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   position: absolute;
   top: 0;
   right: 0;
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
   border: 1px solid #333;
+  background-color: #242424;
 }
 
 ::v-deep {
