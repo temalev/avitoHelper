@@ -295,12 +295,18 @@ export default {
    async  deleteImage(file, type) {
     console.log(file);
     const data = {
-      fileName: 'hi',
+      fileName: file.fileName,
       albumUuid: this.uuid,
       imageType: type,
     }
     try {
       await deleteFile(data)
+      if (type === 'basic') {
+        this.urlFiles.filter(el => el.fileName !== file.fileName)
+      }
+      else {
+        this.urlFilesAdditional.filter(el => el.fileName !== file.fileName)
+      }
     } 
     catch(e) {
       console.error(e);
