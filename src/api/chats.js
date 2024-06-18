@@ -31,3 +31,13 @@ export function sendMessage(chatId, data) {
     data,
   });
 }
+
+/**
+ * Получить интегрированные аккаунты
+ */
+export function getAccountChatCounts() {
+  return request({
+    url: '/conversations/counts',
+    method: 'get',
+  });
+}
