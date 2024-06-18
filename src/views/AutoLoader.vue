@@ -513,8 +513,8 @@ img {
   cursor: pointer;
 
   &:hover {
-    border: 1px solid #3f3f3f;
-    background-color: #1c1c1c;
+    border: 1px solid #4e4e4e;
+    background-color: #171717;
   }
 }
 
