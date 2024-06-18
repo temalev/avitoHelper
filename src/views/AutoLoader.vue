@@ -207,8 +207,8 @@
               accept=".txt,text/plain,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
               @change="(e) => uploadFieldFile(e, field)"
             />
-            <InlineMessage v-if="field?.uuidFieldFile" severity="success"
-              >Success Message</InlineMessage
+            <InlineMessage v-if="field?.uuidFieldFile" severity="success" style="height: 36px"
+              >Файл успешно загружен</InlineMessage
             >
           </template>
         </Panel>
