@@ -105,18 +105,21 @@
                 />
 
                 <div v-if="urlFiles.length" class="d-flex gap-4 photos" style="overflow: auto">
-                  <div class="image-container">
+                  <div
+                    v-for="urlFile in urlFiles"
+                    :key="urlFile"
+                    :src="urlFile"
+                    class="image-container"
+                  >
                     <img
-                     v-for="urlFile in urlFiles" :key="urlFile"
-                      :src="urlFile"
                       alt=""
                       width="100"
                       height="100"
                       style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
                     />
                     <div class="btn-delete">
-                    <i class="pi pi-times"></i>
-                  </div>
+                      <i class="pi pi-times"></i>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -489,7 +492,7 @@ img {
   border-radius: 8px;
 }
 
-.btn-delete { 
+.btn-delete {
   position: absolute;
   top: 0;
   right: 0;
