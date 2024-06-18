@@ -13,3 +13,15 @@ export function uploadFile(file, params) {
     data: formData,
   });
 }
+
+/**
+ * Удалить файл
+ */
+export function deleteFile(data) {
+  return request({
+    url: '/image/proxy',
+    method: 'delete',
+    data
+  });
+}
+

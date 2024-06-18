@@ -109,7 +109,7 @@
                     v-for="urlFile in urlFiles"
                     :key="urlFile"
                     class="image-container"
-                                @click="deleteImage(field)"
+                     @click="deleteImage('basic')"
                   >
                     <img
                       :src="urlFile"
@@ -152,15 +152,23 @@
                   class="d-flex gap-4 photos"
                   style="overflow: auto"
                 >
-                  <img
+                <div
                     v-for="urlFile in urlFilesAdditional"
                     :key="urlFile"
+                    class="image-container"
+                     @click="deleteImage('additional')"
+                  >
+                  <img
                     :src="urlFile"
                     alt=""
                     width="100"
                     height="100"
                     style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
                   />
+                  <div class="btn-delete">
+                      <i class="pi pi-times"></i>
+                    </div>
+                </div>
                 </div>
               </div>
               <div class="checkbox d-flex align-center">
@@ -223,7 +231,7 @@
 </template>
 <script>
 import { getCategories, getFields, createFile, uploadFieldFile } from '@/api/autoloader'
-import { uploadFile } from '@/api/image'
+import { uploadFile, deleteFile } from '@/api/image'
 
 import { v4 as uuidv4 } from 'uuid'
 import UploadAutoloadFileModal from '@/components/UploadAutoloadFileModal.vue'
@@ -284,8 +292,19 @@ export default {
   },
 
   methods: {
-    deleteImage(filed) {
-      console.log(filed);
+   async  deleteImage(type) {
+    const data = {
+      fileName:,
+      albumUuid: this.uuid,
+      imageType: type,
+    }
+    try {
+      await deleteFile(data)
+    } 
+    catch(e) {
+      console.error(e);
+    }
+     
     },
     async createFile() {
       this.generateFileProcess = true
@@ -346,8 +365,9 @@ export default {
         type: 'basic'
       }
       try {
-        await uploadFile(file, params)
-        this.urlFiles.push(URL.createObjectURL(file))
+        const res = await uploadFile(file, params)
+        const fileData = {...res, ...URL.createObjectURL(file)}
+        this.urlFiles.push(fileData)
       } catch (e) {
         console.error(e)
       }
@@ -367,7 +387,8 @@ export default {
       }
       try {
         const res = await uploadFile(file, params)
-        this.urlFilesAdditional.push(URL.createObjectURL(file))
+        const fileData = {...res, ...URL.createObjectURL(file)}
+        this.urlFilesAdditional.push(fileData)
       } catch (e) {
         console.error(e)
       }
