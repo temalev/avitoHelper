@@ -5,7 +5,7 @@
       :key="tab.id"
       class="tab"
       :class="{ active: activeTab === tab.id }"
-      @click="activeTab = tab.id"
+      @click="activeTab = tab.id, $emit('activeTab', activeTab)"
     >
       {{ tab.label }}
     </div>

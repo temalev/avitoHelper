@@ -1,7 +1,7 @@
 <template>
   <main>
-    <TheTabs :data="items" />
-    <div class="container">
+    <TheTabs :data="items" @activeTab="val => activeTab = val" />
+    <div v-if="activeTab === 1" class="container">
       <div class="d-flex-column">
         <span class="mb-4" style="color: #fff">ID: {{ store.user?.id }}</span>
         <div class="d-flex-column gap-4">
@@ -29,6 +29,28 @@
           <Button :loading="updatindUserProcess" type="button" label="Сохранить" @click="updateUser" style="width: 160px" />
         </div>
       </div>
+    </div>
+    <div v-if="activeTab === 2" class="container">
+      <div class="text-white mt-20 text-center w100%">Получайте 5% от сумм пополнений, совершённых пользователями,<br>которых вы пригласили, используя эту уникальную ссылку:</div>
+    <div v-if="store.user?.uuid" class="d-flex mt-7 w-100% justify-center items-center gap-10">
+      <div class="text-white">{{`https://p.avigroup.site/k?r=${store.user?.uuid}`}}</div>
+      <Button
+          :label="!isWritedText ? 'Copy' : 'Copied'"
+          class="w-30"
+          @click="writeClipboardText"
+      />
+    </div>
+    <div v-if="referrals.length" class="d-flex-column mt-20">
+      <Card>
+        <template #title>Приведенные пользователи</template>
+        <template #content>
+          <div v-for="referral in referrals" :key="referral.id">
+            {{ referrals.indexOf(referral) || 0 + 1 }}. {{ referral?.name }}
+          </div>
+          <p class="m-0"></p>
+        </template>
+      </Card>
+    </div>
     </div>
     <Dialog
       v-model:visible="isEditPassModal"
@@ -69,6 +91,7 @@
 <script>
 import { useUserStore } from '@/stores/user'
 import {updateUser} from '@/api/user'
+import { getReferrals } from '@/api/referrals'
 import {getMe} from '@/api/login'
 export default {
   data() {
@@ -86,11 +109,14 @@ export default {
       },
       updatindUserProcess: false,
       isEditPassModal: false,
+      activeTab: 1,
+      referrals: []
     }
   },
 
   mounted() {
-    this.getMe()
+    this.getMe();
+    this.getReferrals();
   },
 
   methods: {
@@ -130,6 +156,25 @@ export default {
       }
       catch(e) {
         console.error(e);
+      }
+    },
+    async writeClipboardText() {
+      try {
+        await navigator.clipboard.writeText(`https://p.avigroup.site/k?r=${this.store.user?.uuid}`)
+        this.isWritedText = true
+        setTimeout(() => {
+          this.isWritedText = false
+        }, 2000)
+      } catch (error) {
+        console.error(error.message)
+      }
+    },
+    async getReferrals() {
+      try {
+        const res = await getReferrals()
+        this.referrals = res
+      } catch (e) {
+        console.error(e)
       }
     }
   }

@@ -30,7 +30,10 @@ export default {
       const resOnMessage = JSON.parse(e.data)
       switch (resOnMessage.event) {
         case 'NEW_MESSAGE': {
-          this.show()
+          console.log(resOnMessage.payload.isMyMessage);
+          if (!resOnMessage.payload.isMyMessage) {
+            this.show(resOnMessage.payload.messageText)
+          }
           websocketState.message = 'NEW_MESSAGE';
           websocketState.payload = resOnMessage.payload;
         }
@@ -69,8 +72,8 @@ methods: {
     sendMessage() {
       this.connection.send(JSON.stringify({ type: 'subscribe', userUuid: this.store.user.uuid }))
     },
-    show() {
-      this.$toast.add({ severity: 'contrast', summary: 'Получено новое сообщение', detail: 'Проверьте чаты', life: 3000 });
+    show(text) {
+      this.$toast.add({ severity: 'contrast', summary: 'Получено новое сообщение', detail: text, life: 3000 });
         }
   }
 }

@@ -73,11 +73,11 @@ export default {
           name: 'Аккаунты',
           value: 'accounts'
         },
-        {
-          id: 12,
-          name: 'Реферальная система',
-          value: 'referrals'
-        },
+        // {
+        //   id: 12,
+        //   name: 'Реферальная система',
+        //   value: 'referrals'
+        // },
         {
           id: 13,
           name: 'Настройки',

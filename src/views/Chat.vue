@@ -106,6 +106,12 @@ export default {
       try {
         const res = await getChatMessages(this.chatId)
         this.messages = res.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+
+        setTimeout(() => {
+          const myDiv = document.getElementsByClassName('chat-messages')[0]
+          myDiv.scrollTop = myDiv.scrollHeight - myDiv.clientHeight;
+        }, 100);
+
       } catch (e) {
         console.error(e)
       }
