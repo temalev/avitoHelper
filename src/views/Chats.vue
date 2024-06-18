@@ -19,6 +19,7 @@
         <template #title>{{ item.name }}</template>
         <template #content>
           <div class="d-flex-column">
+            <div>Непрочитанных сообщений: {{ item.count || 0 }}</div>
             <div>Email: {{ item.email }}</div>
             <div>Телефон: {{ item.phone }}</div>
             <a :href="item.profileUrl">Открыть на Авито</a>
@@ -55,8 +56,7 @@
 </template>
 <script>
 import { useUserStore } from '@/stores/user'
-import { getChats } from '@/api/chats'
-import { getAccounts } from '@/api/avitoAccount'
+import { getChats, getAccountChatCounts } from '@/api/chats'
 export default {
   props: {
     chatId: [String]
@@ -92,8 +92,8 @@ export default {
     },
     async getAccounts() {
       try {
-        const res = await getAccounts()
-        this.accounts = res.accounts
+        const accounts = await getAccountChatCounts()
+        this.accounts = accounts
       } catch (e) {
         console.error(e)
       }
