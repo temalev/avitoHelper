@@ -293,7 +293,6 @@ export default {
 
   methods: {
    async  deleteImage(file, type) {
-    console.log(file);
     const data = {
       fileName: file.fileName,
       albumUuid: this.uuid,
