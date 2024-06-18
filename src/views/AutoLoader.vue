@@ -109,7 +109,7 @@
                     v-for="urlFile in urlFiles"
                     :key="urlFile"
                     class="image-container"
-                                @click="deleteImage(filed)"
+                                @click="deleteImage(field)"
                   >
                     <img
                       :src="urlFile"
