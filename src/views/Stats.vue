@@ -17,7 +17,7 @@
         placeholder="Период"
         class="w-full md:w-14rem"
       />
-      <VDatePicker v-model="date">
+      <VDatePicker v-if="selectedAccount && selectedGroup === 'day'" v-model="date">
         <template #default="{ togglePopover }">
           <Button
             type="button"
@@ -105,7 +105,7 @@ import { getAccounts } from '@/api/avitoAccount'
 export default {
   data() {
     return {
-      date: new Date(),
+      date: new Date,
       groups: [
         {
           name: 'День',
@@ -139,10 +139,14 @@ export default {
   },
   watch: {
     selectedAccount(val) {
-      this.getStats()
+      if (val) {
+        this.getStats()
+      }
     },
     selectedGroup(val) {
-      this.getStats()
+      if (this.selectedAccount) {
+        this.getStats()
+      }
     },
     date(val) {
       this.getStats()
