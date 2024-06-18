@@ -509,6 +509,13 @@ img {
   border-radius: 50%;
   border: 1px solid #333;
   background-color: #242424;
+  transition: .2s;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid #3f3f3f;
+    background-color: #1c1c1c;
+  }
 }
 
 ::v-deep {
