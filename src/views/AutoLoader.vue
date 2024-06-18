@@ -106,13 +106,13 @@
 
                 <div v-if="urlFiles.length" class="d-flex gap-4 photos" style="overflow: auto">
                   <div
-                    v-for="urlFile in urlFiles"
-                    :key="urlFile"
+                    v-for="file in urlFiles"
+                    :key="file.url"
                     class="image-container"
-                     @click="deleteImage(urlFile, 'basic')"
+                     @click="deleteImage(file, 'basic')"
                   >
                     <img
-                      :src="urlFile"
+                      :src="file.url"
                       alt=""
                       width="100"
                       height="100"
@@ -153,13 +153,13 @@
                   style="overflow: auto"
                 >
                 <div
-                    v-for="urlFile in urlFilesAdditional"
-                    :key="urlFile"
+                    v-for="fileAdditional in urlFilesAdditional"
+                    :key="fileAdditional.url"
                     class="image-container"
-                     @click="deleteImage('additional')"
+                     @click="deleteImage(fileAdditional, 'additional')"
                   >
                   <img
-                    :src="urlFile"
+                    :src="fileAdditional.url"
                     alt=""
                     width="100"
                     height="100"
@@ -367,7 +367,7 @@ export default {
       }
       try {
         const res = await uploadFile(file, params)
-        const fileData = {...res, ...URL.createObjectURL(file)}
+        const fileData = {...res, url: URL.createObjectURL(file)}
         this.urlFiles.push(fileData)
       } catch (e) {
         console.error(e)
@@ -388,7 +388,7 @@ export default {
       }
       try {
         const res = await uploadFile(file, params)
-        const fileData = {...res, ...URL.createObjectURL(file)}
+        const fileData = {...res, url: URL.createObjectURL(file)}
         this.urlFilesAdditional.push(fileData)
       } catch (e) {
         console.error(e)
