@@ -13,7 +13,9 @@
           </template>
         </Tree>
         <div class="m-0-6 d-flex-column">
-          <label for="integeronly" style="color: #fff;" class="font-bold block mb-2"> Количество (максимум 10000) </label>
+          <label for="integeronly" style="color: #fff" class="font-bold block mb-2">
+            Количество (максимум 10000)
+          </label>
           <InputNumber v-model="count" inputId="integeronly" :max="10000" />
           <Button
             type="button"
@@ -44,7 +46,7 @@
             <Markdown :source="field.description" />
           </p>
           <div class="d-flex-column mt-4 p-2 rounded-md example-card">
-            <b style="color: #eee;">Пример заполнения</b>
+            <b style="color: #eee">Пример заполнения</b>
             <p><Markdown :source="field.example" /></p>
           </div>
           <div class="mt-4">
@@ -103,17 +105,18 @@
                 />
 
                 <div v-if="urlFiles.length" class="d-flex gap-4 photos" style="overflow: auto">
-                  <img
-                    v-for="urlFile in urlFiles"
-                    :key="urlFile"
-                    :src="urlFile"
-                    alt=""
-                    width="100"
-                    height="100"
-                    style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
-                  />
+                  <div class="image-container">
+                    <img
+                     v-for="urlFile in urlFiles" :key="urlFile"
+                      :src="urlFile"
+                      alt=""
+                      width="100"
+                      height="100"
+                      style="flex-shrink: 0; box-sizing: border-box; border-radius: 12px"
+                    />
+                    <i class="pi pi-times"></i>
+                  </div>
                 </div>
-                
               </div>
 
               <div class="d-flex-column gap-2 photos-container">
@@ -138,7 +141,11 @@
                   accept="image/png, image/jpeg"
                   @change="onSelectFileAdditional"
                 />
-                <div v-if="urlFilesAdditional.length" class="d-flex gap-4 photos" style="overflow: auto">
+                <div
+                  v-if="urlFilesAdditional.length"
+                  class="d-flex gap-4 photos"
+                  style="overflow: auto"
+                >
                   <img
                     v-for="urlFile in urlFilesAdditional"
                     :key="urlFile"
@@ -151,14 +158,14 @@
                 </div>
               </div>
               <div class="checkbox d-flex align-center">
-              <Checkbox
-                v-model="field.shouldSkipRandomize"
-                name="shouldSkipRandomize"
-                inputId="shouldSkipRandomize"
-                :binary="true"
-              />
-              <label class="ml-2" for="shouldSkipRandomize">Не рандомизировать фото</label>
-            </div>
+                <Checkbox
+                  v-model="field.shouldSkipRandomize"
+                  name="shouldSkipRandomize"
+                  inputId="shouldSkipRandomize"
+                  :binary="true"
+                />
+                <label class="ml-2" for="shouldSkipRandomize">Не рандомизировать фото</label>
+              </div>
             </div>
             <Textarea
               v-else-if="!field.type || field.type !== 'input'"
@@ -195,12 +202,17 @@
               accept=".txt,text/plain,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
               @change="(e) => uploadFieldFile(e, field)"
             />
-            <InlineMessage v-if="field?.uuidFieldFile" severity="success">Success Message</InlineMessage>
+            <InlineMessage v-if="field?.uuidFieldFile" severity="success"
+              >Success Message</InlineMessage
+            >
           </template>
         </Panel>
       </div>
     </div>
-    <upload-autoload-file-modal v-if="showUploadAutoloadFileModal" @close="showUploadAutoloadFileModal = false" />
+    <upload-autoload-file-modal
+      v-if="showUploadAutoloadFileModal"
+      @close="showUploadAutoloadFileModal = false"
+    />
   </main>
 </template>
 <script>
@@ -227,7 +239,7 @@ export default {
       urlFilesAdditional: [],
       uploadFieldFileProcess: false,
       loadingFields: false,
-      showUploadAutoloadFileModal: false,
+      showUploadAutoloadFileModal: false
     }
   },
 
@@ -287,7 +299,7 @@ export default {
               ? el.inputValue.join('|')
               : el.inputValue,
           shouldSkipNight: el.shouldSkipNight,
-          shouldSkipRandomize: el.shouldSkipRandomize,
+          shouldSkipRandomize: el.shouldSkipRandomize
         })
       })
       try {
@@ -325,7 +337,7 @@ export default {
         type: 'basic'
       }
       try {
-         await uploadFile(file, params)
+        await uploadFile(file, params)
         this.urlFiles.push(URL.createObjectURL(file))
       } catch (e) {
         console.error(e)
@@ -370,7 +382,13 @@ export default {
       try {
         const res = await getFields(id)
         res.forEach((el) => {
-          this.fields.push({ ...el, inputValue: null, shouldSkipNight: false, shouldSkipRandomize: false, uuidFieldFile: null })
+          this.fields.push({
+            ...el,
+            inputValue: null,
+            shouldSkipNight: false,
+            shouldSkipRandomize: false,
+            uuidFieldFile: null
+          })
         })
       } catch (e) {
         console.error(e)
@@ -455,12 +473,12 @@ img {
 
 .photos-container {
   background: var(--background-color);
-border-radius: 8px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(4.9px);
--webkit-backdrop-filter: blur(4.9px);
-border: 1px solid var(--border-color);
-color: #eee;
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.9px);
+  -webkit-backdrop-filter: blur(4.9px);
+  border: 1px solid var(--border-color);
+  color: #eee;
 }
 
 .photos {
