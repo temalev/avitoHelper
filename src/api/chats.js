@@ -33,11 +33,18 @@ export function sendMessage(chatId, data) {
 }
 
 /**
- * Получить интегрированные аккаунты
+ * Получить интегрированные аккаунты с каунтами
  */
 export function getAccountChatCounts() {
   return request({
     url: '/conversations/counts',
+    method: 'get',
+  });
+}
+
+export function readMessages(id) {
+  return request({
+    url: `/conversation/${id}/read`,
     method: 'get',
   });
 }

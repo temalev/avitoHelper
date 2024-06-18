@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import { getChatMessages, sendMessage } from '@/api/chats'
+import { getChatMessages, sendMessage, readMessages } from '@/api/chats'
 import { inject, watch } from 'vue';
 
 const websocketState = inject('websocketState');
@@ -67,6 +67,7 @@ export default {
   },
   mounted() {
     this.getChatMessages()
+    this.readMessages()
   },
   methods: {
     formatDate(date) {
@@ -130,6 +131,9 @@ export default {
       } catch (e) {
         console.error(e)
       }
+    },
+    async readMessages() {
+      await readMessages(this.chatId)
     }
   }
 }
