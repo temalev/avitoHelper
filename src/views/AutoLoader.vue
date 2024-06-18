@@ -302,9 +302,7 @@ export default {
       await deleteFile(data)
       console.log(this.urlFiles);
       if (type === 'basic') {
-        this.urlFiles.filter(el => {
-          console.log(el.fileName === file.fileName);
-        })
+        this.urlFiles.filter(el => el.fileName !== file.fileName)
       }
       else {
         this.urlFilesAdditional.filter(el => el.fileName !== file.fileName)
