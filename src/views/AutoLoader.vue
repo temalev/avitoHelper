@@ -83,7 +83,7 @@
               </div>
             </template>
             <Dropdown
-              v-else-if="field.type === 'select'"
+              v-else-if="field.type === 'select' && field.data.values?.length > 0"
               v-model="field.inputValue"
               editable
               :options="field.data.values"
