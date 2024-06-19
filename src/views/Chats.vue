@@ -35,7 +35,7 @@
         class="mt-4 w-full pointer"
         @click="$router.push({ name: 'chat', params: { chatId: item.id, accountId: selectedAccount } })"
       >
-        <template #title>{{`${item.title}`}}</template>
+        <template #title>{{`${item.title}`}}{{!item.lastMessage.read ? ' | Непрочитанно' : ''}}</template>
         <template #content>
           <div class="d-flex-column mb-20px ml-20px">
             <div>
