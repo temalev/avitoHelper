@@ -29,10 +29,12 @@
     </div>
     <Dialog v-model:visible="showPanel" modal header="Edit Profile" :style="{ width: '25rem' }">
       <template #header> Пополнить баланс </template>
-      <span class="p-text-secondary block mb-5">Введите сумму и способ пополнения</span>
+      <div class="p-text-secondary block mb-5">Введите сумму и способ пополнения <br>
+      <span style="font-size: 11px">минимальная сумма пополнения 200₽</span>
+      </div>
       <div class="flex align-center gap-3 mb-3">
         <label for="username" class="font-semibold w-6rem">Сумма</label>
-        <InputNumber v-model="form.amount" inputId="integeronly" :min="500" />
+        <InputNumber v-model="form.amount" inputId="integeronly" :min="200" />
       </div>
       <div class="d-flex-column align-items-center gap-3 mb-2">
         <label class="font-semibold ">Пополнить с помощью:</label>
@@ -47,8 +49,8 @@
         </div>
       </div>
       <template #footer>
-        <Button label="Отменить" text severity="secondary" @click="showPanel = false" />
-        <Button label="Пополнить" outlined severity="secondary" @click="showPanel = false; onPayment()" autofocus />
+        <Button label="Отменить" severity="secondary" text @click="showPanel = false" />
+        <Button label="Пополнить" outlined  @click="showPanel = false; onPayment()" autofocus />
       </template>
     </Dialog>
   </header>
