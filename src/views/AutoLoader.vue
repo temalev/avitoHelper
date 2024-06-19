@@ -45,7 +45,10 @@
           <p class="text-sm description" style="overflow-wrap: anywhere">
             <Markdown :source="field.description" />
           </p>
-          <div class="d-flex-column mt-4 p-2 rounded-md example-card">
+          <div v-if="field.data.values_link" class="d-flex-column mt-4 p-2 rounded-md example-card">
+            <b style="color: #eee;">Варианты заполения: <a :href="makeAvitoXmlUrl(field.data.values_link)" target="_blank">открыть</a></b>
+          </div>
+          <div v-if="field.example" class="d-flex-column mt-4 p-2 rounded-md example-card">
             <b style="color: #eee">Пример заполнения</b>
             <p><Markdown :source="field.example" /></p>
           </div>
@@ -386,6 +389,12 @@ export default {
       Array.from(e.target.files).forEach((file) => {
         this.uploadFileAdditional(file)
       })
+    },
+    makeAvitoXmlUrl(uri) {
+      if (uri.includes('avito.ru')) {
+        return uri
+      }
+      return 'https://www.avito.ru' + uri
     },
     async uploadFileAdditional(file) {
       this.uploadingAdditionalProcess = true
