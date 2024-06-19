@@ -1,6 +1,6 @@
 <template>
   <div class="menu">
-    <div class="logo pointer mb-2" @click="$router.push({ name: 'home' })">AviGroup</div>
+    <div class="logo pointer mb-2" @click="$router.push({ name: 'home' })"></div>
     <router-link
       v-for="link in menuItems"
       :key="link"
@@ -103,6 +103,13 @@ export default {
     padding: 0 20px;
     font-size: 22px;
     color: var(--vt-c-white);
+    background-image: url('@/assets/img/logo.svg');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 200px;
+    height: 50px;
+    margin-left: 20px;
   }
 
   & a {
