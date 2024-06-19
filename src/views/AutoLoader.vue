@@ -48,6 +48,10 @@
           <div v-if="field.data.values_link" class="d-flex-column mt-4 p-2 rounded-md example-card">
             <b style="color: #eee;">Варианты заполения: <a :href="makeAvitoXmlUrl(field.data.values_link)" target="_blank">открыть</a></b>
           </div>
+          <div v-if="field.data.values_range" class="d-flex-column mt-4 p-2 rounded-md example-card">
+            <b style="color: #eee;" v-if="field.data.values_range.max">Масимальное значение: {{field.data.values_range.max}}</b>
+            <b style="color: #eee;" v-if="field.data.values_range.min">Минимальное значение: {{field.data.values_range.min}}</b>
+          </div>
           <div v-if="field.example" class="d-flex-column mt-4 p-2 rounded-md example-card">
             <b style="color: #eee">Пример заполнения</b>
             <p><Markdown :source="field.example" /></p>
