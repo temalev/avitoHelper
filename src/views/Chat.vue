@@ -29,15 +29,6 @@
 </template>
 <script>
 import { getChatMessages, sendMessage, readMessages } from '@/api/chats'
-import { inject, watch } from 'vue';
-
-const websocketState = inject('websocketState');
-
-watch(() => websocketState?.message, (newMessage) => {
-  if (newMessage !== null) {
-    console.log('this.handleNewMessage(newMessage)111;')
-  }
-});
 
 export default {
   props: {

@@ -60,6 +60,7 @@ import { getChats, getAccountChatCounts } from '@/api/chats'
 export default {
   props: {
     chatId: [String],
+    updateMessages: [String],
   },
   data() {
     return {
@@ -70,6 +71,9 @@ export default {
     }
   },
   watch: {
+    updateMessages(val) {
+      this.getChats()
+    },
     selectedAccount(val) {
       this.getChats()
     }
