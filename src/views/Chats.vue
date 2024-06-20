@@ -59,7 +59,7 @@ import { useUserStore } from '@/stores/user'
 import { getChats, getAccountChatCounts } from '@/api/chats'
 export default {
   props: {
-    chatId: [String]
+    chatId: [String],
   },
   data() {
     return {

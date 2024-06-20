@@ -42,7 +42,8 @@ watch(() => websocketState?.message, (newMessage) => {
 export default {
   props: {
     chatId: [String],
-    accountId: [String]
+    accountId: [String],
+    updateMessages: [String],
   },
   inject: ['websocketState'],
   data() {
@@ -53,17 +54,9 @@ export default {
     }
   },
   watch: {
-    $toast(val) {
-      console.log(val);
+    updateMessages(val) {
+      this.getChatMessages()
     },
-    'websocketState.message': {
-      handler(newMessage) {
-        if (newMessage !== null) {
-          console.log('this.handleNewMessage(newMessage);')
-        }
-      },
-      deep: true // Используйте deep watch, если нужно следить за вложенными объектами
-    }
   },
   mounted() {
     this.getChatMessages()

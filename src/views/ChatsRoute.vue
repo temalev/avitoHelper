@@ -1,6 +1,6 @@
 
 <template>
-    <router-view :chatId="chatId" :accountId="accountId" />
+    <router-view :chatId="chatId" :accountId="accountId" :updateMessages="updateMessages" />
 </template>
 <script>
 
@@ -8,6 +8,7 @@ export default {
   props: {
     chatId: [String],
     accountId: [String],
+    updateMessages: [String],
   },
   data() {
     return {

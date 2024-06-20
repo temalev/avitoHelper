@@ -1,5 +1,5 @@
 <script>
-import { reactive, provide } from 'vue';
+import { reactive, provide } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { getMe } from '@/api/login'
 import { useUserStore } from '@/stores/user'
@@ -8,35 +8,39 @@ import TheSideBar from '@/components/TheSideBar.vue'
 
 const websocketState = reactive({
   message: null,
-  payload: null,
-});
+  payload: null
+})
 
-provide('websocketState', websocketState);
+provide('websocketState', websocketState)
 
 export default {
   components: {
-    TheHeader, TheSideBar
+    TheHeader,
+    TheSideBar
   },
-  data(){
+  data() {
     return {
       store: useUserStore(),
       connection: null,
+      updateMessages: null
     }
   },
   created() {
-  this.getMe()
+    this.getMe()
     this.connection = new WebSocket('wss://p.avigroup.site/ws')
     this.connection.onmessage = (e) => {
       const resOnMessage = JSON.parse(e.data)
       switch (resOnMessage.event) {
-        case 'NEW_MESSAGE': {
-          console.log(resOnMessage.payload.isMyMessage);
-          if (!resOnMessage.payload.isMyMessage) {
-            this.show(resOnMessage.payload.messageText)
+        case 'NEW_MESSAGE':
+          {
+            console.log(resOnMessage.payload.isMyMessage)
+            if (!resOnMessage.payload.isMyMessage) {
+              this.show(resOnMessage.payload.messageText)
+              this.updateMessages = resOnMessage.payload.messageText
+            }
+            websocketState.message = 'NEW_MESSAGE'
+            websocketState.payload = resOnMessage.payload
           }
-          websocketState.message = 'NEW_MESSAGE';
-          websocketState.payload = resOnMessage.payload;
-        }
           break
         case 'PARSING_IS_OVER':
           break
@@ -53,19 +57,18 @@ export default {
       this.sendMessage()
     }
   },
-mounted() {
+  mounted() {
     setInterval(() => {
-    this.getMe()
-  }, 15000);
+      this.getMe()
+    }, 15000)
+  },
 
-},
-
-methods: {
+  methods: {
     async getMe() {
       try {
         const res = await getMe()
         this.store.user = res
-      } catch(e) {
+      } catch (e) {
         console.error(e)
       }
     },
@@ -73,19 +76,24 @@ methods: {
       this.connection.send(JSON.stringify({ type: 'subscribe', userUuid: this.store.user.uuid }))
     },
     show(text) {
-      this.$toast.add({ severity: 'contrast', summary: 'Получено новое сообщение', detail: text, life: 3000 });
-        }
+      this.$toast.add({
+        severity: 'contrast',
+        summary: 'Получено новое сообщение',
+        detail: text,
+        life: 3000
+      })
+    }
   }
 }
 </script>
 
 <template>
-      <TheSideBar />
-      <Toast position="bottom-left" />
-      <div class="page d-flex-column w-full">
-        <TheHeader />
-    <RouterView />
-      </div>
+  <TheSideBar />
+  <Toast position="bottom-left" />
+  <div class="page d-flex-column w-full">
+    <TheHeader />
+    <RouterView :updateMessages="updateMessages" />
+  </div>
 </template>
 
 <style scoped scss>
@@ -122,5 +130,4 @@ nav a {
 nav a:first-of-type {
   border: 0;
 }
-
 </style>
