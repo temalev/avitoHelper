@@ -28,7 +28,7 @@
         <template #footer></template>
       </Card>
     </div>
-    <div class="chats">
+    <div v-loading="chatsLoading" class="chats">
       <Card
         v-for="item in list"
         :key="item.id"
@@ -52,11 +52,13 @@
         <template #footer></template>
       </Card>
     </div>
+    <Paginator v-if="list.length" :rows="10" :totalRecords="total" @page="test" :rowsPerPageOptions="[10, 20, 30]" class="mt-2"></Paginator>
   </main>
 </template>
 <script>
 import { useUserStore } from '@/stores/user'
 import { getChats, getAccountChatCounts } from '@/api/chats'
+import { offset } from '@popperjs/core'
 export default {
   props: {
     chatId: [String],
@@ -67,7 +69,9 @@ export default {
       list: '',
       store: useUserStore(),
       selectedAccount: null,
-      accounts: []
+      accounts: [],
+      total: null,
+      chatsLoading: false,
     }
   },
   watch: {
@@ -83,16 +87,24 @@ export default {
   },
 
   methods: {
-    async getChats() {
+    test(val) {
+      this.getChats(val)
+    },
+    async getChats(pagination) {
+      this.chatsLoading = true;
       const params = {
-        accountId: this.selectedAccount
+        accountId: this.selectedAccount,
+        limit: pagination?.rows || 10,
+        offset: pagination?.first || 0,
       }
       try {
         const res = await getChats(params)
-        this.list = res
+        this.list = res.сonversations
+        this.total = res.total
       } catch (e) {
         console.error(e)
       }
+      this.chatsLoading = false;
     },
     async getAccounts() {
       try {
@@ -111,7 +123,7 @@ main {
   flex-direction: column;
   background-color: inherit;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 90px);
 }
 .chats {
   display: flex;
