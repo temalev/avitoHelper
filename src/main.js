@@ -46,6 +46,7 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup';   // optional
 import Row from 'primevue/row';  
+import Paginator from 'primevue/paginator';
 
 import App from './App.vue'
 import router from './router'
@@ -70,6 +71,7 @@ app.component('Row', Row);
 app.component('TheTabs', TheTabs);
 app.component('Calendar', Calendar);
 app.component('Toast', Toast);
+app.component('Paginator', Paginator);
 app.component('Message', Message);
 app.component('InputText', InputText);
 app.component('Button', Button);
