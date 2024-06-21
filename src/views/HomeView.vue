@@ -20,7 +20,7 @@
             </p>
           </template>
           <template #footer>
-            <div class="mt-14">Бесплатно</div>
+            <div class="mt-14">20 ₽ - 1 сообщение</div>
           </template>
         </Card>
         <Card
