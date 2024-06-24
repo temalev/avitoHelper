@@ -543,6 +543,7 @@ img {
 
 .image-container {
   position: relative;
+  flex-shrink: 0;
 }
 
 .btn-delete {
