@@ -369,7 +369,9 @@ export default {
       this.$refs.fieldFileInput[0].click()
     },
     async onSelectFile(e) {
-      this.uuid = uuidv4()
+      if (!this.uuid) {
+        this.uuid = uuidv4()
+      }
       Array.from(e.target.files).forEach((file) => {
         this.onUploadFile(file)
       })
