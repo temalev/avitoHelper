@@ -1,6 +1,7 @@
 <template>
   <div class="menu">
-    <div class="logo pointer mb-2" @click="$router.push({ name: 'home' })"></div>
+    <div class="d-flex-column">
+      <div class="logo pointer mb-2" @click="$router.push({ name: 'home' })"></div>
     <router-link
       v-for="link in menuItems"
       :key="link"
@@ -10,6 +11,13 @@
     >
       {{ link.name }}
     </router-link>
+    </div>
+
+    <div class="d-flex gap-4 m-5">
+      <a class="m-0" href="https://t.me/avi_group" target="_blanck"><i class="pi pi-telegram" style="font-size: 1.5rem; color: #eee"></i></a>
+      <a class="m-0" href="https://www.youtube.com/@avigroup_service" target="_blanck"><i class="pi pi-youtube" style="font-size: 1.5rem; color: #eee"></i></a>
+
+    </div>
   </div>
 </template>
 <script>
@@ -92,6 +100,7 @@ export default {
 .menu {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background-color: #2425253f;
   width: 300px;
   flex-shrink: 0;
