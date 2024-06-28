@@ -1,11 +1,9 @@
-<script setup></script>
-
 <template>
   <div class="page">
     <main>
       <div class="body">
         <div class="d-flex w-100% gap-4">
-          <Card style="overflow: hidden" @click="$router.push({ name: 'chatGpt' })" class="w-50%">
+          <Card style="overflow: hidden" class="w-50%">
             <template #title>Цены</template>
             <template #content>
               <div class="d-flex-column gap-4">
@@ -36,11 +34,7 @@
             </template>
           </Card>
 
-          <Card
-            style="overflow: hidden"
-            @click="$router.push({ name: 'chatGpt' })"
-            class="w-50% h-100%"
-          >
+          <Card style="overflow: hidden" class="w-50% h-100%">
             <template #title>Видео - инструкции</template>
             <template #content>
               <div class="d-flex-column">
@@ -63,33 +57,86 @@
             </template>
           </Card>
         </div>
-        <!-- <Card
-          style="overflow: hidden; height: 300px"
-          @click="$router.push({ name: 'chatGpt' })"
-          class="pointer"
-        >
-          <template #header>
-          </template>
-          <template #title>Чат-GPT</template>
-          <template #subtitle>Интеллектуальный помошник</template>
+        <Card style="overflow: hidden">
+          <template #title>Новости</template>
           <template #content>
-            <p class="m-0">
-              Задайте любой вопрос, и наш умный ассистент предоставит вам мгновенный и точный ответ.
-            </p>
+            <div v-if="newsList.length" class="d-flex-column gap-4 mb-2">
+              <Card v-for="news in newsList" :key="news.id" style="overflow: hidden">
+                <template #title> {{ news.title }}</template>
+                <template #content> <div v-html="news.content"></div></template>
+                <template #footer>
+                  <div class="mt-14">{{ formatDate(news.createdAt) }}</div>
+                </template>
+              </Card>
+            </div>
+            <div class="text-secondary"> Пока нет новостей </div>
           </template>
-          <template #footer>
-            <div class="mt-14">20 ₽ - 1 сообщение</div>
-          </template>
-        </Card> -->
+        </Card>
       </div>
     </main>
   </div>
 </template>
+<script>
+import { getNews } from '@/api/news'
+export default {
+  data() {
+    return {
+      newsList: []
+    }
+  },
+  mounted() {
+    this.getNews()
+  },
+  methods: {
+    async getNews() {
+      try {
+        const res = await getNews()
+        this.newsList = res
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    formatDate(date) {
+      // Проверка, является ли date объектом Date
+      date = new Date(date)
+
+      const currentDay = new Date()
+
+      // Получение текущей даты без времени
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+
+      // Получение даты без времени для сравнения
+      const inputDate = new Date(date)
+      inputDate.setHours(0, 0, 0, 0)
+
+      // Получение компонентов времени
+      const hours = String(date.getHours()).padStart(2, '0')
+      const minutes = String(date.getMinutes()).padStart(2, '0')
+      const time = `${hours}:${minutes}`
+
+      // Проверка, является ли переданная дата сегодняшним днем
+      if (inputDate.getTime() === today.getTime()) {
+        return time // Возвращаем только время
+      }
+
+      // Получение компонентов даты
+      const day = String(date.getDate()).padStart(2, '0')
+      const month = String(date.getMonth() + 1).padStart(2, '0') // месяцы начинаются с 0
+      const year = date.getFullYear()
+
+      // Формирование строки в нужном формате
+      return `${day}.${month}.${year} ${time}`
+    }
+  }
+}
+</script>
 <style lang="scss" scoped>
 .page {
   display: flex;
   gap: 12px;
   padding: 0 20px;
+  overflow: auto;
 }
 main {
   display: flex;
@@ -114,5 +161,4 @@ main {
   color: transparent;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Тень текста */
 }
-
 </style>
