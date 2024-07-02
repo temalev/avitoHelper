@@ -21,10 +21,10 @@
     </template>
 
     </div>
-    <div class="chat-bottom">
+    <form class="chat-bottom" @submit="sendMessage">
       <InputText id="email" v-model="inputMessage" class="flex-auto" autocomplete="off" />
       <Button type="button" label="Отправить" severity="secondary" @click="sendMessage"></Button>
-    </div>
+    </form>
   </div>
 </template>
 <script>
@@ -102,7 +102,8 @@ export default {
       }
       this.loadingMessages = false
     },
-    async sendMessage() {
+    async sendMessage(event) {
+      event.preventDefault()
       const data = {
         text: this.inputMessage
       }
